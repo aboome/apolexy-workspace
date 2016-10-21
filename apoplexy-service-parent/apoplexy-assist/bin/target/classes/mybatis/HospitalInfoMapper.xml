@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="HospitalInfoMapper">
+
+    <select id="queryNearHospitalList" parameterType="java.util.HashMap"
+            resultType="com.yh.apoplexy.assist.dmo.common.HospitalInfoDmo">
+        select
+          *
+        from
+        (
+            select
+                id as id,
+                `name` as hospitalName,
+                addr as hospitalAddr,
+                hospital_desc as hospitalDesc,
+                image_id as imageId,
+                `level` as level,
+                parent_hospital_id as parentHospitalId,
+                create_time as createTime,
+                last_update_time as lastUpdateTime,
+                `status` as status,
+                lon as lon,
+                lat as lat,
+                area_code as areaCode,
+                root_hospital_id as rootHospitalId,
+                hospital_union as hospitalUnion,
+                ROUND(6378.138*2*ASIN(SQRT(POW(SIN((#{lat}*PI()/180-lat*PI()/180)/2),2)+COS(#{lat}*PI()/180)*COS(lat*PI()/180)*POW(SIN((#{lon}*PI()/180-lon*PI()/180)/2),2)))*1000) as distance
+            from
+                t_hospital_info
+            where
+                level in
+            <foreach item="item" index="index" collection="hospitalLevelList"
+                     open="(" separator="," close=")">#{item}</foreach>
+            )hospital
+        order by
+            hospital.distance
+        limit ${number}
+    </select>
+
+    <select id="queryNearScreenList" parameterType="java.util.HashMap"
+            resultType="com.yh.apoplexy.assist.dmo.common.HospitalInfoDmo">
+        select
+        *
+        from
+        (
+        select
+        id as id,
+        `name` as hospitalName,
+        addr as hospitalAddr,
+        hospital_desc as hospitalDesc,
+        image_id as imageId,
+        `level` as level,
+        parent_hospital_id as parentHospitalId,
+        create_time as createTime,
+        last_update_time as lastUpdateTime,
+        `status` as status,
+        lon as lon,
+        lat as lat,
+        area_code as areaCode,
+        root_hospital_id as rootHospitalId,
+        hospital_union as hospitalUnion,
+        ROUND(6378.138*2*ASIN(SQRT(POW(SIN((#{lat}*PI()/180-lat*PI()/180)/2),2)+COS(#{lat}*PI()/180)*COS(lat*PI()/180)*POW(SIN((#{lon}*PI()/180-lon*PI()/180)/2),2)))*1000) as distance
+        from
+        t_hospital_info
+        where
+        level in
+        <foreach item="item" index="index" collection="hospitalLevelList"
+                 open="(" separator="," close=")">#{item}</foreach>
+        )hospital
+        order by
+        hospital.distance
+        limit ${number}
+    </select>
+
+</mapper>

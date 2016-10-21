@@ -1,0 +1,16 @@
+/* body{
+    background: #18c8f6;
+    height: auto;
+    background:url("../images/index-bg.png") no-repeat center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    color: rgba(118,119,120,.95);
+} */
+
+#wrapper{
+	background: #fff;
+	text-align: center;
+	
+}

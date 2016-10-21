@@ -1,0 +1,103 @@
+/**
+ * Created by wunder on 2016/10/10.
+ */
+var doctorNews = {
+    title: null,
+    subTitle: null,
+    smallLogo: null,
+    newsType: null,
+    type: null,
+    source: null,
+    content: null,
+    createTime: null
+};
+
+var ue = null;
+
+window.UEDITOR_HOME_URL = YHu.util.ctxPath('/resources/admin/scripts/third/uedit/');
+
+$(function () {
+
+    ue = UE.getEditor('newsContent');
+
+    ue.ready(function () {
+
+    });
+
+});
+
+$("#newsImageUpload").click(function () {
+
+    var reg = /\.jpg$|\.png$/i;
+
+    if (reg.test($("#newsImage").val())) {
+
+        url = YHu.util.ctxPath("/admin/imageUpload");
+
+        $.ajaxFileUpload({
+            url: url, // 需要链接到服务器地址
+            secureuri: false,
+            type: "POST",
+            fileElementId: 'newsImage', // 文件选择框的id属性
+            data: {
+                filePath: 'newsImage'
+            },
+            dataType: 'json',
+            success: function (result, status) {
+                YHu.ui.alert("图片上传成功！");
+                $("#newsImage").text(result.data);
+            },
+            error: function (data, status, e) {
+                YHu.ui.alert("图片上传失败！");
+
+            }
+        });
+    } else {
+        YHu.ui.alert("选择一张以 .jpg 或者 .png格式的图片");
+    }
+});
+
+var saveDoctorNews = function () {
+
+    doctorNews.title = $("#addDoctorNewsTitle").val();
+    doctorNews.subTitle = $("#addDoctorSubTitle").val();
+    doctorNews.smallLogo = $("#newsImage").text();
+    doctorNews.newsType = $("#addDoctorNewsType").val();
+    doctorNews.type = $("#addDoctorType").val();
+    doctorNews.source = $("#addDoctorNewsSource").val();
+    doctorNews.content = ue.getContent();
+
+    YHu.ui.loading();
+    var handleRequest = $.post(YHu.util.ctxPath('/doctorNews/addDoctorNews'), doctorNews);
+    handleRequest.done(function (jsonResult) {
+        YHu.ui.closeLoading();
+        if (jsonResult.success) {
+            YHu.ui.closeAllLayer();
+            YHu.ui.alert("新增医生端资讯信息成功！");
+            var url = YHu.util.ctxPath("/doctorNews/doctorNewsMain");
+            YHu.util.turnPage(url);
+        } else {
+            YHu.ui.closeAllLayer();
+            YHu.ui.alert(jsonResult.message);
+        }
+    });
+
+};
+
+var cancelSave = function () {
+
+    var url = YHu.util.ctxPath("/doctorNews/doctorNewsMain");
+
+    YHu.util.turnPage(url);
+
+};
+
+
+$('#addDoctorSrc').on('change', function(){
+	var srcType = $(this).val();
+	
+	if(srcType == 2){
+		
+	}
+});
+

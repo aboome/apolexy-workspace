@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="AdminUserManagement">
+
+	<select id="UserManagementCount" parameterType="com.yh.apoplexy.assist.dmo.admin.AdminInfoDmo"
+		resultType="long">
+		select
+        count(*)
+		from
+		(
+		select 
+		 *
+		from
+		t_admin_info info
+		<where>
+			<if test="userName!=null">
+				and user_name=#{userName}
+			</if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+		</where>
+		)info
+		left join
+		(
+		select 
+		 *
+		from
+		t_admin_role admin_role
+		)admin_role
+		on info.id = admin_role.user_id
+		left join
+		(
+		select 
+		 *
+		from
+		t_role_info role_info
+		)role_info
+		on admin_role.role_id = role_info.id
+	</select>
+
+	<select id="UserManagementList" parameterType="com.yh.apoplexy.assist.dmo.admin.AdminInfoDmo"
+		resultType="com.yh.apoplexy.assist.dto.admin.system.AdminInfoDto">
+		select
+        info.id as id,
+		info.user_name as userName,
+		info.real_name as realName,
+		info.phone as phone,
+		info.create_time as createTime,
+		info.status as status,
+		info.job as job,
+		info.email as email,
+		info.user_desc as userDesc,
+        role_info.id as roleId,
+		role_info.role_name as roleName
+		from
+		(
+		select 
+		 *
+		from
+		t_admin_info info
+		<where>
+			<if test="userName!=null">
+				and user_name=#{userName}
+			</if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+		</where>
+		)info
+		left join
+		(
+		select 
+		 *
+		from
+		t_admin_role admin_role
+		)admin_role
+		on info.id = admin_role.user_id
+		left join
+		(
+		select 
+		 *
+		from
+		t_role_info role_info
+		)role_info
+		on admin_role.role_id = role_info.id
+	</select>
+</mapper>

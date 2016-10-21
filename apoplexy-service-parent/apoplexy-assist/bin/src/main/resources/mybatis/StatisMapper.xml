@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="StatisMapper">
+
+ 
+
+	<select id="queryDoctorCount" parameterType="java.util.HashMap"
+		resultType="long">
+		select
+		  count(*)  
+		from
+		   t_doctor_member member
+		join
+		   t_hospital_info info
+		on 
+		   member.hospital = info.name
+		where 
+           info.level = #{level}
+		   
+	</select>
+	
+	
+	
+
+	<select id="queryDoctor" parameterType="java.util.HashMap"
+		resultType="com.yh.apoplexy.assist.dmo.doctor.member.DoctorMemberDmo">
+		select			
+			member.id as id,
+			member.phone as phone,
+			member.doctor_name as doctorName,
+			member.sex as sex,
+			member.avatar,
+			member.email as email,
+			member.hospital as hospital,
+			member.department as department,
+			member.title as title,
+			member.job as job,
+			member.score as score,
+			member.star_level as starLevel,
+			member.effective_time as effectiveTime,
+			member.create_time as createTime,
+			member.status as status,
+			member.last_update_time as lastUpdateTime,
+			member.client_id as clientId
+			
+		from 
+		   t_doctor_member member
+		join
+		   t_hospital_info info
+		on 
+		   member.hospital = info.name
+		where 
+           info.level = #{level}
+		   
+	</select>
+	
+	<select id="queryHospitalCount" parameterType="java.util.HashMap"
+		resultType="long">
+		select
+		  count(*)  
+		from
+		  t_hospital_info info
+		where
+		  level = #{level}
+	</select>
+	
+	<select id="queryHospital" parameterType="java.util.HashMap"
+		resultType="com.yh.apoplexy.assist.dmo.common.HospitalInfoDmo">
+		select			
+			info.id as id,
+			info.name as hospital,
+			info.addr as hospitalAddr,
+			info.hospital_desc as hospitalDesc,
+			info.image_id as imageId,
+			info.level as level,
+			info.parent_hospital_id as parentHospitalId,
+			info.create_time as createTime,
+			info.last_update_time as lastUpdateTime,
+			info.status as status,
+			info.lon as lon,
+			info.lat as lat,
+			info.area_code as areaCode,
+			info.root_hospital_id as rootHospitalId
+			
+		from 
+		  t_hospital_info info
+		where
+		  level = #{level}
+		   
+	</select> 
+    
+    
+    <select id="queryPatientCount" parameterType="java.util.HashMap"
+		resultType="long">
+		select
+		  count(*)  
+	    from
+		   t_patient_member as member
+		<if test="fast1 !=null">
+		   join
+		   (
+		     select
+		      *
+		     from 
+		     t_patient_screen_info screen
+		   )screen 
+		   on
+		   screen.user_id = member.id
+		   
+		</if> 
+		<if test="fast2 != null">
+			join
+			(
+			  select
+			   * 
+			  from
+			  t_patient_emergency_info emer
+			)emer
+			on
+		    emer.user_id = member.id
+	   </if>
+	</select>
+    
+    <select id="queryPatient" parameterType="java.util.HashMap"
+		resultType="com.yh.apoplexy.assist.dmo.patient.member.PatientMemberDmo">
+		select
+		    member.id as id,
+		    member.phone as phone,
+		    member.real_name as reaName,
+		    member.sex as sex,
+		    member.birthday as birthday,
+		    member.score as score,
+		    member.create_time as createTime,
+		    member.last_update_time as lastUpdateTime,
+		    member.status as status,
+		    member.client_id as clientId
+		from
+		   t_patient_member as member
+		<if test="fast1 = '01'">
+		   join
+		   (
+		     select
+		      *
+		     from 
+		     t_patient_screen_info screen
+		   )screen 
+		   on
+		   screen.user_id = member.id
+		   
+		</if> 
+		<if test="fast2 ='02'">
+			join
+			(
+			  select
+			   * 
+			  from
+			  t_patient_emergency_info emer
+			)emer
+			on
+		    emer.user_id = member.id
+	   </if>
+	</select>
+    
+     <select id="querySendReferralListCount" parameterType="java.util.HashMap"
+		resultType="long">
+		select
+		  count(*)  
+	    from
+		(  
+		   select
+		     *
+		   from
+		   t_doctor_referral ref
+		   <where>
+		   	  <if test="referralType != null">
+		   	  	and type=#{referralType}
+		   	  </if>
+		   	  <if test="month != null">
+		   	  	and  month(create_time)=#{month} 
+		   	  </if>
+		   </where>
+		  
+		 )ref
+		join
+		(
+		   select
+		      *
+		   from 
+		     t_doctor_member member
+		)member
+		on 
+		ref.user_id = member.id
+		join
+		(
+		   select 
+		      *
+		   from 
+		    t_hospital_info info 
+		   <where>
+		     <if test="level != null">
+		     	level = #{level}
+		     </if>	
+		   </where>
+		)info
+		on 
+		member.hospital = info.name
+		     
+	</select>
+    
+   
+    
+    
+     <select id="queryReceiveReferralListCount" parameterType="java.util.HashMap"
+		resultType="long">
+		select
+		  count(*)  
+	    from
+		(  
+		   select
+		      *
+		   from
+		       t_doctor_referral_recv recv
+		   
+		    <where>
+		     <if test="month != null">
+		     	 month(create_time)=#{month} 
+		     </if>	
+		   </where>
+		 )recv
+		join
+		(
+		  select 
+		    *
+		  from
+		       t_doctor_referral as ref
+		  where
+		      <where>
+		      	  <if test="referralType != null">
+		   	  	    type=#{referralType}
+		   	  </if>
+		      </where> 
+		)ref
+		on
+		 recv.record_id = ref.id
+		join
+		(
+		   select
+		      *
+		   from 
+		     t_doctor_member member
+		)member
+		on 
+		recv.user_id = member.id
+		join
+		(
+		   select 
+		      *
+		   from 
+		    t_hospital_info info 
+		   <where>
+		     <if test="level != null">
+		     	level = #{level}
+		     </if>	
+		   </where>
+		)info
+		on 
+		member.hospital = info.name
+		     
+	</select>
+    
+    <select id="queryReceiveReferralList" parameterType="java.util.HashMap"
+		resultType="com.yh.apoplexy.assist.dmo.doctor.cases.referral.ReferralReceiveDmo">
+		select
+		  recv.id as id,
+		  recv.user_id as userId,
+		  recv.record_id as recordId,
+		  recv.create_time as createTime,
+		  recv.last_update_time as lastUpdatTime,
+		  recv.status as status
+	
+		from
+		(  
+		   select
+		      *
+		   from
+		       t_doctor_referral_recv recv
+		   where 
+		       month(create_time)=#{month}
+		 )recv
+		join
+		(
+		  select 
+		    *
+		  from
+		       t_doctor_referral as ref
+		  where
+		       ref.type = #{referralType}
+		)ref
+		on
+		 recv.record_id = ref.id
+		join
+		(
+		   select
+		      *
+		   from 
+		     t_doctor_member member
+		)member
+		on 
+		recv.user_id = member.id
+		join
+		(
+		   select 
+		      *
+		   from 
+		    t_hospital_info info 
+		   where
+		   level = #{level}
+		)info
+		on 
+		member.hospital = info.name
+	 
+	</select>
+    
+</mapper> 

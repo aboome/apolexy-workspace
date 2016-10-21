@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ReferralResourceMapper">
+
+    <insert id="batchInsertResource"
+            parameterType="com.yh.apoplexy.assist.dto.doctor.cases.referral.ReferralCaseDetailDto">
+        INSERT INTO
+        t_doctor_referral_resources(user_id, record_id, `type`, resource_id, create_time)
+        VALUES
+        <foreach item="item" collection="imageList" separator="," index="index">
+            (#{item.userId},#{referralCaseDmo.id},#{item.type},#{item.resourceId},CURRENT_TIMESTAMP)
+        </foreach>
+    </insert>
+
+</mapper>

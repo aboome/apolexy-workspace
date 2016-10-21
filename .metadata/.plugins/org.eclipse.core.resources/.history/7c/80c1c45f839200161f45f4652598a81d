@@ -1,0 +1,268 @@
+<#include "/layout/baseLayout.ftl">
+<#macro html_title>医院数据管理</#macro>
+<#macro html_body>
+<div class="hospital-wrap">
+    <div class="search-term">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <label for="hospital-name" class="control-label hospital-name-label">医院名称：</label>
+                <div class="hospital-name">
+                    <input type="text" class="form-control hospital-name-input" id="admin-hospital-name"
+                           placeholder="请输入医院名称">
+                </div>
+                <div class="search-btn">
+                    <button type="button" class="btn search" id="search">查询</button>
+                    <button type="button" class="btn clear" id="clear">清空</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="table-content">
+        <div class="add-and-import">
+            <button typee="button" class="btn add" id="add" onclick="addHospital()"><i
+                    class="glyphicon glyphicon-plus"></i>新增
+            </button>
+            <button typee="button" class="btn import"><i class="glyphicon glyphicon-import"></i>导入</button>
+
+            <!-- 导入弹出层 -->
+            <div id="exportHospital" class="none zf-modal">
+
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="filePath" class="control-label col-xs-3">Excel文件</label>
+                        <div class="col-xs-9">
+                            <input class="form-control" type="file" name="filePath"
+                                   onchange="filePathOnchange('#filePath')" id="filePath"/>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+        <div id="adminhospitaltable" class="hospital-table">
+
+        </div>
+    </div>
+
+    <!-- 弹出层 -->
+    <div id="detailLayer" style="display:none" class="zf-modal">
+        <div class="modal-body">
+            <img id="hospitalDetail" src=""/>
+        </div>
+    </div>
+
+    <!-- 弹出层 -->
+    <div id="deleteLayer" style="display:none" class="zf-modal">
+        <p class="deleteInfo modal-body">您确定要删除该条记录吗？</p>
+    </div>
+
+
+    <!-- 新增弹出层 -->
+    <div id="addLayer" style="display:none" class="zf-modal">
+        <form class="form-horizontal" id="addHospitalInfo" role="form">
+            <div class="form-group">
+                <label for="addHospitalName" class="control-label col-xs-3">医院名称</label>
+                <div class="col-xs-9">
+                    <input type="text" class="form-control" id="addHospitalName" name="addHospitalName"
+                           placeholder="请输入医院名称">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="addHospitaldesc" class="control-label col-xs-3">医院简介</label>
+                <div class="col-xs-9">
+                    <input type="text" class="form-control" id="addHospitaldesc" name="addHospitaldesc"
+                           placeholder="请输入医院简介">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="addHospitalAddr" class="control-label col-xs-3">医院地址</label>
+                <div class="col-xs-9">
+                    <input type="text" class="form-control" id="addHospitalAddr" name="addHospitalAddr"
+                           placeholder="请输入医院地址">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="addLevel" class="control-label col-xs-3">医院级别</label>
+                <div class="col-xs-9">
+                    <select class="form-control" id="addLevel" name="addLevel">
+                        <option value="">请选择医院级别</option>
+                        <option value="0">省级</option>
+                        <option value="1">市级</option>
+                        <option value="2">区县级</option>
+                        <option value="3">社区级</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="hospitalImage" class="control-label col-xs-3">医院图片</label>
+                <div class="col-xs-6">
+                    <input type="file" name="hospitalImage" id="hospitalImage" class="form-control"/>
+                </div>
+                <div class="col-xs-3">
+                    <input type="button" value=" 上传  " id="hospitalImageUpload" class="form-control"
+                           style="background:#f1f1f1;"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="addParentHospitalId" class="control-label col-xs-3">父级医院</label>
+                <div class="col-xs-9">
+                    <select class="form-control" id="addParentHospitalId" name="addParentHospitalId">
+                        <option value="">请选择父级医院</option>
+                        <option value="">无父级医院</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="addHospitalLon" class="control-label col-xs-3">医院经度</label>
+                <div class="col-xs-9">
+                    <input type="text" class="form-control" id="addHospitalLon" name="addHospitalLon"
+                           placeholder="请输入经度">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="addHospitalLat" class="control-label col-xs-3">医院纬度</label>
+                <div class="col-xs-9">
+                    <input type="text" class="form-control" id="addHospitalLat" name="addHospitalLat"
+                           placeholder="请输入纬度">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="addAreaCode" class="control-label col-xs-3">医院区域</label>
+                <div class="col-xs-9">
+                    <select class="form-control" id="addAreaCode" name="addAreaCode">
+                        <option value="">请选择医院所在区域</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="addUnion" class="control-label col-xs-3">联盟医院</label>
+                <div class="col-xs-9">
+                    <select class="form-control" id="addUnion" name="addUnion">
+                        <option value="">请选择医院是否联盟医院</option>
+                        <option value="1">是</option>
+                        <option value="0">否</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- 修改弹出层 -->
+    <div id="modifyLayer" style="display:none" class="zf-modal">
+
+        <form class="form-horizontal" id="modifyHospitalInfo" role="form">
+            <div class="form-group">
+                <label for="modifyHospitalName" class="control-label col-xs-3">医院名称</label>
+                <div class="col-xs-9">
+                    <input type="text" class="form-control" id="modifyHospitalName" name="modifyHospitalName"
+                           placeholder="请输入医院名称">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="modifyHospitalDesc" class="control-label col-xs-3">医院简介</label>
+                <div class="col-xs-9">
+                    <input type="text" class="form-control" id="modifyHospitalDesc" name="modifyHospitalDesc"
+                           placeholder="请输入医院简介">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="modifyHospitalAddr" class="control-label col-xs-3">医院地址</label>
+                <div class="col-xs-9">
+                    <input type="text" class="form-control zf-name-input" id="modifyHospitalAddr" name="modifyHospitalAddr"
+                           placeholder="请输入医院地址">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="modifyLevel" class="control-label col-xs-3">医院级别</label>
+                <div class="col-xs-9">
+                    <select class="form-control" id="modifyLevel" name="modifyLevel">
+                        <option value="">请选择医院级别</option>
+                        <option value="0">省级</option>
+                        <option value="1">市级</option>
+                        <option value="2">区县级</option>
+                        <option value="3">社区级</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="modyifyHospitalImage" class="control-label col-xs-3">医院图片</label>
+                <div class="col-xs-6">
+                    <input type="file" name="modifyImage" class="form-control" id="modifyImage"/>
+                </div>
+                <div class="col-xs-3">
+                    <input type="button" value=" 上传  " class="form-control" id="modifyHospitalImageUpload"
+                           style="background:#f1f1f1;"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="modifyParentHospitalId" class="control-label col-xs-3">父级医院</label>
+                <div class="col-xs-9">
+                    <select class="form-control" id="modifyParentHospitalId" name="modifyParentHospitalId">
+                        <option value="">无父级医院</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="modifyHospitalLon" class="control-label col-xs-3">医院经度</label>
+                <div class="col-xs-9">
+                    <input type="text" class="form-control zf-name-input" id="modifyHospitalLon" name="modifyHospitalLon"
+                           placeholder="请输入经度">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="modifyHospitalLat" class="control-label col-xs-3">医院纬度</label>
+                <div class="col-xs-9">
+                    <input type="text" class="form-control zf-name-input" id="modifyHospitalLat" name="modifyHospitalLat"
+                           placeholder="请输入纬度">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="modifyAreaCode" class="control-label col-xs-3">医院区域</label>
+                <div class="col-xs-9">
+                    <select class="form-control" id="modifyAreaCode" name="modifyAreaCode">
+                        <option value="">请选择医院所在区域</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="modifyUnion" class="control-label col-xs-3">联盟医院</label>
+                <div class="col-xs-9">
+                    <select class="form-control" id="modifyUnion" name="modifyUnion">
+                        <option value="">请选择医院是否联盟医院</option>
+                        <option value="1">是</option>
+                        <option value="0">否</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+
+
+</#macro>
+<#macro html_foot>
+    <@p.js src="base/hospital_info.js"/>
+    <@p.js src="third/ajaxfileupload.js"/>
+</#macro>

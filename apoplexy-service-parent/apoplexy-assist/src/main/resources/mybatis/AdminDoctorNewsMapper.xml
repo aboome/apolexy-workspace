@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="AdminDoctorNewsMapper">
+
+	<select id="doctorNewsCount" parameterType="com.yh.apoplexy.assist.dmo.doctor.information.DoctorNewsDmo"
+		resultType="long">
+		select count(*) from
+		t_doctor_news
+		<where>
+			<if test="title!=null">
+				and title=#{title}
+			</if>
+			<if test="newType!=null">
+				and new_type=#{newType}
+			</if>
+			<if test="type!=null">
+			and type=#{type}
+			</if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+		</where>
+	</select>
+
+
+	<select id="doctorNewsList" parameterType="com.yh.apoplexy.assist.dmo.doctor.information.DoctorNewsDmo"
+		resultType="com.yh.apoplexy.assist.dmo.doctor.information.DoctorNewsDmo">
+		select 
+		news.id as id,
+		news.title as title,
+		news.new_type as newType,
+		news.sub_title as subTitle,
+		news.small_logo as smallLogo,
+		news.last_update_time as lastUpdateTime,
+		news.create_time as createTime,
+		news.source as source,
+		news.type as type,
+        news.content_type as contentType
+		 from
+		t_doctor_news news
+		<where>
+			<if test="title!=null">
+				and title=#{title}
+			</if>
+			<if test="newType!=null">
+				and new_type=#{newType}
+			</if>
+			<if test="type!=null">
+			and type=#{type}
+			</if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+		</where>
+		order by id DESC
+	</select>
+
+</mapper>

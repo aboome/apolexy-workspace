@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="StatisticsMapper">
+
+	<select id="queryHospitalCount" parameterType="com.yh.apoplexy.assist.dmo.common.HospitalInfoDmo"
+		resultType="com.yh.apoplexy.assist.dto.statistics.HospitalStatisticsDto">
+		select
+		count(*) as value,
+		level as name
+		from
+		t_hospital_info info
+		<where>
+			<if test="null != status">
+				status = #{status}
+			</if>
+		</where>
+		GROUP BY
+		level
+	</select>
+
+	<select id="queryDoctorCount"
+		parameterType="com.yh.apoplexy.assist.dmo.doctor.member.DoctorMemberDmo"
+		resultType="com.yh.apoplexy.assist.dto.statistics.DoctorStatisticsDto">
+		select
+		count(*) as value,
+
+		hospital.level as name
+
+
+		from(
+
+		select
+		*
+		from
+
+		t_doctor_member member
+		<where>
+
+			<if test="status!=null">
+				and status=#{status}
+			</if>
+
+		</where>
+
+		)member
+		join
+
+		(
+		select
+		*
+		from
+
+		t_hospital_info hospital
+
+		)hospital
+		on
+		member.hospital=hospital.name
+		group by hospital.level
+	</select>
+
+
+
+	<select id="queryPatientCount"
+		parameterType="com.yh.apoplexy.assist.dmo.patient.member.PatientMemberDmo"
+		resultType="com.yh.apoplexy.assist.dto.patient.member.PatientMemberDto">
+		select
+		count(*) as value,
+
+		area_info.area_name as name
+
+
+		from(
+
+		select
+		*
+		from
+
+		t_patient_member
+		member
+		<where>
+
+			<if test="status!=null">
+				and status=#{status}
+			</if>
+
+		</where>
+
+		)member
+		join
+
+		(
+		select
+		*
+		from
+
+		t_area_info area_info
+
+		)area_info
+		on
+		member.area_code=area_info.area_code
+
+		group by area_info.area_name
+
+	</select>
+
+
+	<select id="countPatientByFast"
+		parameterType="com.yh.apoplexy.assist.dmo.patient.member.PatientMemberDmo"
+		resultType="com.yh.apoplexy.assist.dto.patient.member.PatientMemberDto">
+		select
+		COUNT(member.memberId) as value,
+		member.screenInfo as
+		name
+		FROM(
+		select
+		member.id as memberId,
+		IF(ISNULL(screen.id),"基础注册","填写量表") as screenInfo
+		from
+		t_patient_member
+		as member
+		left join
+		t_patient_screen_info screen
+		on
+		screen.user_id =
+		member.id
+		GROUP BY member.id
+		)member
+		GROUP BY member.screenInfo
+	</select>
+
+
+	<select id="countPatientByIncidence"
+		parameterType="com.yh.apoplexy.assist.dmo.patient.member.PatientMemberDmo"
+		resultType="com.yh.apoplexy.assist.dto.patient.member.PatientMemberDto">
+		select
+		count(*) as value,
+		member.incidence as name
+		from
+		t_patient_member
+		member
+		<where>
+			<if test="status!=null">
+				and status=#{status}
+			</if>
+			and member.incidence='0' or member.incidence='1'
+		</where>
+		GROUP BY member.incidence
+	</select>
+
+
+
+	<select id="querySendReferralListCount"
+		parameterType="com.yh.apoplexy.assist.dmo.doctor.cases.referral.ReferralCaseDmo"
+		resultType="com.yh.apoplexy.assist.dto.statistics.ReferralStatisticsDto">
+		select
+		count(*) as value,
+
+		hospital.level as name
+
+
+		from(
+
+		select
+		*
+		from
+
+		t_doctor_referral referral
+
+		)referral
+		join
+		t_doctor_member member on
+		member.id = referral.user_id
+		join
+		t_hospital_info hospital on
+		hospital.name = member.hospital
+		group by hospital.level
+
+
+
+	</select>
+
+
+
+
+	<select id="queryReceiveReferralListCount"
+		parameterType="com.yh.apoplexy.assist.dmo.doctor.cases.referral.ReferralCaseDmo"
+		resultType="com.yh.apoplexy.assist.dto.statistics.ReferralStatisticsDto">
+		select
+		count(*) as value,
+
+		referral.type as name
+		from
+		t_doctor_referral
+		referral
+		<where>
+			and referral.type='0' or referral.type='1'
+		</where>
+		GROUP BY referral.type
+	</select>
+
+
+
+	<select id="queryReceiveReferralList"
+		parameterType="com.yh.apoplexy.assist.dmo.doctor.cases.referral.ReferralCaseDmo"
+		resultType="com.yh.apoplexy.assist.dto.statistics.ReferralStatisticsDto">
+		select
+		count(*) as value,
+
+		hospital.level as name
+		from(
+		select
+		*
+		from
+		t_doctor_referral_recv doctor_referral
+		<where>
+			and doctor_referral.status='1'
+		</where>
+
+		)doctor_referral
+		join
+		t_doctor_member member on member.id = doctor_referral.user_id
+        join
+        t_hospital_info hospital on hospital.name = member.hospital
+       GROUP BY hospital.level
+	</select>
+
+
+	<select id="queryReceivePatientList"
+		parameterType="com.yh.apoplexy.assist.dmo.doctor.cases.referral.ReferralCaseDmo"
+		resultType="com.yh.apoplexy.assist.dto.statistics.ReferralStatisticsDto">
+		select
+		count(*) as value,
+
+		referral.type as name
+		from
+		t_doctor_referral referral
+		<where>
+		    and referral.status='1'
+
+			and (referral.type='0' or referral.type='1')
+		</where>
+		GROUP BY referral.type
+    </select>
+
+
+    <select id="queryReceiveTiemList"
+		parameterType="com.yh.apoplexy.assist.dmo.doctor.cases.referral.ReferralCaseDmo"
+		resultType="com.yh.apoplexy.assist.dto.statistics.ReferralStatisticsDto">
+		select
+
+		count(*) as value,
+
+		MONTH(referral.create_time) as name
+		from
+
+		t_doctor_referral referral
+
+		 group by MONTH(referral.create_time)
+
+        </select>
+
+
+
+        <select id="queryReferralTiemList"
+		parameterType="com.yh.apoplexy.assist.dmo.doctor.cases.referral.ReferralCaseDmo"
+		resultType="com.yh.apoplexy.assist.dto.statistics.ReferralStatisticsDto">
+		select
+
+		count(*) as value,
+
+		MONTH(referral.create_time) as name
+		from
+
+		t_doctor_referral referral
+		<where>
+
+		     and referral.status='1'
+		</where>
+
+		 group by MONTH(referral.create_time)
+
+        </select>
+
+
+
+
+         
+        <select id="queryDoctorDownladCountList" parameterType="com.yh.apoplexy.assist.dto.statistics.QueryDownloadStatisticsDto" 
+        resultType="com.yh.apoplexy.assist.dto.statistics.DownloadStatisticInfoDto">
+         SELECT
+         count(*) as countNum,
+
+         Date(create_time) as countDate
+
+         FROM
+         t_app_download 
+          <where>
+         date(create_time)&gt;=#{startDate} and date(create_time)&lt;=#{endDate} and (type=#{type})
+          </where> 
+         GROUP BY DATE(create_time)
+        </select>
+        
+        
+        <select id="queryDoctorRegisterCount" parameterType="com.yh.apoplexy.assist.dto.statistics.QueryDoctorRegisterStatisticsDto" 
+        resultType="com.yh.apoplexy.assist.dto.statistics.ReferralStatisticsInfoDto">
+         SELECT
+         count(*) as countNum,
+
+         Date(create_time) as countDate
+
+         FROM
+         t_doctor_member 
+          <where>
+         date(create_time)&gt;=#{startDate} and date(create_time)&lt;=#{endDate} and (status='00')
+          </where> 
+         GROUP BY DATE(create_time)
+       </select>
+       
+       
+        <select id="queryPatientRegisterCount" parameterType="com.yh.apoplexy.assist.dto.statistics.QueryPatientRegisterStatisticsDto" 
+        resultType="com.yh.apoplexy.assist.dto.statistics.PatientRegisterStatisticsInfoDto">
+         SELECT
+         count(*) as countNum,
+
+         Date(create_time) as countDate
+
+         FROM
+         t_patient_member
+          <where>
+         date(create_time)&gt;=#{startDate} and date(create_time)&lt;=#{endDate} and (status='00')
+          </where> 
+         GROUP BY DATE(create_time)
+        
+       
+        </select>
+</mapper> 

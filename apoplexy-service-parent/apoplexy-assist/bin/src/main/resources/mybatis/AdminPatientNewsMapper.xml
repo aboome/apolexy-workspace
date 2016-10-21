@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="AdminPatientNewsMapper">
+
+	<select id="patientNewsCount"
+		parameterType="com.yh.apoplexy.assist.dmo.patient.knowledge.PatientNewsDmo"
+		resultType="long">
+		select count(*) from
+		t_patient_news
+		<where>
+			<if test="title!=null">
+				and title=#{title}
+			</if>
+			<if test="type!=null">
+				and type=#{type}
+			</if>
+		</where>
+		
+	</select>
+
+
+
+	<select id="patientNewsList"
+		parameterType="com.yh.apoplexy.assist.dmo.patient.knowledge.PatientNewsDmo"
+		resultType="com.yh.apoplexy.assist.dmo.patient.knowledge.PatientNewsDmo">
+		select 
+		patient.id as id,
+		patient.title as title,
+		patient.type as type,
+		patient.sub_title as subTitle,
+		patient.small_logo as smallLogo,
+		patient.create_time as createTime,
+		patient.source as source,
+		patient.content as content
+		 from
+		t_patient_news patient
+		<where>
+			<if test="title!=null">
+				and title=#{title}
+			</if>
+			<if test="type!=null">
+				and type=#{type}
+			</if>
+		</where>
+		order by
+		last_update_time
+	</select>
+
+
+</mapper>

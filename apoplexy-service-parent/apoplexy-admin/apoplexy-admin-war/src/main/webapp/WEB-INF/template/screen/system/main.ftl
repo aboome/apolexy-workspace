@@ -1,0 +1,76 @@
+<#include "/layout/baseLayout.ftl">
+<#macro html_title>首页</#macro>
+<#macro html_body>
+<div class="all-wraper">
+    <div class="header">
+        <div class="header-content">
+            <div class="welcome"><i class="glyphicon glyphicon-user nav-i"></i> 欢迎您，${userName}</div>
+            <a href="${ctx}/admin/logout" class="logout"><i class="glyphicon glyphicon-log-out nav-i"></i> 退出</a>
+        </div>
+    </div>
+    <div class="nav-wrap" id="nav-wrap">
+        <div class="retract" data-id="0"></div>
+        <div class="logo">
+            <h1>卒中助手<br/>后台管理系统</h1>
+            <!--<img src="imgs/logo.png">-->
+        </div>
+        <ul class="nav-list" id="nav_dot">
+        
+            <#list menuList as firstMenu>
+                <li>
+	                <a href="javascript:;" class="zf-a nav-a">
+	                    <span class="zf-icon ${firstMenu.menuUrl}"></span>
+	                    <span class="ico right"></span>
+	                    ${firstMenu.menuName}
+	                </a>
+	                <div class="list-item none">
+	                    <#list firstMenu.secondMenuList as secondMenu>
+	                        <a href="javascript:;" data-addtab="menu-data-${firstMenu.id}-${secondMenu.id}" url="${ctx}/${secondMenu.menuUrl}">${secondMenu.menuName}</a>
+	                    </#list>
+	                </div>
+                </li>
+			</#list>
+        </ul>
+    </div>
+
+    <div class="content clearfix" id="content">
+        <div class="currentPosition" id="tabs">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="dropdown pull-right tabdrop hide">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;" aria-expanded="false">
+                        <i class="glyphicon glyphicon-align-justify"></i>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu"></ul>
+                </li>
+                <li role="presentation" class="active">
+                    <a href="#tab_home" data-addtab="home" class="navbar-menu-content-click" url="index.html" aria-controls="home" role="tab" data-toggle="tab" aria-expanded="true">
+                        首页
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content html-content" id="html-content">
+
+            </div>
+        </div>
+
+    </div>
+</div>
+</#macro>
+<#macro html_foot>
+    <@p.js src="system/main.js"/>	
+    <@p.js src="third/md5.js"/>
+    <@p.js src="third/bootstrap-3.3.0-dist/dist/js/bootstrap.min.js"/>
+    <@p.js src="third/bootstrap-addtabs.js"/>
+    <@p.js src="third/jquery.nicescroll.js"/>
+    <@p.js src="system/navbar.js"/>
+    <script>
+
+        $(function () {
+            navList(15);
+
+            $('#tabs').addtabs({monitor: '.nav-list'});
+        });
+
+    </script>
+</#macro>

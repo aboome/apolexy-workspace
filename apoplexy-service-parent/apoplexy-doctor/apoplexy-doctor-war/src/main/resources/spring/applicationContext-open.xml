@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:ehcache="http://www.springframework.org/schema/cache"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+    http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-3.1.xsd"
+       default-autowire="byName">
+
+    <bean id="doctorAppOpenService" class="com.yh.apoplexy.doctor.open.proxy.impl.DoctorAppOpenServiceImpl">
+        <property name="processorList">
+            <map>
+                <!--公共接口-->
+                <entry key="common-0001" value-ref="sendVerificationCode"></entry>
+                <entry key="common-0002" value-ref="checkVerificationCode"></entry>
+                <entry key="common-0007" value-ref="queryLandingPage"></entry>
+                <entry key="common-0008" value-ref="queryBanner"></entry>
+                <entry key="common-0009" value-ref="bindMessageClient"></entry>
+                <entry key="common-0010" value-ref="appUpdate"></entry>
+                <entry key="common-0011" value-ref="reportAppDownload"></entry>
+                <entry key="common-0012" value-ref="submitIdea"></entry>
+                <entry key="common-0013" value-ref="queryProtocol"></entry>
+
+                <!--医生端接口-->
+                <entry key="doc-0001" value-ref="doctorRegister"></entry>
+                <entry key="doc-0002" value-ref="doctorLogin"></entry>
+                <entry key="doc-0003" value-ref="retrievePassword"></entry>
+                <entry key="doc-0004" value-ref="resetPassword"></entry>
+                <entry key="doc-0005" value-ref="queryDiscussCaseList"></entry>
+                <entry key="doc-0006" value-ref="addDiscussCase"></entry>
+                <entry key="doc-0007" value-ref="queryDiscussCaseDetail"></entry>
+                <entry key="doc-0008" value-ref="collectDiscussCase"></entry>
+                <entry key="doc-0009" value-ref="submitCaseComment"></entry>
+                <entry key="doc-0010" value-ref="replyCaseComment"></entry>
+                <entry key="doc-0011" value-ref="likeDiscussCase"></entry>
+                <entry key="doc-0012" value-ref="queryMyPostCaseList"></entry>
+                <entry key="doc-0013" value-ref="queryMyPostCaseDetail"></entry>
+                <entry key="doc-0014" value-ref="deleteDiscussCase"></entry>
+                <entry key="doc-0015" value-ref="queryMyPartakeCaseList"></entry>
+                <entry key="doc-0016" value-ref="queryMyPartakeCaseDetail"></entry>
+                <entry key="doc-0017" value-ref="queryMyCollectCaseList"></entry>
+                <entry key="doc-0018" value-ref="queryMyCollectCaseDetail"></entry>
+                <entry key="doc-0019" value-ref="queryReferralCaseList"></entry>
+                <entry key="doc-0020" value-ref="addReferralCase"></entry>
+                <entry key="doc-0021" value-ref="queryReferralCaseDetail"></entry>
+                <entry key="doc-0022" value-ref="submitReferralReceive"></entry>
+                <entry key="doc-0023" value-ref="queryMyApplyReferralList"></entry>
+                <entry key="doc-0024" value-ref="queryMyApplyReferralDetail"></entry>
+                <entry key="doc-0025" value-ref="queryIntentDoctorList"></entry>
+                <entry key="doc-0026" value-ref="confirmReferral"></entry>
+                <entry key="doc-0027" value-ref="cancelReferral"></entry>
+                <entry key="doc-0028" value-ref="queryReceivedReferralList"></entry>
+                <entry key="doc-0029" value-ref="queryReceivedReferralDetail"></entry>
+                <entry key="doc-0030" value-ref="queryMyReceiveReferralList"></entry>
+                <entry key="doc-0031" value-ref="queryMyReceiveReferralDetail"></entry>
+                <entry key="doc-0032" value-ref="scoreReferral"></entry>
+                <entry key="doc-0033" value-ref="cancelReceive"></entry>
+                <entry key="doc-0034" value-ref="queryAstCaseList"></entry>
+                <entry key="doc-0035" value-ref="addAstCase"></entry>
+                <!--<entry key="doc-0036" value-ref=""></entry>-->
+                <entry key="doc-0037" value-ref="queryAstCaseDetail"></entry>
+                <entry key="doc-0038" value-ref="submitAstCase"></entry>
+                <entry key="doc-0039" value-ref="replyAstCase"></entry>
+                <entry key="doc-0040" value-ref="likeAstCase"></entry>
+                <entry key="doc-0041" value-ref="collectAstCase"></entry>
+                <entry key="doc-0042" value-ref="queryMyPostAstList"></entry>
+                <entry key="doc-0043" value-ref="queryMyPostAstDetail"></entry>
+                <entry key="doc-0044" value-ref="cancelAstCase"></entry>
+                <entry key="doc-0045" value-ref="queryMyPartakeAstList"></entry>
+                <entry key="doc-0046" value-ref="queryMyPartakeAstDetail"></entry>
+                <entry key="doc-0047" value-ref="queryMyCollectAstList"></entry>
+                <entry key="doc-0048" value-ref="queryMyCollectAstDetail"></entry>
+                <entry key="doc-0049" value-ref="queryKnowledgeList"></entry>
+                <entry key="doc-0050" value-ref="queryKnowledgeDetail"></entry>
+                <entry key="doc-0051" value-ref="queryInformationList"></entry>
+                <entry key="doc-0052" value-ref="queryInformationDetail"></entry>
+                <entry key="doc-0053" value-ref="queryDoctorBaseInfo"></entry>
+                <entry key="doc-0054" value-ref="queryDoctorJob"></entry>
+                <entry key="doc-0055" value-ref="modifyDoctorJob"></entry>
+                <entry key="doc-0056" value-ref="queryScoreInfo"></entry>
+                <entry key="doc-0057" value-ref="queryScoreDetail"></entry>
+                <entry key="doc-0058" value-ref="modifyDoctorPassword"></entry>
+                <entry key="doc-0059" value-ref="queryMessageList"></entry>
+                <!--<entry key="doc-0060" value-ref=""></entry>-->
+                <entry key="doc-0061" value-ref="queryDoctorDetail"></entry>
+                <entry key="doc-0062" value-ref="queryCaseCommentList"></entry>
+                <entry key="doc-0063" value-ref="queryAstCommentList"></entry>
+
+            </map>
+        </property>
+    </bean>
+
+
+    <!--公共接口-->
+    <!--发送验证码(common-0001)-->
+    <bean id="sendVerificationCode" class="com.yh.apoplexy.doctor.open.processor.common.SendVerificationCodeProcessor"></bean>
+    <!--验证验证码(common-0002)-->
+    <bean id="checkVerificationCode" class="com.yh.apoplexy.doctor.open.processor.common.CheckVerificationCodeProcessor"></bean>
+    <!--查询开机动画(common-0007)-->
+    <bean id="queryLandingPage" class="com.yh.apoplexy.doctor.open.processor.common.QueryLandingPageProcessor"></bean>
+    <!--首页推荐位查询(common-0008)-->
+    <bean id="queryBanner" class="com.yh.apoplexy.doctor.open.processor.common.QueryBannerProcessor"></bean>
+    <!--绑定消息推送客户端ID(common-0009)-->
+    <bean id="bindMessageClient" class="com.yh.apoplexy.doctor.open.processor.common.BindMessageClientProcessor"></bean>
+    <!--APP版本升级接口 (common-0010)-->
+    <bean id="appUpdate" class="com.yh.apoplexy.doctor.open.processor.common.AppUpdateProcessor"></bean>
+    <!--APP下载统计 (common-0011)-->
+    <bean id="reportAppDownload" class="com.yh.apoplexy.doctor.open.processor.common.ReportAppDownloadProcessor"></bean>
+    <!--意见反馈接口 (common-0012)-->
+    <bean id="submitIdea" class="com.yh.apoplexy.doctor.open.processor.common.SubmitIdeaProcessor"></bean>
+    <!--注册协议接口 (common-0013)-->
+    <bean id="queryProtocol" class="com.yh.apoplexy.doctor.open.processor.common.QueryProtocolProcessor"></bean>
+
+    <!--医生端接口-->
+    <!--医生注册(doc-0001)-->
+    <bean id="doctorRegister" class="com.yh.apoplexy.doctor.open.processor.member.DoctorRegisterProcessor"></bean>
+    <!--医生登录(doc-0002)-->
+    <bean id="doctorLogin" class="com.yh.apoplexy.doctor.open.processor.member.DoctorLoginProcessor"></bean>
+    <!--找回密码(doc-0003)-->
+    <bean id="retrievePassword" class="com.yh.apoplexy.doctor.open.processor.member.RetrievePasswordProcessor"></bean>
+    <!--重置密码(doc-0004)-->
+    <bean id="resetPassword" class="com.yh.apoplexy.doctor.open.processor.member.ResetPasswordProcessor"></bean>
+    <!--查询病例讨论列表(doc-0005)-->
+    <bean id="queryDiscussCaseList" class="com.yh.apoplexy.doctor.open.processor.cases.discuss.QueryDiscussCaseListProcessor"></bean>
+    <!--新增病例讨论(doc-0006)-->
+    <bean id="addDiscussCase" class="com.yh.apoplexy.doctor.open.processor.cases.discuss.AddDiscussCaseProcessor"></bean>
+    <!--查询病例讨论详情(doc-0007)-->
+    <bean id="queryDiscussCaseDetail" class="com.yh.apoplexy.doctor.open.processor.cases.discuss.QueryDiscussCaseDetailProcessor"></bean>
+    <!--病例讨论-收藏/取消收藏(doc-0008)-->
+    <bean id="collectDiscussCase" class="com.yh.apoplexy.doctor.open.processor.cases.discuss.CollectDiscussCaseProcessor"></bean>
+    <!--病例讨论-评论(doc-0009)-->
+    <bean id="submitCaseComment" class="com.yh.apoplexy.doctor.open.processor.cases.discuss.SubmitCaseCommentProcessor"></bean>
+    <!--病例讨论-评论回复(doc-0010)-->
+    <bean id="replyCaseComment" class="com.yh.apoplexy.doctor.open.processor.cases.discuss.ReplyCaseCommentProcessor"></bean>
+    <!--病例讨论-点赞/取消点赞(doc-0011)-->
+    <bean id="likeDiscussCase" class="com.yh.apoplexy.doctor.open.processor.cases.discuss.LikeDiscussCaseProcessor"></bean>
+    <!--我的-我发布的列表(doc-0012)-->
+    <bean id="queryMyPostCaseList" class="com.yh.apoplexy.doctor.open.processor.cases.discuss.QueryMyPostCaseListProcessor"></bean>
+    <!--我的-我发布的详情(doc-0013)-->
+    <bean id="queryMyPostCaseDetail" class="com.yh.apoplexy.doctor.open.processor.cases.discuss.QueryMyPostCaseDetailProcessor"></bean>
+    <!--我的-我发布的详情-删除病例讨论(doc-0014)-->
+    <bean id="deleteDiscussCase" class="com.yh.apoplexy.doctor.open.processor.cases.discuss.DeleteDiscussCaseProcessor"></bean>
+    <!--我的-我参与的列表(doc-0015)-->
+    <bean id="queryMyPartakeCaseList" class="com.yh.apoplexy.doctor.open.processor.cases.discuss.QueryMyPartakeCaseListProcessor"></bean>
+    <!--我的-我参与的详情(doc-0016)-->
+    <bean id="queryMyPartakeCaseDetail" class="com.yh.apoplexy.doctor.open.processor.cases.discuss.QueryMyPartakeCaseDetailProcessor"></bean>
+    <!--我的-我收藏的列表(doc-0017)-->
+    <bean id="queryMyCollectCaseList" class="com.yh.apoplexy.doctor.open.processor.cases.discuss.QueryMyCollectCaseListProcessor"></bean>
+    <!--我的-我收藏的详情(doc-0018)-->
+    <bean id="queryMyCollectCaseDetail" class="com.yh.apoplexy.doctor.open.processor.cases.discuss.QueryMyCollectCaseDetailProcessor"></bean>
+    <!--查询病例转诊列表(doc-0019)-->
+    <bean id="queryReferralCaseList" class="com.yh.apoplexy.doctor.open.processor.cases.referral.QueryReferralCaseListProcessor"></bean>
+    <!--新增转诊病例(doc-0020)-->
+    <bean id="addReferralCase" class="com.yh.apoplexy.doctor.open.processor.cases.referral.AddReferralCaseProcessor"></bean>
+    <!--查看转诊病例详情(doc-0021)-->
+    <bean id="queryReferralCaseDetail" class="com.yh.apoplexy.doctor.open.processor.cases.referral.QueryReferralCaseDetailProcessor"></bean>
+    <!--转诊病例详情-接诊(doc-0022)-->
+    <bean id="submitReferralReceive" class="com.yh.apoplexy.doctor.open.processor.cases.referral.SubmitCaseReceiveProcessor"></bean>
+    <!--我的-我的申请列表(doc-0023)-->
+    <bean id="queryMyApplyReferralList" class="com.yh.apoplexy.doctor.open.processor.cases.referral.QueryMyApplyCaseListProcessor"></bean>
+    <!--我的-我的申请详情(doc-0024)-->
+    <bean id="queryMyApplyReferralDetail" class="com.yh.apoplexy.doctor.open.processor.cases.referral.QueryMyApplyCaseDetailProcessor"></bean>
+    <!--我的-我的申请详情-查询意向接诊医生列表(doc-0025)-->
+    <bean id="queryIntentDoctorList" class="com.yh.apoplexy.doctor.open.processor.cases.referral.QueryIntentDoctorListProcessor"></bean>
+    <!--我的-我的申请详情-确认转诊(doc-0026)-->
+    <bean id="confirmReferral" class="com.yh.apoplexy.doctor.open.processor.cases.referral.ConfirmReferralCaseProcessor"></bean>
+    <!--我的-我的申请详情-撤销转诊(doc-0027)-->
+    <bean id="cancelReferral" class="com.yh.apoplexy.doctor.open.processor.cases.referral.CancelReferralCaseProcessor"></bean>
+    <!--我的-已被接诊列表(doc-0028)-->
+    <bean id="queryReceivedReferralList" class="com.yh.apoplexy.doctor.open.processor.cases.referral.QueryReceivedReferralCaseListProcessor"></bean>
+    <!--我的-已被接诊详情(doc-0029)-->
+    <bean id="queryReceivedReferralDetail" class="com.yh.apoplexy.doctor.open.processor.cases.referral.QueryReceivedReferralCaseDetailProcessor"></bean>
+    <!--我的-我的接诊列表(doc-0030)-->
+    <bean id="queryMyReceiveReferralList" class="com.yh.apoplexy.doctor.open.processor.cases.referral.QueryMyReceiveReferralCaseListProcessor"></bean>
+    <!--我的-我的接诊详情(doc-0031)-->
+    <bean id="queryMyReceiveReferralDetail" class="com.yh.apoplexy.doctor.open.processor.cases.referral.QueryMyReceiveReferralCaseDetailProcessor"></bean>
+    <!--我的-我的接诊详情-评分(doc-0032)-->
+    <bean id="scoreReferral" class="com.yh.apoplexy.doctor.open.processor.cases.referral.ScoreReferralCaseProcessor"></bean>
+    <!--我的-我的接诊详情-取消接诊(doc-0033)-->
+    <bean id="cancelReceive" class="com.yh.apoplexy.doctor.open.processor.cases.referral.CancelReceiveCaseProcessor"></bean>
+    <!--查询AST病例列表(doc-0034)-->
+    <bean id="queryAstCaseList" class="com.yh.apoplexy.doctor.open.processor.cases.ast.QueryAstCaseListProcessor"></bean>
+    <!--新增AST病例(doc-0035)-->
+    <bean id="addAstCase" class="com.yh.apoplexy.doctor.open.processor.cases.ast.AddAstCaseProcessor"></bean>
+    <!--新增AST病例-基线NIHSS提交(doc-0036)-->
+    <!---->
+    <!--查询AST病例详情(doc-0037)-->
+    <bean id="queryAstCaseDetail" class="com.yh.apoplexy.doctor.open.processor.cases.ast.QueryAstCaseDetailProcessor"></bean>
+    <!--AST病例详情-评论(doc-0038)-->
+    <bean id="submitAstCase" class="com.yh.apoplexy.doctor.open.processor.cases.ast.SubmitAstCaseDiscussProcessor"></bean>
+    <!--AST病例详情-回复评论(doc-0039)-->
+    <bean id="replyAstCase" class="com.yh.apoplexy.doctor.open.processor.cases.ast.ReplyAstCaseDiscussProcessor"></bean>
+    <!--AST病例详情-点赞(doc-0040)-->
+    <bean id="likeAstCase" class="com.yh.apoplexy.doctor.open.processor.cases.ast.LikeAstCaseProcessor"></bean>
+    <!--AST病例详情-收藏(doc-0041)-->
+    <bean id="collectAstCase" class="com.yh.apoplexy.doctor.open.processor.cases.ast.CollectAstCaseProcessor"></bean>
+    <!--我的-我发布的列表(doc-0042)-->
+    <bean id="queryMyPostAstList" class="com.yh.apoplexy.doctor.open.processor.cases.ast.QueryMyPostAstCaseListProcessor"></bean>
+    <!--我的-我发布的详情(doc-0043)-->
+    <bean id="queryMyPostAstDetail" class="com.yh.apoplexy.doctor.open.processor.cases.ast.QueryMyPostAstCaseDetailProcessor"></bean>
+    <!--我的-我发布的详情-撤销(doc-0044)-->
+    <bean id="cancelAstCase" class="com.yh.apoplexy.doctor.open.processor.cases.ast.CancelAstCaseProcessor"></bean>
+    <!--我的-我参与的列表(doc-0045)-->
+    <bean id="queryMyPartakeAstList" class="com.yh.apoplexy.doctor.open.processor.cases.ast.QueryMyPartakeAstCaseListProcessor"></bean>
+    <!--我的-我参与的详情(doc-0046)-->
+    <bean id="queryMyPartakeAstDetail" class="com.yh.apoplexy.doctor.open.processor.cases.ast.QueryMyPartakeAstCaseDetailProcessor"></bean>
+    <!--我的-我收藏的列表(doc-0047)-->
+    <bean id="queryMyCollectAstList" class="com.yh.apoplexy.doctor.open.processor.cases.ast.QueryMyCollectAstCaseListProcessor"></bean>
+    <!--我的-我收藏的详情(doc-0048)-->
+    <bean id="queryMyCollectAstDetail" class="com.yh.apoplexy.doctor.open.processor.cases.ast.QueryMyCollectAstCaseDetailProcessor"></bean>
+    <!--查询学术更新列表(doc-0049)-->
+    <bean id="queryKnowledgeList" class="com.yh.apoplexy.doctor.open.processor.information.QueryKnowledgeListProcessor"></bean>
+    <!--查询学习更新详情(doc-0050)-->
+    <bean id="queryKnowledgeDetail" class="com.yh.apoplexy.doctor.open.processor.information.QueryKnowledgeDetailProcessor"></bean>
+    <!--查询最新资讯列表(doc-0051)-->
+    <bean id="queryInformationList" class="com.yh.apoplexy.doctor.open.processor.information.QueryInformationListProcessor"></bean>
+    <!--查询最新资讯详情(doc-0052)-->
+    <bean id="queryInformationDetail" class="com.yh.apoplexy.doctor.open.processor.information.QueryInformationDetailProcessor"></bean>
+    <!--个人中心-查询个人基础资料(doc-0053)-->
+    <bean id="queryDoctorBaseInfo" class="com.yh.apoplexy.doctor.open.processor.member.QueryDoctorBaseInfoProcessor"></bean>
+    <!--个人中心-查询工作岗位信息(doc-0054)-->
+    <bean id="queryDoctorJob" class="com.yh.apoplexy.doctor.open.processor.member.QueryDoctorJobProcessor"></bean>
+    <!--个人中心-修改工作岗位(doc-0055)-->
+    <bean id="modifyDoctorJob" class="com.yh.apoplexy.doctor.open.processor.member.ModifyDoctorJobProcessor"></bean>
+    <!--个人中心-积分详情(doc-0056)-->
+    <bean id="queryScoreInfo" class="com.yh.apoplexy.doctor.open.processor.member.QueryDoctorScoreInfoProcessor"></bean>
+    <!--个人中心-积分明细列表(doc-0057)-->
+    <bean id="queryScoreDetail" class="com.yh.apoplexy.doctor.open.processor.member.QueryDoctorScoreDetailListProcessor"></bean>
+    <!--个人中心-修改登录密码(doc-0058)-->
+    <bean id="modifyDoctorPassword" class="com.yh.apoplexy.doctor.open.processor.member.ModifyDoctorPasswordProcessor"></bean>
+    <!--查询通知消息列表(doc-0059)-->
+    <bean id="queryMessageList" class="com.yh.apoplexy.doctor.open.processor.common.QueryMessageListProcessor"></bean>
+    <!--查询通知消息详情(doc-0060)-->
+    <!---->
+    <!--我的-我的申请详情-查询医生详细信息(doc-0061)-->
+    <bean id="queryDoctorDetail" class="com.yh.apoplexy.doctor.open.processor.cases.referral.QueryDoctorDetailProcessor"></bean>
+    <!--查询病例讨论评论列表(doc-0062)-->
+    <bean id="queryCaseCommentList" class="com.yh.apoplexy.doctor.open.processor.cases.discuss.QueryCaseCommentListProcessor"></bean>
+    <!--查询AST病例评论列表(doc-0063)-->
+    <bean id="queryAstCommentList" class="com.yh.apoplexy.doctor.open.processor.cases.ast.QueryAstCommentListProcessor"></bean>
+
+</beans>

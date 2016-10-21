@@ -1,0 +1,8 @@
+INDEX VERSION 1.3+D:\branches\apolexy-workspace\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+1162690313.index
+3479045560.index
+2904935622.index
+1456971867.index
+425723771.index
+2272388864.index
+2875054939.index

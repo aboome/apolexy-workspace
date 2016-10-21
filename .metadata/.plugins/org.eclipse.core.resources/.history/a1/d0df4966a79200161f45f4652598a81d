@@ -1,0 +1,65 @@
+<#include "/layout/baseLayout.ftl">
+<#macro html_title>查询系统日志列表</#macro>
+<#macro html_body>
+<div class="hospital-wrap">
+    <div class="search-term">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <label for="model-name" class="control-label hospital-name-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;模块:</label>
+                <div class="hospital-name">
+                    <select class="form-control" id="model" name="model">
+                        <option value="">请选择模块</option>
+                        <option value="0">czzs-admin</option>
+                        <option value="1">czzs-doctor</option>
+                        <option value="2">czzs-patient</option>
+                    </select>
+                </div>
+            
+                <label for="user-name" class="control-label hospital-name-label">用户名:</label>
+                <div class="hospital-name">
+                    <input type="text" class="form-control hospital-name-input" id="user-name" placeholder="请输入用户名">
+                </div>
+                
+                <div class="search-btn row">
+	                <div class="col-xs-1">
+	                	<button type="button" class="btn btn-block search" id="search">查询</button>
+	                </div>
+            	</div>
+            </div>
+            <div class="form-group">
+                <label class="control-label hospital-name-label" for="start-time">开始时间:</label>
+                <div class="hospital-name">
+                    <input class="Wdate form-control" style="border: 1px solid #ddd;" id="start-time" type="text"
+                           onClick="WdatePicker()" placeholder="请选择开始时间">
+                </div>
+            
+                <label class="control-label hospital-name-label" for="end-time">截止时间:</label>
+                <div class="hospital-name">
+                    <input class="Wdate form-control" style="border: 1px solid #ddd;" id="end-time" type="text"
+                           onClick="WdatePicker()" placeholder="请输入截止时间">
+                </div>
+                
+                
+            </div>
+        </form>
+
+    </div>
+    <div class="table-content">
+
+        <div id="logtable" class="hospital-table">
+
+        </div>
+    </div>
+
+</div>
+
+
+<div class="zf-modal" id="deleteLayer" style="display:none">
+    <p class="deleteInfo modal-body">您确定要删除该条记录吗？</p>
+</div>
+</#macro>
+
+<#macro html_foot>
+    <@p.js src="system/log.js"/>
+    <@p.js src="third/My97DatePicker/WdatePicker.js"/>
+</#macro>

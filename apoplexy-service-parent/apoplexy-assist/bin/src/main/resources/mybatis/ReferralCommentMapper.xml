@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ReferralCommentMapper">
+
+    <select id="calStarLevel" parameterType="com.yh.apoplexy.assist.dmo.doctor.cases.referral.ReferralCommentDmo"
+            resultType="com.yh.apoplexy.assist.dto.doctor.cases.referral.CalStarLevelDto">
+        select
+            count(*) as scoreCount,
+            sum(case_integrity+case_detail) as scoreSum
+        from
+            t_doctor_referral_comment score
+        join
+        (
+            select
+                *
+            from
+                t_doctor_referral referral
+            where
+                user_id = #{userId}
+        )referral
+        on
+            referral.id = score.record_id
+    </select>
+
+    <select id="queryScoreInfo" parameterType="com.yh.apoplexy.assist.dmo.doctor.cases.referral.ReferralCommentDmo"
+            resultType="com.yh.apoplexy.assist.dto.doctor.cases.referral.CalStarLevelDto">
+        select
+          count(*) as scoreCount,
+          comment.scoreSum as scoreSum
+        from
+        (SELECT
+           case_integrity + case_detail AS scoreSum
+         FROM
+           t_doctor_referral_comment score
+           JOIN
+           (
+             SELECT *
+             FROM
+               t_doctor_referral referral
+             WHERE
+               user_id = #{userId}
+           ) referral
+             ON
+               referral.id = score.record_id
+        )comment
+        group by comment.scoreSum
+
+    </select>
+
+</mapper>

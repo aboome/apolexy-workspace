@@ -1,0 +1,71 @@
+.table{
+    margin-bottom: 10px;
+}
+.menu-head{
+    border-top: 1px solid #DDDDDD;
+    border-left: 1px solid #DDDDDD;
+    border-right: 1px solid #DDDDDD;
+}
+.menu-head .thead th{
+    text-align: left !important;
+    padding-left: 30px;
+}
+.menu-child-head th{
+    text-align: left !important;
+    padding-left: 30px !important;
+    line-height: 30px !important;
+    background: #EAF8FF !important;
+}
+.menu-child-head th .menu-control{
+    float: right;
+    padding-right: 20px;
+}
+.menu-child-head th .menu-control a{
+    display: inline-block;
+    text-decoration: none;
+    color: #666666;
+    padding-left: 20px;
+}
+.menu-child-head th .menu-control a:hover{
+    color: #1FB5AD;
+}
+.menu-child-head th .menu-control a.menu-delete:hover{
+    color: #EA7575;
+}
+.table-content .hospital-table tbody td{
+    text-align: center;
+    vertical-align: middle;
+    max-width: 50px;
+    white-space: normal;
+    overflow: inherit;
+    word-wrap:break-word;
+    word-break:break-all;
+    font-size: 14px;
+    color: #666;
+}
+.menu-child-control a{
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+    background-color: #1FB5AD;
+    border-radius: 50%;
+    color: #ffffff;
+    font-size: 12px !important;
+    margin: 0 2px;
+}
+.menu-child-control a:hover{
+    background-color: #2DEDE3;
+}
+.menu-child-control a i{
+    margin: 0 !important;
+    top: -1px;
+}
+.menu-child-control a.menu-child-icon{
+    padding-left: 2px;
+}
+.menu-child-control a.menu-child-delete{
+    background-color: #EA7575;
+}
+.menu-child-control a.menu-child-delete:hover{
+    background-color: #FF4444;
+}

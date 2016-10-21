@@ -1,0 +1,88 @@
+#\u73af\u5883\u76f8\u5173\u7684\u914d\u7f6e\u9879
+
+#==================== \u5168\u5c40\u914d\u7f6e START ===================================={
+# \u6570\u636e\u5e93\u914d\u7f6e
+apoplexy.db.url=jdbc:mysql://10.10.150.150:3306/yh-apoplexy?useUnicode=true&characterEncoding=UTF-8
+apoplexy.db.username=yh
+apoplexy.db.password=yanjinghu
+#apoplexy.db.url=jdbc:mysql://127.0.0.1:3306/yh-apoplexy?useUnicode=true&characterEncoding=UTF-8
+#apoplexy.db.username=root
+#apoplexy.db.password=
+#apoplexy.db.url=jdbc:mysql://www.eyelaek.com:3306/yh-apoplexy?useUnicode=true&characterEncoding=UTF-8
+#apoplexy.db.username=root
+#apoplexy.db.password=root123
+
+
+#mongodb\u914d\u7f6e
+apoplexy.mongodb.host=10.10.150.150
+apoplexy.mongodb.port=27017
+apoplexy.mongodb.dbname=yh-apoplexy
+apoplexy.mongodb.username=
+apoplexy.mongodb.password=
+#apoplexy.mongodb.host=127.0.0.1
+#apoplexy.mongodb.port=27017
+#apoplexy.mongodb.dbname=yh-apoplexy
+#apoplexy.mongodb.username=
+#apoplexy.mongodb.password=
+#apoplexy.mongodb.host=www.eyelake.com
+#apoplexy.mongodb.port=27017
+#apoplexy.mongodb.dbname=yh-apoplexy
+#apoplexy.mongodb.username=
+#apoplexy.mongodb.password=
+
+#\u5b9a\u65f6\u4efb\u52a1\u6267\u884c\u6807\u5fd7     0(not run)\u4e0d\u6267\u884c        1(run)\u6267\u884c
+quartz.timer.execute.flag=0
+
+#app\u548c\u7f51\u5173\u5e94\u7528\u5347\u7ea7\u7684\u5305\u57fa\u7840\u8def\u5f84
+remote.update.base.path=/Users/wunder/Documents/temp/remote/update
+
+#\u641c\u7d22\u7d22\u5f15\u8def\u5f84
+search.index.knowledge.dir=/Users/wunder/Documents/temp/lucene/zy-qm/knowledge
+search.index.news.dir=/Users/wunder/Documents/temp/lucene/zy-qm/news
+
+#\u77ed\u4fe1\u53d1\u9001
+apoplexy.sms.server.host=app.cloopen.com
+apoplexy.sms.server.port=8883
+apoplexy.sms.account.sid=8a48b55146b91dee0146d2fcf31d06b8
+apoplexy.sms.auth.token=cad4e2bf08494822aff2c061b5b5334f
+doctor.sms.app.id=8a216da85741a1b901574f734a400934
+patient.sms.app.id=8a216da85741a1b901574f77b38c0943
+
+#\u77ed\u4fe1\u6a21\u677f
+doctor.register.sms.template = 118944
+doctor.reset.password.sms.template = 118944
+patient.register.sms.template = 118945
+patient.reset.password.sms.template = 118945
+
+#\u77ed\u4fe1\u9a8c\u8bc1\u7801\u6709\u6548\u65f6\u95f4\uff08\u5206\u949f\uff09
+validate.code.effective.time = 10
+
+#\u77ed\u4fe1\u9a8c\u8bc1\u7801\u53d1\u9001\u95f4\u9694\uff08\u5206\u949f\uff09
+validate.code.interval.time = 30
+
+#\u77ed\u4fe1\u9a8c\u8bc1\u7801\u53d1\u9001\u95f4\u9694\u65f6\u95f4\u5185\u6700\u5927\u6b21\u6570
+validate.code.interval.count = 3
+
+#\u767b\u5f55\u5931\u8d25\u9501\u5b9a\u6b21\u6570
+login.failed.lock.times = 5
+
+#\u767b\u5f55\u5931\u8d25\u9501\u5b9a\u65f6\u95f4\uff08\u5c0f\u65f6\uff09
+login.failed.lock.hours = 24
+
+#\u627e\u56de\u5bc6\u7801\u957f\u5ea6
+retrieve.password.length = 8
+
+#\u767e\u5ea6\u5730\u56fe
+baidu.map.ak = z24joLIULkN8OVxZkVUFgvaj6XGsL9aq
+baidu.map.sk = neHTvZ5H7C5HXGH2LyUldn9xXTuysHG9
+
+#\u4e2a\u63a8\u6d88\u606f\u6e20\u9053\u96c6\u6210
+yh.getui.appId=TxzlIyCcfS9KuENjjP4ux1
+yh.getui.appKey=rAnoicfrNX7915IxPocAL2
+yh.getui.masterSecret=KFDNBNKAVj9bgykwvqgeA5
+yh.getui.host=http://sdk.open.api.igexin.com/apiex.htm
+
+#\u5bfc\u5165\u533b\u9662excel\u8def\u5f84
+import.hospital.excel.path=E:/test/
+import.doctor.excel.path=E:/test/
+#}==================== \u5168\u5c40\u914d\u7f6e END ====================================

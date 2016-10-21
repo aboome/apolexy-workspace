@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+        <mapper namespace="RegisterProtocolMapper">
+       <select id="updateProductStorage" parameterType="java.util.HashMap"
+		resultType="com.yh.apoplexy.assist.dmo.common.RegisterProtocolDmo">
+		
+        update t_register_protocol protocol set protocol_content = #{protocolContent} where protocol.owner=#{owner}
+        
+        </select>
+        </mapper>

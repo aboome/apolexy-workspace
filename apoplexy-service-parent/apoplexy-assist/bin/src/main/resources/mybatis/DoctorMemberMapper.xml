@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="DoctorMemberMapper">
+
+    <select id="findDoctorBaseInfo" parameterType="java.util.HashMap"
+            resultType="com.yh.apoplexy.assist.dto.doctor.member.DoctorMemberDto">
+        select
+            doctor.id as id,
+            doctor.phone as phone,
+            doctor.doctor_name as doctorName,
+            doctor.sex as sex,
+            doctor.avatar as avatar,
+            doctor.email as email,
+            doctor.hospital as hospital,
+            doctor.department as department,
+            doctor.title as title,
+            doctor.job as job,
+            doctor.score as score,
+            doctor.star_level as starLevel,
+            doctor.effective_time as effectiveTime,
+            doctor.create_time as createTime,
+            doctor.status as status,
+            doctor.last_update_time as lastUpdateTime,
+            doctor.client_id as clientId,
+            hospital.level as hospitalLevel,
+            hospital.root_hospital_id as rootHospitalId,
+            hospital.id as hospitalId
+        from
+        (
+            select
+                *
+            from
+                t_doctor_member doctor
+            where
+                status = #{status}
+            and
+                id = #{userId}
+        )doctor
+        join
+            t_hospital_info hospital
+        on
+            doctor.hospital = hospital.name
+    </select>
+
+    <update id="updateMemberScore" parameterType="com.yh.apoplexy.assist.dmo.doctor.member.DoctorMemberDmo">
+        update t_doctor_member set score = score + #{score} where id = #{id}
+    </update>
+
+</mapper>

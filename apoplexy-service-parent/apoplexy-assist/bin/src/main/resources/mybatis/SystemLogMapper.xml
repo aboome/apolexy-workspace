@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SystemLogMapper">
+
+ 
+
+	<select id="querySystemLogListCount" parameterType="com.yh.apoplexy.assist.dto.admin.log.SystemLogInputDto"
+		resultType="long">
+		select
+		  count(*)  
+		from
+		  (
+		   t_operator_log  
+		   <where>
+			  <if test="operateUserName!= null">
+				and operate_user_name = #{operateUserName}
+			  </if>
+			  <if test="startTime!=null">
+				and operate_time &gt; #{startTime}
+			  </if>
+			  <if test="endTime!=null">
+				and operate_time &lt; #{endTime}
+			  </if>
+			   <if test="model!=null">
+				and model=#{model}
+			  </if>
+		    </where>
+		  )
+	</select>
+	
+	
+	
+
+	<select id="querySystemLogList" parameterType="com.yh.apoplexy.assist.dto.admin.log.SystemLogInputDto"
+		resultType="com.yh.apoplexy.assist.dmo.common.OperateLogDmo">
+		select			
+			 log.id as id,
+			 log.model as model,
+			 log.model_name as modelName,
+			 log.operate_time as operateTime,
+			 log.operate_enum as operateEnum,
+			 log.operate_desc as operateDesc,
+			 log.operate_user_id as operateUserId,
+			 log.operate_user_name as operateUserName
+			 
+		from 
+		   (
+		   t_operator_log  log
+		   <where>
+			  <if test="operateUserName!= null">
+				and operate_user_name=#{operateUserName}
+			  </if>
+			  <if test="startTime!=null">
+				and operate_time &gt; #{startTime}
+			  </if>
+			  <if test="endTime!=null">
+				and operate_time &lt; #{endTime}
+			  </if>
+			   <if test="model!=null">
+				and model=#{model}
+			  </if>
+		    </where>
+		  )
+	</select>
+
+</mapper> 

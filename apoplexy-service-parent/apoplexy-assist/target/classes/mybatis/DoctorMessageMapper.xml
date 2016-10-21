@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="DoctorMessageMapper">
+
+    <select id="countMessage" parameterType="com.yh.apoplexy.assist.dmo.doctor.member.DoctorMessageDmo"
+            resultType="long">
+        select
+            count(*)
+        from
+            t_doctor_message
+        <where>
+            <if test="null != userId">
+                and user_id = #{userId}
+            </if>
+            <if test="null != type">
+                and type = #{type}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryMessage" parameterType="com.yh.apoplexy.assist.dmo.doctor.member.DoctorMessageDmo"
+            resultType="com.yh.apoplexy.assist.dmo.doctor.member.DoctorMessageDmo">
+        select
+            id as id,
+            user_id as userId,
+            user_name as userName,
+            title as title,
+            content as content,
+            type as type,
+            time as time
+        from
+            t_doctor_message
+        <where>
+            <if test="null != userId">
+                and user_id = #{userId}
+            </if>
+            <if test="null != type">
+                and type = #{type}
+            </if>
+        </where>
+        order by id desc
+    </select>
+
+    <insert id="batchInsert" parameterType="com.yh.apoplexy.assist.dto.doctor.member.MultiDoctorMessageDto">
+        INSERT INTO
+            t_doctor_message(user_id,user_name,title,content,`type`,`time`)
+        VALUES
+        <foreach item="item" collection="doctorMemberDmoList" separator="," index="index">
+            (#{item.id},#{item.doctorName},#{title},#{content},#{type},CURRENT_TIMESTAMP)
+        </foreach>
+    </insert>
+
+</mapper>

@@ -1,0 +1,315 @@
+html, body {
+    height: 100%;
+}
+
+.all-wraper {
+    width: 100%;
+    height: 100%;
+    min-width: 1280px;
+}
+
+.nav-wrap {
+    width: 200px;
+    height: 100%;
+    background-color: #32323A;
+    position: fixed;
+    z-index: 1000;
+}
+
+.nav-wrap-retract {
+    width: 40px;
+    height: 100%;
+    background-color: #32323A;
+    position: fixed;
+    z-index: 1000;
+}
+
+.logo {
+    height: 119px;
+    text-align: center;
+    line-height: 119px;
+}
+.nav-wrap .logo h1{
+    color: #D9E0E7;
+    font-size: 28px;
+    padding-top: 20px;
+}
+.nav-wrap-retract .logo h1{
+    color: #D9E0E7;
+    font-size: 18px;
+    padding-top: 16px;
+}
+
+.logo img {
+    width: 50%;
+}
+
+.nav-a {
+    font-size: 16px !important;
+    line-height: 20px;
+    color: #D9E0E7 !important;
+    text-decoration: none !important;
+    display: block;
+    padding: 22px 20px 22px 40px;
+    background-color: transparent;
+    word-break: keep-all; /* 不换行 */
+    white-space: nowrap; /* 不换行 */
+    overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+    text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+
+    -webkit-transition: background-color 0.6s;
+    -moz-transition: background-color 0.6s;
+    -ms-transition: background-color 0.6s;
+    -o-transition: background-color 0.6s;
+    transition: background-color 0.6s;
+    position: relative;
+}
+
+.nav-a-retract {
+    font-size: 20px;
+    color: #D9E0E7 !important;
+    text-decoration: none !important;
+    display: block;
+    padding: 22px 0px 22px 80px;
+    background-color: transparent;
+    word-break: keep-all; /* 不换行 */
+    white-space: nowrap; /* 不换行 */
+    overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+    text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+
+    -webkit-transition: background-color 0.6s;
+    -moz-transition: background-color 0.6s;
+    -ms-transition: background-color 0.6s;
+    -o-transition: background-color 0.6s;
+    transition: background-color 0.6s;
+    position: relative;
+}
+.nav-list{
+    /*min-height: 600px;*/
+    overflow: hidden;
+}
+.nav-list li .nav-a-retract:hover {
+    float: left;
+    width: 285px;
+    background-color: #1FB4AC;
+}
+
+.nav-list li .nav-a:hover {
+    background-color: #1FB4AC;
+}
+
+.nav-active {
+    background-color: #1FB4AC !important;
+}
+
+.zf-icon {
+    background-color: #DDDDDD;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 22px;
+    left: 12px;
+}
+
+.daiban {
+    background: url("../images/nav-icon.png") no-repeat 0 -95px;
+    background-size: 30px;
+}
+
+.jichushuju {
+    background: url("../images/nav-icon.png") no-repeat 0 -43px;
+    background-size: 20px;
+}
+
+.yishengshuju {
+    height: 24px;
+    background: url("../images/nav-icon.png") no-repeat 0 -19px;
+    background-size: 20px;
+}
+
+.huanzheshuju {
+    height: 23px;
+    background: url("../images/nav-icon.png") no-repeat 0 -81px;
+    background-size: 20px;
+    top: 20px;
+}
+
+.shujutongji {
+    background: url("../images/nav-icon.png") no-repeat 0 0;
+    background-size: 20px;
+}
+
+.xitongguanli {
+    background: url("../images/nav-icon.png") no-repeat 0 -104px;
+    background-size: 20px;
+}
+
+.right {
+    background-color: #DDDDDD;
+    width: 12px;
+    height: 16px;
+    margin-top: 4px;
+    float: right;
+    background: url("../images/nav-right.png") no-repeat 0 0;
+    background-size: 10px;
+}
+
+.right-retract {
+    display: none;
+}
+
+.retract {
+    width: 50px;
+    height: 50px;
+    border-right: 2px solid #CCCCCC;
+    border-bottom: 2px solid #CCCCCC;
+    position: absolute;
+    top: 0;
+    right: -50px;
+    background-image: url("../images/retract.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 30px;
+}
+
+/* 二级导航 */
+.none { display:none;}
+.list-item {
+    padding: 5px 0;
+    position: relative;
+    zoom: 1
+}
+
+.list-item a {
+    background: none;
+    border: none;
+    color: #D9E0E7;
+    display: block;
+    text-align: left;
+    font-size: 13px;
+    width: 100%;
+    min-width: 200px;
+    padding-left: 40px;
+    height: 40px;
+    line-height: 40px;
+}
+
+.list-item a:hover {
+    background: #666;
+    color: #fff;
+    text-decoration: none;
+}
+.list-item a:link{
+    text-decoration: none;
+}
+.list-item-active{
+    color: #2DEDE3 !important;
+}
+
+/* 头部 */
+.header {
+    width: 100%;
+    min-width: 1280px;
+    height: 50px;
+    border-bottom: 2px solid #CCCCCC;
+    background-color: #FFFFFF;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-content {
+    float: right;
+    height: 100%;
+}
+
+.header-content .welcome {
+    color: #666666;
+    font-size: 20px;
+    height: 50px;
+    line-height: 50px;
+    display: inline-block;
+    margin-right: 50px;
+    padding-right: 50px;
+    border-right: 2px solid #CCCCCC;
+}
+
+.header-content .logout {
+    display: inline-block;
+    color: #666666;
+    font-size: 20px;
+    text-decoration: none;
+    text-align: center;
+    line-height: 50px;
+   
+    margin-right: 50px;
+}
+
+.header-content .logout:hover {
+    color: #FF4600 !important;
+}
+
+.nav-i {
+    padding-right: 10px;
+}
+
+/* 内容区域 */
+.content {
+    width: 100%;
+    /* min-width: 1280px; */
+    background-color: #FFFFFF;
+    position: absolute;
+    top: 0;
+    padding: 0px 20px 20px 305px !important;
+    margin-top: 50px;
+}
+.content-retract {
+    width: 100%;
+    min-width: 1280px;
+    background-color: #FFFFFF;
+    position: absolute;
+    top: 0;
+    padding: 0px 20px 20px 100px !important;
+    margin-top: 50px;
+}
+
+.currentPosition {
+    position: fixed;
+    width: 100%;
+    z-index: 9999;
+}
+.nav-tabs{
+    background-color: #FAFAFA;
+    margin: 0 -20px;
+    padding: 0 22px !important;
+    border-bottom: 2px solid #32323A !important;
+    /* position: fixed;
+    width: 100%; */
+}
+.nav-tabs>li>a{
+    font-size: 12px;
+    color: #666666;
+    border-left: 1px solid #CCCCCC !important;
+    border-right: 1px solid #CCCCCC !important;
+    border-top: 0 !important;
+    border-bottom: 0 !important;
+    margin-left: -3px;
+    border-radius: 0 !important;
+    margin-bottom: 1px !important;
+}
+
+.nav-tabs>li.active>a{
+    border: 0 !important;
+    background-color: #32323A !important;
+    color: #D9E0E7 !important;
+    border-radius: 0 !important;
+}
+
+.dropdown-menu>.active>a, .dropdown-menu>.active>a:hover, .dropdown-menu>.active>a:focus{
+    background-color: #32323A !important;
+    color: #D9E0E7 !important;
+}
+.tabdrop{
+	margin-right: 305px;
+}

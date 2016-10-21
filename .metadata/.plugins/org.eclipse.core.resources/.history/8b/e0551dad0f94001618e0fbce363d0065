@@ -1,0 +1,252 @@
+.hospital-wrap{
+    background: #FFFFFF;
+    border: 1px solid #ECECEC;
+    box-shadow: 0px 2px 5px 0px rgba(197,197,197,0.50);
+    margin-top: 20px;
+    padding: 36px 21px;
+    min-width: 780px;
+}
+/* .hospital-wrap .form-control{
+	height: 32px !important;
+	margin-top: 0;
+	padding-left: 5px;
+} */
+.search-term{
+    border-bottom: 1px solid #ECECEC;
+    padding-bottom: 20px;
+}
+.search-term .hospital-name-label{
+    font-size: 14px;
+    font-weight: normal;
+    color: #666666;
+    line-height: 20.75px;
+    float: left;
+    margin-left: 21px;
+    margin-right: 16px;
+    padding-top: 7px;
+}
+.search-term .hospital-name{
+    /* width: 180px; */
+    float: left;
+    /* margin-right: 50px; */
+}
+.search-term .hospital-name .hospital-name-input{
+    background: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    border-radius: 2px;
+}
+
+.search-term .search-btn .search{
+    font-size: 16px;
+    color: #FFFFFF;
+    line-height: 20.75px;
+    background: #1FB5AD;
+    border-radius: 4px;
+    float: right;
+}
+.search-term .search-btn .clear{
+    font-size: 16px;
+    color: #666666;
+    line-height: 20.75px;
+    background: #FFFFFF;
+    border: 1px solid #DCDCDC;
+    border-radius: 4px;
+}
+
+.search-btn .col-xs-1{
+	width: 11%;
+}
+.table-content{
+    padding-top: 26px;
+}
+.table-content .add-and-import{
+    padding: 10px 0;
+}
+.table-content .add-and-import .add{
+    background: #FFFFFF;
+    border: 1px solid #1FB5AD;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #1FB5AD;
+    line-height: 20.75px;
+    padding: 3px 14px;
+    margin-right: 20px;
+}
+.table-content .add-and-import .import{
+    background: #FFFFFF;
+    border: 1px solid #DCDCDC;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #666666;
+    line-height: 20.75px;
+    padding: 3px 14px;
+}
+.table-content .add-and-import button i{
+    margin-right: 5px;
+}
+
+.table-content .hospital-table .thead th{
+    line-height: 20px;
+    background: #F7F7F7;
+    text-align: center;
+    font-size: 16px;
+    color: #666666;
+    font-weight: 400;
+}
+.table-content .hospital-table tbody td{
+    text-align: center;
+    
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+    color: #666;
+}
+.table-content .hospital-table tbody .hospital-pic{
+    display: block;
+    width: 30px;
+    height: 30px;
+    margin: 0 auto;
+}
+.table-content .hospital-table tbody .hospital-pic img{
+    width: 100%;
+}
+.table-content .hospital-table tbody a{
+    text-decoration: none;
+    font-size: 14px;
+}
+.table-content .hospital-table tbody a i{
+    margin-right: 5px;
+}
+
+.footer{
+    position: relative;
+}
+.footer .page-term .size-label{
+    float: left;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 7px;
+    font-size: 14px;
+    color: #6D6D6D;
+    font-weight: normal;
+}
+.footer .page-term .page-size{
+    width: 60px;
+    float: left;
+}
+.footer .page-term .page-count{
+    padding-top: 7px;
+    font-size: 14px;
+    color: #6D6D6D;
+}
+.footer .page-content{
+    position: absolute;
+    right: 0;
+    top: -19px;
+}
+.pagination>.active>a{
+    background-color: #1FB5AD;
+    border-color: #1FB5AD;
+}
+.pagination>li>a, .pagination>li>span{
+    color: #A6A6A6;
+}
+
+.view {
+	color: #1FB5AD;
+}
+.view:link{
+	color: #1FB5AD;
+}
+.view:hover {
+	color: #1FB5AD;
+}
+
+ .zf-modal{
+    margin-top: 20px;
+}
+.zf-modal .form-horizontal .form-group{
+    margin-left: 30px !important;
+    margin-right: 30px !important;
+
+}
+/* .zf-modal .form-horizontal .form-group label{
+    float: left;
+    width: 30%;
+    height: 30px;
+    min-width: 100px;
+    padding-right: 20px;
+} */
+/* .zf-modal .form-horizontal .form-group .zf-layer-input{
+    width: 60%;
+    float: right;
+    min-width: 220px;
+    height: 30px;
+    padding-left: 12px;
+    margin-left: 105px;
+    
+    content:"";
+    display:block;
+    clear:both;
+} */
+
+/* .layui-layer-btn{
+    text-align: center;
+}
+.layui-layer-btn a{
+    margin: 0 16px;
+    padding: 0 26px;
+} */
+.layui-layer-btn a.layui-layer-btn1{
+    background-color: #ffffff;
+    border-color: #A6A6A6;
+    color: #333333;
+}
+.layui-layer-btn a.layui-layer-btn0{
+    background-color: #1FB5AD;
+    border-color: #1FB5AD;
+    color: #ffffff;
+}
+
+.deleteInfo{
+    font-size: 14px;
+    text-align: center;
+}
+
+.modal-body{
+	text-align: center;
+	max-width: 600px;
+	max-height: 500px;
+}
+.modal-body img{
+	width: 100%;
+}
+
+.add-news{
+	margin: 20px;
+}
+.add-news .hospital-name{
+	width: 60%;
+	min-width: 200px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

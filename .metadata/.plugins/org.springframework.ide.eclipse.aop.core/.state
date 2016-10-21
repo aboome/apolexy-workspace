@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aop-reference-model>
+<aop-project name="apoplexy-patient-member"/>
+<aop-project name="apoplexy-doctor-war"/>
+<aop-project name="apoplexy-admin-service-patient"/>
+<aop-project name="apoplexy-common"/>
+<aop-project name="apoplexy-doctor-information"/>
+<aop-project name="apoplexy-admin-service-system"/>
+<aop-project name="apoplexy-doctor-open"/>
+<aop-project name="apoplexy-doctor-case"/>
+<aop-project name="apoplexy-integration"/>
+<aop-project name="apoplexy-admin-service-doctor"/>
+<aop-project name="apoplexy-assist"/>
+<aop-project name="apoplexy-admin-service-base"/>
+<aop-project name="apoplexy-patient-health"/>
+<aop-project name="apoplexy-patient-open"/>
+<aop-project name="apoplexy-doctor-discuss"/>
+<aop-project name="apoplexy-doctor-member"/>
+<aop-project name="apoplexy-base"/>
+<aop-project name="apoplexy-patient-war"/>
+<aop-project name="apoplexy-admin-portal"/>
+<aop-project name="apoplexy-patient-knowledge"/>
+<aop-project name="apoplexy-admin-war"/>
+<aop-project name="apoplexy-admin-service-statics"/>
+</aop-reference-model>

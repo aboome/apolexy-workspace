@@ -1,0 +1,43 @@
+.content-index{
+    height: 700px !important;
+    margin-top: 30px;
+}
+.html-content{
+	margin-top: 36px;
+}
+.appCount-wrap, .obs-data-wrap{
+    height: 100%;
+    border: 1px solid #EAEAEA;
+    box-shadow: 1px 2px 1px rgba(175, 175, 175, 0.6);
+}
+.appCount-wrap{
+    width: 48%;
+    min-width: 780px;
+    margin-right: 15px;
+    float: left;
+    padding-bottom: 50px;
+    margin-bottom: 20px;
+}
+.obs-data-wrap{
+    width: 48%;
+    min-width: 780px;
+    float: left;
+    padding-bottom: 50px;
+}
+.count-title{
+    font-size: 22px;
+    text-indent: 2em;
+    background-color: #1FB4AC;
+    margin: 0;
+    padding: 10px 0;
+    background: #FBFBFB;
+    border-bottom: 1px solid #EAEAEA;
+}
+.appCount {
+    width: 100%;
+    height: 100% !important;
+}
+.obs-data{
+    width: 100%;
+    height: 100% !important;
+}

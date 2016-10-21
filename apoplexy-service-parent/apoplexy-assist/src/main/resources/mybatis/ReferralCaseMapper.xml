@@ -1,0 +1,734 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ReferralCaseMapper">
+
+    <select id="countCase" parameterType="com.yh.apoplexy.assist.dto.doctor.cases.referral.QueryReferralCaseDto"
+            resultType="long">
+        select
+          count(*)
+        from
+        (
+        select
+        *
+        from
+        t_doctor_referral cases
+        where
+        cases.status in
+        <foreach item="item" index="index" collection="caseStatus"
+                 open="(" separator="," close=")">#{item}</foreach>
+        <if test="null != caseRange">
+            and cases.case_range = #{caseRange}
+        </if>
+        )cases
+        left join
+        (
+        select
+        *
+        from
+        t_doctor_referral_resources video
+        where
+        video.type = #{videoType}
+        )video
+        on
+        cases.id = video.record_id
+        join
+        t_doctor_member doctor
+        on
+        doctor.id = cases.user_id
+        <if test="null != doctorRange">
+            join
+            (
+            select
+            hospital_info.id as hospitalId,
+            hospital_info.root_hospital_id as rootHospitalId
+            from
+            t_hospital_info hospital_info
+            join
+            (
+            select
+            *
+            from
+            t_doctor_member member
+            where
+            member.id = #{userId}
+            and
+            member.status = #{doctorStatus}
+            )member
+            on
+            member.hospital = hospital_info.name
+            )hospital_info
+            on
+            hospital_info.hospitalId = cases.root_hospital_id or hospital_info.rootHospitalId = cases.root_hospital_id
+      </if>
+    </select>
+
+    <select id="queryCase" parameterType="com.yh.apoplexy.assist.dto.doctor.cases.referral.QueryReferralCaseDto"
+            resultType="com.yh.apoplexy.assist.dto.doctor.cases.referral.ReferralCaseInfoDto">
+        select
+        cases.id as id,
+        cases.user_id as userId,
+        doctor.avatar as avatar,
+        doctor.doctor_name as doctorName,
+        doctor.hospital as hospital,
+        cases.type as caseType,
+        cases.title as title,
+        cases.patient_age as patientAge,
+        cases.patient_sex as patientSex,
+        cases.temperature as temperature,
+        cases.heart_rate as heartRate,
+        cases.breath as breath,
+        cases.consciousness as consciousness,
+        cases.high_pressure as highPressure,
+        cases.low_pressure as lowPressure,
+        cases.nasogastric_tube as nasogastricTube,
+        cases.indwelling_catheter as indwellingCatheter,
+        cases.superficial_vein as superficialVein,
+        cases.deep_vein as deepVein,
+        cases.picc as picc,
+        cases.skin_type as skinType,
+        cases.skin_desc as skinDesc,
+        cases.nihss_total_fee as nihssTotalFee,
+        cases.patient_sub as patientSub,
+        cases.main_desc as mainDesc,
+        cases.now_illness as nowIllness,
+        cases.his_illness as hisIllness,
+        cases.health_check as healthCheck,
+        cases.assist_check as assistCheck,
+        cases.case_range as caseRange,
+        cases.create_time as createTime,
+        cases.last_update_time as lastUpdateTime,
+        cases.status as status,
+        cases.read_count as readCount,
+        cases.receive_count as receiveCount,
+        cases.root_hospital_id as rootHospitalId,
+        video.resource_id as videoId,
+        (
+        select
+        group_concat(image.resource_id)
+        from
+        t_doctor_referral_resources image
+        where
+        image.record_id = cases.id
+        and
+        image.type = #{imageType}
+        )as imageList,
+        (
+        select
+        group_concat(nihss.index)
+        from
+        t_doctor_nihss_detail nihss
+        where
+        nihss.record_id = cases.id
+        and
+        nihss.type = #{nihssType}
+        )as nihssIndexList,
+        (
+        select
+        group_concat(nihss.result)
+        from
+        t_doctor_nihss_detail nihss
+        where
+        nihss.record_id = cases.id
+        and
+        nihss.type = #{nihssType}
+        )as nihssResultList
+        from
+        (
+        select
+        *
+        from
+        t_doctor_referral cases
+        where
+        cases.status in
+        <foreach item="item" index="index" collection="caseStatus"
+                 open="(" separator="," close=")">#{item}</foreach>
+        <if test="null != caseRange">
+            and cases.case_range = #{caseRange}
+        </if>
+        )cases
+        left join
+        (
+        select
+        *
+        from
+        t_doctor_referral_resources video
+        where
+        video.type = #{videoType}
+        )video
+        on
+        cases.id = video.record_id
+        join
+        t_doctor_member doctor
+        on
+        doctor.id = cases.user_id
+        <if test="null != doctorRange">
+            join
+            (
+            select
+            hospital_info.id as hospitalId,
+            hospital_info.root_hospital_id as rootHospitalId
+            from
+            t_hospital_info hospital_info
+            join
+            (
+            select
+            *
+            from
+            t_doctor_member member
+            where
+            member.id = #{userId}
+            and
+            member.status = #{doctorStatus}
+            )member
+            on
+            member.hospital = hospital_info.name
+            )hospital_info
+            on
+            hospital_info.hospitalId = cases.root_hospital_id or hospital_info.rootHospitalId = cases.root_hospital_id
+        </if>
+        order by cases.id desc
+    </select>
+
+    <select id="countMyApplyCase" parameterType="com.yh.apoplexy.assist.dto.doctor.cases.referral.QueryReferralCaseDto"
+            resultType="long">
+        select
+            count(*)
+        from
+        (
+            select * from
+              t_doctor_referral cases
+            where
+                cases.status in
+            <foreach item="item" index="index" collection="caseStatus"
+                     open="(" separator="," close=")">#{item}</foreach>
+            <if test="null != caseRange">
+                and cases.case_range = #{caseRange}
+            </if>
+        )cases
+        left join
+            (
+            select
+                *
+            from
+                t_doctor_referral_resources video
+            where
+                video.type = #{videoType}
+            )video
+        on
+            cases.id = video.record_id
+        join
+        (
+            select
+                *
+            from
+                t_doctor_member doctor
+            where
+                doctor.id = #{userId}
+            and
+                doctor.status = #{doctorStatus}
+        )doctor
+        on doctor.id = cases.user_id
+    </select>
+
+    <select id="queryMyApplyCase" parameterType="com.yh.apoplexy.assist.dto.doctor.cases.referral.QueryReferralCaseDto"
+            resultType="com.yh.apoplexy.assist.dto.doctor.cases.referral.ReferralCaseInfoDto">
+        select
+        cases.id as id,
+        cases.user_id as userId,
+        doctor.avatar as avatar,
+        doctor.doctor_name as doctorName,
+        doctor.hospital as hospital,
+        cases.type as caseType,
+        cases.title as title,
+        cases.patient_age as patientAge,
+        cases.patient_sex as patientSex,
+        cases.temperature as temperature,
+        cases.heart_rate as heartRate,
+        cases.breath as breath,
+        cases.consciousness as consciousness,
+        cases.high_pressure as highPressure,
+        cases.low_pressure as lowPressure,
+        cases.nasogastric_tube as nasogastricTube,
+        cases.indwelling_catheter as indwellingCatheter,
+        cases.superficial_vein as superficialVein,
+        cases.deep_vein as deepVein,
+        cases.picc as picc,
+        cases.skin_type as skinType,
+        cases.skin_desc as skinDesc,
+        cases.nihss_total_fee as nihssTotalFee,
+        cases.patient_sub as patientSub,
+        cases.main_desc as mainDesc,
+        cases.now_illness as nowIllness,
+        cases.his_illness as hisIllness,
+        cases.health_check as healthCheck,
+        cases.assist_check as assistCheck,
+        cases.case_range as caseRange,
+        cases.create_time as createTime,
+        cases.last_update_time as lastUpdateTime,
+        cases.status as status,
+        cases.read_count as readCount,
+        cases.receive_count as receiveCount,
+        cases.root_hospital_id as rootHospitalId,
+        video.resource_id as videoId,
+        (
+        select
+        group_concat(image.resource_id)
+        from
+        t_doctor_referral_resources image
+        where
+        image.record_id = cases.id
+        and
+        image.type = #{imageType}
+        )as imageList,
+        (
+        select
+        group_concat(nihss.index)
+        from
+        t_doctor_nihss_detail nihss
+        where
+        nihss.record_id = cases.id
+        and
+        nihss.type = #{nihssType}
+        )as nihssIndexList,
+        (
+        select
+        group_concat(nihss.result)
+        from
+        t_doctor_nihss_detail nihss
+        where
+        nihss.record_id = cases.id
+        and
+        nihss.type = #{nihssType}
+        )as nihssResultList
+        from
+        (
+        select * from
+        t_doctor_referral cases
+        where
+        cases.status in
+        <foreach item="item" index="index" collection="caseStatus"
+                 open="(" separator="," close=")">#{item}</foreach>
+        <if test="null != caseRange">
+            and cases.case_range = #{caseRange}
+        </if>
+        )cases
+        left join
+        (
+        select
+        *
+        from
+        t_doctor_referral_resources video
+        where
+        video.type = #{videoType}
+        )video
+        on
+        cases.id = video.record_id
+        join
+        (
+        select
+        *
+        from
+        t_doctor_member doctor
+        where
+        doctor.id = #{userId}
+        and
+        doctor.status = #{doctorStatus}
+        )doctor
+        on doctor.id = cases.user_id
+    </select>
+
+    <select id="countReceivedCase" parameterType="com.yh.apoplexy.assist.dto.doctor.cases.referral.QueryReferralCaseDto"
+            resultType="long">
+        select
+        count(*)
+        from
+        (
+        select * from
+        t_doctor_referral cases
+        where
+        cases.status in
+        <foreach item="item" index="index" collection="caseStatus"
+                 open="(" separator="," close=")">#{item}</foreach>
+        <if test="null != caseRange">
+            and cases.case_range = #{caseRange}
+        </if>
+        )cases
+        left join
+        (
+        select
+        *
+        from
+        t_doctor_referral_resources video
+        where
+        video.type = #{videoType}
+        )video
+        on
+        cases.id = video.record_id
+        join
+        (
+        select
+        *
+        from
+        t_doctor_member doctor
+        where
+        doctor.id = #{userId}
+        and
+        doctor.status = #{doctorStatus}
+        )doctor
+        on doctor.id = cases.user_id
+        left join
+        t_doctor_referral_comment comment
+        on
+        comment.record_id = cases.id
+    </select>
+
+    <select id="queryReceivedCase" parameterType="com.yh.apoplexy.assist.dto.doctor.cases.referral.QueryReferralCaseDto"
+            resultType="com.yh.apoplexy.assist.dto.doctor.cases.referral.ReferralCaseInfoDto">
+        select
+        cases.id as id,
+        cases.user_id as userId,
+        doctor.avatar as avatar,
+        doctor.doctor_name as doctorName,
+        doctor.hospital as hospital,
+        ifnull((comment.case_integrity+comment.case_detail),0) as doctorStarLevel,
+        cases.type as caseType,
+        cases.title as title,
+        cases.patient_age as patientAge,
+        cases.patient_sex as patientSex,
+        cases.temperature as temperature,
+        cases.heart_rate as heartRate,
+        cases.breath as breath,
+        cases.consciousness as consciousness,
+        cases.high_pressure as highPressure,
+        cases.low_pressure as lowPressure,
+        cases.nasogastric_tube as nasogastricTube,
+        cases.indwelling_catheter as indwellingCatheter,
+        cases.superficial_vein as superficialVein,
+        cases.deep_vein as deepVein,
+        cases.picc as picc,
+        cases.skin_type as skinType,
+        cases.skin_desc as skinDesc,
+        cases.nihss_total_fee as nihssTotalFee,
+        cases.patient_sub as patientSub,
+        cases.main_desc as mainDesc,
+        cases.now_illness as nowIllness,
+        cases.his_illness as hisIllness,
+        cases.health_check as healthCheck,
+        cases.assist_check as assistCheck,
+        cases.case_range as caseRange,
+        cases.create_time as createTime,
+        cases.last_update_time as lastUpdateTime,
+        cases.status as status,
+        cases.read_count as readCount,
+        cases.receive_count as receiveCount,
+        cases.root_hospital_id as rootHospitalId,
+        video.resource_id as videoId,
+        (
+        select
+        group_concat(image.resource_id)
+        from
+        t_doctor_referral_resources image
+        where
+        image.record_id = cases.id
+        and
+        image.type = #{imageType}
+        )as imageList,
+        (
+        select
+        group_concat(nihss.index)
+        from
+        t_doctor_nihss_detail nihss
+        where
+        nihss.record_id = cases.id
+        and
+        nihss.type = #{nihssType}
+        )as nihssIndexList,
+        (
+        select
+        group_concat(nihss.result)
+        from
+        t_doctor_nihss_detail nihss
+        where
+        nihss.record_id = cases.id
+        and
+        nihss.type = #{nihssType}
+        )as nihssResultList
+        from
+        (
+        select * from
+        t_doctor_referral cases
+        where
+        cases.status in
+        <foreach item="item" index="index" collection="caseStatus"
+                 open="(" separator="," close=")">#{item}</foreach>
+        <if test="null != caseRange">
+            and cases.case_range = #{caseRange}
+        </if>
+        )cases
+        left join
+        (
+        select
+        *
+        from
+        t_doctor_referral_resources video
+        where
+        video.type = #{videoType}
+        )video
+        on
+        cases.id = video.record_id
+        join
+        (
+        select
+        *
+        from
+        t_doctor_member doctor
+        where
+        doctor.id = #{userId}
+        and
+        doctor.status = #{doctorStatus}
+        )doctor
+        on doctor.id = cases.user_id
+        left join
+        t_doctor_referral_comment comment
+        on
+        comment.record_id = cases.id
+        order by cases.id desc
+    </select>
+
+    <select id="countMyReceiveCase" parameterType="com.yh.apoplexy.assist.dto.doctor.cases.referral.QueryReferralCaseDto"
+            resultType="long">
+        select
+        count(*)
+        from
+        (
+        select * from
+        t_doctor_referral cases
+        where
+        cases.status in
+        <foreach item="item" index="index" collection="caseStatus"
+                 open="(" separator="," close=")">#{item}</foreach>
+        <if test="null != caseRange">
+            and cases.case_range = #{caseRange}
+        </if>
+        )cases
+        left join
+        (
+        select
+        *
+        from
+        t_doctor_referral_resources video
+        where
+        video.type = #{videoType}
+        )video
+        on
+        cases.id = video.record_id
+        join
+        (
+        select
+        *
+        from
+        t_doctor_member doctor
+        where
+        doctor.status = #{doctorStatus}
+        )doctor
+        on doctor.id = cases.user_id
+        join
+        (
+        select
+            recv.id as id,
+            recv.record_id as record_id
+        from
+        (
+            select
+                *
+            from
+                t_doctor_member member
+            where
+                member.id = #{userId}
+            and
+                member.status = #{doctorStatus}
+        )member
+        join
+        (
+            select
+                *
+            from
+                t_doctor_referral_recv recv
+            where
+                recv.status = #{receiveStatus}
+        )recv
+        on recv.user_id = member.id
+        )recv
+        on cases.id = recv.record_id
+    </select>
+
+    <select id="queryMyReceiveCase" parameterType="com.yh.apoplexy.assist.dto.doctor.cases.discuss.QueryDiscussCaseDto"
+            resultType="com.yh.apoplexy.assist.dto.doctor.cases.referral.ReferralCaseInfoDto">
+        select
+        cases.id as id,
+        cases.user_id as userId,
+        doctor.avatar as avatar,
+        doctor.doctor_name as doctorName,
+        doctor.hospital as hospital,
+        cases.type as caseType,
+        cases.title as title,
+        cases.patient_age as patientAge,
+        cases.patient_sex as patientSex,
+        cases.temperature as temperature,
+        cases.heart_rate as heartRate,
+        cases.breath as breath,
+        cases.consciousness as consciousness,
+        cases.high_pressure as highPressure,
+        cases.low_pressure as lowPressure,
+        cases.nasogastric_tube as nasogastricTube,
+        cases.indwelling_catheter as indwellingCatheter,
+        cases.superficial_vein as superficialVein,
+        cases.deep_vein as deepVein,
+        cases.picc as picc,
+        cases.skin_type as skinType,
+        cases.skin_desc as skinDesc,
+        cases.nihss_total_fee as nihssTotalFee,
+        cases.patient_sub as patientSub,
+        cases.main_desc as mainDesc,
+        cases.now_illness as nowIllness,
+        cases.his_illness as hisIllness,
+        cases.health_check as healthCheck,
+        cases.assist_check as assistCheck,
+        cases.case_range as caseRange,
+        cases.create_time as createTime,
+        cases.last_update_time as lastUpdateTime,
+        cases.status as status,
+        cases.read_count as readCount,
+        cases.receive_count as receiveCount,
+        cases.root_hospital_id as rootHospitalId,
+        video.resource_id as videoId,
+        (
+        select
+        group_concat(image.resource_id)
+        from
+        t_doctor_referral_resources image
+        where
+        image.record_id = cases.id
+        and
+        image.type = #{imageType}
+        )as imageList,
+        (
+        select
+        group_concat(nihss.index)
+        from
+        t_doctor_nihss_detail nihss
+        where
+        nihss.record_id = cases.id
+        and
+        nihss.type = #{nihssType}
+        )as nihssIndexList,
+        (
+        select
+        group_concat(nihss.result)
+        from
+        t_doctor_nihss_detail nihss
+        where
+        nihss.record_id = cases.id
+        and
+        nihss.type = #{nihssType}
+        )as nihssResultList
+        from
+        (
+        select * from
+        t_doctor_referral cases
+        where
+        cases.status in
+        <foreach item="item" index="index" collection="caseStatus"
+                 open="(" separator="," close=")">#{item}</foreach>
+        <if test="null != caseRange">
+            and cases.case_range = #{caseRange}
+        </if>
+        )cases
+        left join
+        (
+        select
+        *
+        from
+        t_doctor_referral_resources video
+        where
+        video.type = #{videoType}
+        )video
+        on
+        cases.id = video.record_id
+        join
+        (
+        select
+        *
+        from
+        t_doctor_member doctor
+        where
+        doctor.status = #{doctorStatus}
+        )doctor
+        on doctor.id = cases.user_id
+        join
+        (
+        select
+        recv.id as id,
+        recv.record_id as record_id
+        from
+        (
+        select
+        *
+        from
+        t_doctor_member member
+        where
+        member.id = #{userId}
+        and
+        member.status = #{doctorStatus}
+        )member
+        join
+        (
+        select
+        *
+        from
+        t_doctor_referral_recv recv
+        where
+        recv.status = #{receiveStatus}
+        )recv
+        on recv.user_id = member.id
+        )recv
+        on cases.id = recv.record_id
+        order by cases.id desc
+    </select>
+
+    <update id="increaseReadCount" parameterType="java.util.HashMap">
+        update t_doctor_referral set read_count = read_count + 1 where id = #{id}
+    </update>
+
+    <update id="increaseReceiveCount" parameterType="java.util.HashMap">
+        update t_doctor_referral set receive_count = receive_count + 1 where id = #{id}
+    </update>
+
+    <update id="decreaseReceiveCount" parameterType="java.util.HashMap">
+        update t_doctor_referral set receive_count = receive_count - 1 where id = #{id}
+    </update>
+
+    <select id="countCaseToday" parameterType="com.yh.apoplexy.assist.dto.doctor.cases.referral.QueryReferralCaseDto"
+            resultType="long">
+        select
+        count(*)
+        from
+        t_doctor_referral
+        where
+        user_id = #{userId}
+        and
+        DATE(create_time) = DATE(CURRENT_TIMESTAMP)
+    </select>
+
+    <insert id="batchInsertDetail" parameterType="com.yh.apoplexy.assist.dto.doctor.cases.referral.ReferralCaseDetailDto">
+        INSERT INTO
+        t_doctor_screen_detail(record_id, `type`, `detail_index`, result, create_time)
+        VALUES
+        <foreach item="item" collection="screenList" separator="," index="index">
+            (#{referralCaseDmo.id},#{item.type},#{item.detailIndex},#{item.result},CURRENT_TIMESTAMP)
+        </foreach>
+    </insert>
+
+</mapper>

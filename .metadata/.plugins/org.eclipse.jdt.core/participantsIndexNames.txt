@@ -1,0 +1,5 @@
+INDEX VERSION 1.126
+D:\branches\apolexy-workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3861109244.index
+\apoplexy-admin-war\src\main\resources
+D:\branches\apolexy-workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2553336748.index
+\apoplexy-admin-war\src\main\resources

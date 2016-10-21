@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="HealthScreenMapper">
+
+    <insert id="batchInsertDetail" parameterType="com.yh.apoplexy.assist.dto.patient.health.HealthScreenDetailDto">
+        INSERT INTO
+        t_patient_screen_detail(record_id, `type`, `index`, result, create_time)
+        VALUES
+        <foreach item="item" collection="list" separator="," index="index">
+            (#{recordId},#{item.type},#{item.detailIndex},#{item.result},CURRENT_TIMESTAMP)
+        </foreach>
+    </insert>
+
+    <select id="countSubmit" parameterType="com.yh.apoplexy.assist.dmo.patient.health.PatientScreenDetailDmo"
+            resultType="long">
+        select
+            count(*)
+        from
+            t_patient_screen_info
+        where
+            user_id = #{userId}
+    </select>
+
+</mapper>

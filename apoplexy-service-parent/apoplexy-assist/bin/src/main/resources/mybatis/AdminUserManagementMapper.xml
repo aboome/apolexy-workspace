@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="AdminUserManagement">
+
+	<select id="UserManagementCount" parameterType="com.yh.apoplexy.assist.dmo.admin.AdminInfoDmo"
+		resultType="long">
+		select count(*) from
+		t_admin_info
+		<where>
+			<if test="userName!=null">
+				and user_name=#{userName}
+			</if>
+		</where>
+	</select>
+
+
+	<select id="UserManagementList" parameterType="com.yh.apoplexy.assist.dmo.admin.AdminInfoDmo"
+		resultType="com.yh.apoplexy.assist.dmo.admin.AdminInfoDmo">
+		select
+        info.id as id,
+		info.user_name as userName,
+		info.real_name as realName,
+		info.phone as phone,
+		info.create_time as createTime,
+		info.status as status,
+		info.job as job,
+		info.email as email,
+		info.user_desc as userDesc
+		from
+		t_admin_info info
+		<where>
+			<if test="userName!=null">
+				and user_name=#{userName}
+			</if>
+		</where>
+	</select>
+
+
+
+</mapper>

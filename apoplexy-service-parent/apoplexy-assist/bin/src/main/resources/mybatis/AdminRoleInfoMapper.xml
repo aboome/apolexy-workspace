@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="AdminRoleInfoMapper">
+
+	<select id="RoleInfoCount" parameterType="com.yh.apoplexy.assist.dmo.admin.AdminRoleInfoDmo"
+		resultType="long">
+		select count(*) from
+		t_role_info
+		<where>
+			<if test="roleName!=null">
+				and role_name=#{roleName}
+			</if>
+		</where>
+
+	</select>
+
+
+	<select id="RoleInfoList" parameterType="com.yh.apoplexy.assist.dmo.admin.AdminRoleInfoDmo"
+		resultType="com.yh.apoplexy.assist.dmo.admin.AdminRoleInfoDmo">
+		select 
+		role.id as id,
+		role.role_name as roleName,
+        role.description as description
+	    from
+		t_role_info role
+		<where>
+			<if test="roleName!=null">
+				and role_name=#{roleName}
+			</if>
+		</where>
+
+	</select>
+
+    
+	<select id="RoleInfoDetailsCount" parameterType="com.yh.apoplexy.assist.dmo.admin.AdminRoleInfoDmo"
+		resultType="long">
+       select
+       count(*)
+       from
+       (
+        select * from
+        t_role_menu  roleMenu
+        <where>
+			<if test="productName != null">
+                and roleMenu.role_id=#{id}
+			</if>
+        </where>
+       )roleMenu
+       join
+		(
+		select
+		*
+		from
+		t_menu_info menuInfo
+		)menuInfo
+		on
+		roleMenu.menu_id=menuInfo.id
+	</select>
+     
+     	<select id="RoleInfoDetails" parameterType="com.yh.apoplexy.assist.dmo.admin.AdminRoleInfoDmo"
+		resultType="com.yh.apoplexy.assist.dto.admin.system.AdminRoleInfoDetailsDto">
+       select
+       menuInfo.id as id,
+       menuInfo.menu_name as menuName,
+       menuInfo.menu_url as menuUrl,
+       menuInfo.menu_level as menuLevel,
+       menuInfo.parent_id as parentId,
+       menuInfo.status as  status
+       from
+       (
+        select * from
+        t_role_menu  roleMenu
+        <where>
+			<if test="productName != null">
+                and roleMenu.role_id=#{id}
+			</if>
+        </where>
+       )roleMenu
+       join
+		(
+		select
+		*
+		from
+		t_menu_info menuInfo
+		)menuInfo
+		on
+		roleMenu.menu_id=menuInfo.id
+	</select>
+	
+		<select id="addRoleInfo" parameterType="com.yh.apoplexy.assist.dto.admin.system.AdminAddRoleInfoListDto"
+	resultType="long">
+	    INSERT INTO
+           t_role_menu(role_id,menu_id,create_time)
+        VALUES
+             <foreach item="item" collection="addRoleInfoList" separator="," index="index">
+             (#{item.roleId},#{item.menuId},#{item.createTime})
+             </foreach>
+       
+	</select>
+
+</mapper>

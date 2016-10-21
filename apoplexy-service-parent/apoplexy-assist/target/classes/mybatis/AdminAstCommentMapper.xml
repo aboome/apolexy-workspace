@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="AdminAstCommentMapper">
+
+    <select id="queryComment" parameterType="com.yh.apoplexy.assist.dmo.doctor.cases.ast.AstCasesCommentDmo"
+            resultType="com.yh.apoplexy.assist.dto.admin.doctor.cases.ast.AdminAstCommentDto">
+        select
+            comment.id as discussId,
+            comment.from_user_id as doctorId,
+            doctor.doctor_name as doctorName,
+            doctor.hospital as hospital,
+            comment.create_time as discussTime,
+            doctor.avatar as doctorPhoto,
+            comment.content as discussContent
+        from
+        (
+            select
+                *
+            from
+                t_doctor_ast_comment
+            <where>
+                <if test="null != recordId">
+                    and record_id = #{recordId}
+                </if>
+                <if test="null != status">
+                    and status = #{status}
+                </if>
+                <if test="null != type">
+                    and type = #{type}
+                </if>
+            </where>
+        )comment
+        join
+          t_doctor_member doctor
+        on
+          comment.from_user_id = doctor.id
+        order by comment.id desc
+    </select>
+
+    <select id="queryChildComment" parameterType="com.yh.apoplexy.assist.dmo.doctor.cases.ast.AstCasesCommentDmo"
+            resultType="com.yh.apoplexy.assist.dto.admin.doctor.cases.ast.AdminChildAstCommentDto">
+        select
+            comment.id as discussId,
+            comment.from_user_id as fromDoctorId,
+            from_doctor.doctor_name as fromDoctor,
+            comment.to_user_id as toDoctorId,
+            to_doctor.doctor_name as toDoctor,
+            comment.content as discussContent,
+            comment.create_time as discussTime
+        from
+        (
+            select
+                *
+            from
+                t_doctor_ast_comment
+            <where>
+                <if test="null != recordId">
+                    and record_id = #{recordId}
+                </if>
+                <if test="null != status">
+                    and status = #{status}
+                </if>
+                <if test="null != type">
+                    and type = #{type}
+                </if>
+                <if test="null != parentId">
+                    and parent_id = #{parentId}
+                </if>
+            </where>
+        )comment
+        join
+            t_doctor_member from_doctor
+        on
+            comment.from_user_id = from_doctor.id
+        join
+            t_doctor_member to_doctor
+        on
+            comment.to_user_id = to_doctor.id
+        order by comment.id desc
+    </select>
+
+    <select id="countChildComment" parameterType="com.yh.apoplexy.assist.dmo.doctor.cases.ast.AstCasesCommentDmo"
+            resultType="long">
+        SELECT
+            COUNT(*)
+        FROM
+            t_doctor_ast_comment
+        <where>
+            <if test="null != parentId">
+                and parent_id = #{parentId}
+            </if>
+            <if test="null != status">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+
+</mapper>

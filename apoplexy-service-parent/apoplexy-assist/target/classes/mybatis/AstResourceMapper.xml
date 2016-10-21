@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="AstResourceMapper">
+
+    <insert id="batchInsertResource" parameterType="com.yh.apoplexy.assist.dto.doctor.cases.ast.AstCaseDetailDto">
+        INSERT INTO
+        t_doctor_ast_resources(user_id, record_id, `type`, image_id, create_time)
+        VALUES
+        <foreach item="item" collection="imageList" separator="," index="index">
+            (#{item.userId},#{astCasesDmo.id},#{item.type},#{item.imageId},CURRENT_TIMESTAMP)
+        </foreach>
+    </insert>
+
+</mapper>

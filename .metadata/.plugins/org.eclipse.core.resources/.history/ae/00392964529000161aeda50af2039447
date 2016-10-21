@@ -1,0 +1,86 @@
+<#include "/admin/layout/baseLayout.ftl">
+<#macro html_title>医生端讯息资料管理</#macro>
+<#macro html_body>
+<div id="addLayer" class="zf-modal">
+    <form class="form-inline clearfix" role="form">
+        <div class="form-group col-xs-3">
+            <label for="addDoctorNewsTitle" class="control-label col-xs-3">新闻标题</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control" id="addDoctorNewsTitle" placeholder="请输入新闻标题">
+            </div>
+        </div>
+
+        <div class="form-group col-xs-3">
+            <label for="addDoctorSubTitle" class="control-label col-xs-3">摘要</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control" id="addDoctorSubTitle" placeholder="请输入新闻摘要">
+            </div>
+        </div>
+        
+        <div class="form-group col-xs-3">
+            <label for="addDoctorNewsSource" class="control-label col-xs-3">资讯来源</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control zf-layer-input" id="addDoctorNewsSource" placeholder="请输入资讯来源">
+            </div>
+        </div>
+
+        <div class="form-group col-xs-3">
+            <label for="addDoctorSmallLogo" class="control-label col-xs-2">缩略图</label>
+            <div class="col-xs-7">
+                <input type="file" name="newsImage" id="newsImage" class="form-control"/>
+            </div>
+            <div class="col-xs-3">
+                <input type="button" value=" 上传  " id="newsImageUpload" class="form-control"
+                       style="background:#f1f1f1;"/>
+            </div>
+        </div>
+
+        <div class="form-group col-xs-3">
+            <label for="addDoctorNewsType" class="control-label col-xs-2">资讯分类</label>
+            <div class="col-xs-10">
+	            <select id="addDoctorNewsType" class="form-control">
+	                <option value="">请选择咨询分类</option>
+	                <option value="1">学术知识</option>
+	                <option value="2">新闻资讯</option>
+	            </select>
+            </div>
+        </div>
+
+        <div class="form-group col-xs-3">
+            <label for="addDoctorType" class="control-label col-xs-2">内容分类</label>
+            <div class="col-xs-10">
+	            <select id="addDoctorType" class="form-control">
+	                <option value="">请选择内容分类</option>
+	                <option value="0">图片</option>
+	                <option value="1">视频</option>
+	                <option value="2">PDF</option>
+	            </select>
+            </div>
+        </div>
+
+        
+
+        <div class="form-group col-xs-3">
+            <label class="control-label zf-name-label">资讯内容</label>
+            <script id="newsContent" type="text/plain" style="width:1024px;height:500px;"></script>
+        </div>
+
+    </form>
+
+    <button type="button" class="btn add" id="save" onclick="saveDoctorNews()"><i
+            class="glyphicon glyphicon-save"></i>保存
+    </button>
+
+    <button type="button" class="btn add" id="cancel" onclick="cancelSave()"><i
+            class="glyphicon glyphicon-cancel"></i>取消
+    </button>
+</div>
+</#macro>
+<#macro html_foot>
+    <@p.js src="base/add_doctor_news.js"/>
+    <@p.js src="third/My97DatePicker/WdatePicker.js"/>
+    <@p.js src="third/uedit/ueditor.config.js"/>
+    <@p.js src="third/uedit/ueditor.all.min.js"/>
+    <@p.js src="third/uedit/lang/zh-cn/zh-cn.js"/>
+    <@p.js src="third/ajaxfileupload.js"/>
+</#macro>

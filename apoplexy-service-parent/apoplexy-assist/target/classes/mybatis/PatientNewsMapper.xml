@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="PatientNewsMapper">
+
+    <select id="countNews" parameterType="com.yh.apoplexy.assist.dmo.patient.knowledge.PatientNewsDmo"
+            resultType="long">
+        select
+            count(*)
+        from
+            t_patient_news
+        <where>
+            <if test="null != status">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryNews" parameterType="com.yh.apoplexy.assist.dmo.patient.knowledge.PatientNewsDmo"
+            resultType="com.yh.apoplexy.assist.dmo.patient.knowledge.PatientNewsDmo">
+        select
+            id as id,
+            title as title,
+            `type` as type,
+            sub_title as subTitle,
+            small_logo as smallLogo,
+            source as source,
+            content as content,
+            create_time as createTime,
+            last_update_time as lastUpdateTime,
+            status as status
+        from
+            t_patient_news
+        <where>
+            <if test="null != status">
+                and status = #{status}
+            </if>
+        </where>
+        order by id desc
+    </select>
+    
+    <select id="findLatestNews" parameterType="com.yh.apoplexy.assist.dmo.patient.knowledge.PatientNewsDmo"
+            resultType="com.yh.apoplexy.assist.dmo.patient.knowledge.PatientNewsDmo">
+        select
+            id as id,
+            title as title,
+            `type` as type,
+            sub_title as subTitle,
+            small_logo as smallLogo,
+            source as source,
+            content as content,
+            create_time as createTime,
+            last_update_time as lastUpdateTime,
+            status as status
+        from
+        t_patient_news
+        <where>
+            <if test="null != status">
+                and status = #{status}
+            </if>
+        </where>
+        order by id desc limit 1
+    </select>
+
+</mapper>

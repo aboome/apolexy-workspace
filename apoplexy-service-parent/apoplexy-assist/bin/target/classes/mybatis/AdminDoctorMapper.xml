@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="AdminDoctorMapper">
+
+	<select id="doctorCount" parameterType="com.yh.apoplexy.assist.dmo.common.DoctorInfoDmo"
+		resultType="long">
+		select count(*) from
+		t_doctor_info
+		<where>
+			<if test="doctorName!=null">
+				and doctor_name=#{doctorName}
+			</if>
+			<if test="hospital!=null">
+				and hospital=#{hospital}
+			</if>
+		</where>
+	</select>
+
+
+	<select id="doctorList" parameterType="com.yh.apoplexy.assist.dmo.common.DoctorInfoDmo"
+		resultType="com.yh.apoplexy.assist.dmo.common.DoctorInfoDmo">
+		select 
+		doctor_info.id as id,
+		doctor_info.doctor_name as doctorName,
+		doctor_info.hospital as hospital,
+		doctor_info.department as department,
+		doctor_info.title as title,
+		doctor_info.job as job,
+		doctor_info.sex as sex,
+		doctor_info.phone as phone,
+		doctor_info.email as email,
+		doctor_info.effective_time as effectiveTime
+		 from
+		t_doctor_info doctor_info
+		<where>
+			<if test="doctorName!=null">
+				and doctor_name=#{doctorName}
+			</if>
+			<if test="hospital!=null">
+				and hospital=#{hospital}
+			</if>
+		</where>
+	</select>
+
+
+<select id="addDoctorInsert" parameterType="com.yh.apoplexy.assist.dto.admin.base.AdminImportDoctorListDto"
+ resultType="long">
+  INSERT INTO
+            t_doctor_info(doctor_name,hospital,department,title,job,,effective_time)
+      VALUES
+             <foreach item="item" collection="doctorList" separator="," index="index">
+             (#{item.doctorName},#{item.hospital},#{item.department},#{item.title},#{item.job},#{effectiveTime})
+             </foreach>
+
+
+</select>
+
+</mapper>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>apoplexy-service-parent</artifactId>
+        <groupId>com.yh.apoplexy</groupId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>apoplexy-doctor</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>apoplexy-doctor-open</module>
+        <module>apoplexy-doctor-member</module>
+        <module>apoplexy-doctor-case</module>
+        <module>apoplexy-doctor-discuss</module>
+        <module>apoplexy-doctor-information</module>
+        <module>apoplexy-doctor-war</module>
+    </modules>
+
+
+</project>

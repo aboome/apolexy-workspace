@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="NihssDetailMapper">
+
+    <insert id="batchInsertReferral"
+            parameterType="com.yh.apoplexy.assist.dto.doctor.cases.referral.ReferralCaseDetailDto">
+        INSERT INTO
+        t_doctor_nihss_detail(user_id, record_id, `type`, `index`, result, create_time)
+        VALUES
+        <foreach item="item" collection="nihssList" separator="," index="index">
+            (#{item.userId},#{referralCaseDmo.id},#{item.type},#{item.detailIndex},#{item.result},CURRENT_TIMESTAMP)
+        </foreach>
+    </insert>
+
+    <insert id="batchInsertAst"
+            parameterType="com.yh.apoplexy.assist.dto.doctor.cases.ast.AstCaseDetailDto">
+        INSERT INTO
+        t_doctor_nihss_detail(user_id, record_id, `type`, `index`, result, create_time)
+        VALUES
+        <foreach item="item" collection="nihssList" separator="," index="index">
+            (#{item.userId},#{astCasesDmo.id},#{item.type},#{item.detailIndex},#{item.result},CURRENT_TIMESTAMP)
+        </foreach>
+    </insert>
+
+</mapper>

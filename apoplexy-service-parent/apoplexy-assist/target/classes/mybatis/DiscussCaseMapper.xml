@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="DiscussCaseMapper">
+
+    <select id="countCase" parameterType="com.yh.apoplexy.assist.dto.doctor.cases.discuss.QueryDiscussCaseDto"
+            resultType="long">
+        select
+            count(*)
+        from
+        (
+            select
+                *
+            from
+                t_doctor_case_discuss cases
+            where
+                status = #{caseStatus}
+            <if test="null != caseRange">
+                and cases.case_range = #{caseRange}
+            </if>
+        )cases
+        left join
+        (
+            select
+                *
+            from
+                t_doctor_case_resources video
+            where
+                video.type = #{videoType}
+        )video
+        on
+            cases.id = video.record_id
+        join
+            t_doctor_member doctor
+        on
+        doctor.id = cases.user_id
+        <if test="null != doctorRange">
+        join
+        (
+            select
+                hospital_info.id as hospitalId,
+                hospital_info.root_hospital_id as rootHospitalId
+            from
+                t_hospital_info hospital_info
+            join
+            (
+                select
+                    *
+                from
+                    t_doctor_member member
+                where
+                    member.id = #{userId}
+                and
+                    member.status = #{doctorStatus}
+            )member
+            on
+                member.hospital = hospital_info.name
+        )hospital_info
+        on
+            (hospital_info.hospitalId = cases.root_hospital_id or hospital_info.rootHospitalId = cases.root_hospital_id)
+        </if>
+
+    </select>
+
+    <select id="queryCase" parameterType="com.yh.apoplexy.assist.dto.doctor.cases.discuss.QueryDiscussCaseDto"
+            resultType="com.yh.apoplexy.assist.dto.doctor.cases.discuss.DiscussCaseInfoDto">
+        select
+            cases.id as id,
+            cases.user_id as userId,
+            doctor.avatar as avatar,
+            doctor.doctor_name as doctorName,
+            doctor.hospital as hospital,
+            cases.type as caseType,
+            cases.patient_age as patientAge,
+            cases.patient_sex as patientSex,
+            cases.description as caseDesc,
+            cases.main_desc as mainDesc,
+            cases.now_illness as nowIllness,
+            cases.his_illness as hisIllness,
+            cases.health_check as healthCheck,
+            cases.assist_check as assistCheck,
+            cases.main_question as mainQuestion,
+            cases.case_range as caseRange,
+            cases.create_time as createTime,
+            cases.last_update_time as lastUpdateTime,
+            cases.status as status,
+            cases.like_count as likeCount,
+            cases.read_count as readCount,
+            cases.collection_count as collectionCount,
+            cases.comment_count as commentCount,
+            cases.root_hospital_id as rootHospitalId,
+            video.resource_id as videoId,
+            (
+                select
+                    group_concat(image.resource_id)
+                from
+                    t_doctor_case_resources image
+                where
+                    image.record_id = cases.id
+                and
+                    image.type = #{imageType}
+            )as imageList
+        from
+        (
+        select
+        *
+        from
+        t_doctor_case_discuss cases
+        where
+        status = #{caseStatus}
+        <if test="null != caseRange">
+            and cases.case_range = #{caseRange}
+        </if>
+        )cases
+        left join
+        (
+        select
+        *
+        from
+        t_doctor_case_resources video
+        where
+        video.type = #{videoType}
+        )video
+        on
+        cases.id = video.record_id
+        join
+        t_doctor_member doctor
+        on
+        doctor.id = cases.user_id
+        <if test="null != doctorRange">
+            join
+            (
+            select
+            hospital_info.id as hospitalId,
+            hospital_info.root_hospital_id as rootHospitalId
+            from
+            t_hospital_info hospital_info
+            join
+            (
+            select
+            *
+            from
+            t_doctor_member member
+            where
+            member.id = #{userId}
+            and
+            member.status = #{doctorStatus}
+            )member
+            on
+            member.hospital = hospital_info.name
+            )hospital_info
+            on
+            (hospital_info.hospitalId = cases.root_hospital_id or hospital_info.rootHospitalId = cases.root_hospital_id)
+        </if>
+        order by cases.id desc
+    </select>
+
+    <select id="countMyPostCase" parameterType="com.yh.apoplexy.assist.dto.doctor.cases.discuss.QueryDiscussCaseDto"
+            resultType="long">
+        select
+            count(*)
+        from
+        (
+            select * from
+                t_doctor_case_discuss cases
+            where
+                cases.status = #{caseStatus}
+        )cases
+        left join
+        (
+            select
+                *
+            from
+                t_doctor_case_resources video
+            where
+                video.type = #{videoType}
+        )video
+        on
+            cases.id = video.record_id
+        join
+        (
+            select
+                *
+            from
+                t_doctor_member doctor
+            where
+                doctor.id = #{userId}
+            and
+                doctor.status = #{doctorStatus}
+        )doctor
+        on doctor.id = cases.user_id
+    </select>
+
+    <select id="queryMyPostCase" parameterType="com.yh.apoplexy.assist.dto.doctor.cases.discuss.QueryDiscussCaseDto"
+            resultType="com.yh.apoplexy.assist.dto.doctor.cases.discuss.DiscussCaseInfoDto">
+        select
+            cases.id as id,
+            cases.user_id as userId,
+            doctor.avatar as avatar,
+            doctor.doctor_name as doctorName,
+            doctor.hospital as hospital,
+            cases.type as caseType,
+            cases.patient_age as patientAge,
+            cases.patient_sex as patientSex,
+            cases.description as caseDesc,
+            cases.main_desc as mainDesc,
+            cases.now_illness as nowIllness,
+            cases.his_illness as hisIllness,
+            cases.health_check as healthCheck,
+            cases.assist_check as assistCheck,
+            cases.main_question as mainQuestion,
+            cases.case_range as caseRange,
+            cases.create_time as createTime,
+            cases.last_update_time as lastUpdateTime,
+            cases.status as status,
+            cases.like_count as likeCount,
+            cases.read_count as readCount,
+            cases.collection_count as collectionCount,
+            cases.comment_count as commentCount,
+            cases.root_hospital_id as rootHospitalId,
+            video.resource_id as videoId,
+            (
+                select
+                    group_concat(image.resource_id)
+                from
+                    t_doctor_case_resources image
+                where
+                    image.record_id = cases.id
+                and
+                    image.type = #{imageType}
+            )as imageList
+        from
+        (
+            select * from
+                t_doctor_case_discuss cases
+            where
+                cases.status = #{caseStatus}
+        )cases
+        left join
+        (
+            select
+                *
+            from
+                t_doctor_case_resources video
+            where
+                video.type = #{videoType}
+        )video
+        on
+            cases.id = video.record_id
+        join
+        (
+            select
+                *
+            from
+                t_doctor_member doctor
+            where
+                doctor.id = #{userId}
+            and
+                doctor.status = #{doctorStatus}
+        )doctor
+        on doctor.id = cases.user_id
+        order by cases.id desc
+    </select>
+
+    <select id="countMyCollectCase" parameterType="com.yh.apoplexy.assist.dto.doctor.cases.discuss.QueryDiscussCaseDto"
+            resultType="long">
+        select
+        count(*)
+        from
+          (
+            select * from
+              t_doctor_case_discuss cases
+            where
+              cases.status = #{caseStatus}
+          )cases
+          left join
+          (
+            select
+              *
+            from
+              t_doctor_case_resources video
+            where
+              video.type = #{videoType}
+          )video
+            on
+              cases.id = video.record_id
+          join
+              t_doctor_member doctor
+            on doctor.id = cases.user_id
+            join
+            (
+              select
+                *
+              from
+                t_doctor_case_collection collection
+              where
+                collection.user_id = #{userId}
+              and
+                collection.status = #{collectionStatus}
+            )collection
+              on
+                cases.id = collection.record_id
+    </select>
+
+    <select id="queryMyCollectCase" parameterType="com.yh.apoplexy.assist.dto.doctor.cases.discuss.QueryDiscussCaseDto"
+            resultType="com.yh.apoplexy.assist.dto.doctor.cases.discuss.DiscussCaseInfoDto">
+        select
+        cases.id as id,
+        cases.user_id as userId,
+        doctor.avatar as avatar,
+        doctor.doctor_name as doctorName,
+        doctor.hospital as hospital,
+        cases.type as caseType,
+        cases.patient_age as patientAge,
+        cases.patient_sex as patientSex,
+        cases.description as caseDesc,
+        cases.main_desc as mainDesc,
+        cases.now_illness as nowIllness,
+        cases.his_illness as hisIllness,
+        cases.health_check as healthCheck,
+        cases.assist_check as assistCheck,
+        cases.main_question as mainQuestion,
+        cases.case_range as caseRange,
+        cases.create_time as createTime,
+        cases.last_update_time as lastUpdateTime,
+        cases.status as status,
+        cases.like_count as likeCount,
+        cases.read_count as readCount,
+        cases.collection_count as collectionCount,
+        cases.comment_count as commentCount,
+        cases.root_hospital_id as rootHospitalId,
+        video.resource_id as videoId,
+        (
+                select
+                    group_concat(image.resource_id)
+                from
+                    t_doctor_case_resources image
+                where
+                    image.record_id = cases.id
+                and
+                    image.type = #{imageType}
+            )as imageList
+        from
+          (
+            select * from
+              t_doctor_case_discuss cases
+            where
+              cases.status = #{caseStatus}
+          )cases
+          left join
+          (
+            select
+              *
+            from
+              t_doctor_case_resources video
+            where
+              video.type = #{videoType}
+          )video
+            on
+              cases.id = video.record_id
+          join
+              t_doctor_member doctor
+            on doctor.id = cases.user_id
+            join
+            (
+              select
+                *
+              from
+                t_doctor_case_collection collection
+              where
+                collection.user_id = #{userId}
+              and
+                collection.status = #{collectionStatus}
+            )collection
+              on
+                cases.id = collection.record_id
+        order by cases.id desc
+    </select>
+
+    <select id="countMyPartakeCase" parameterType="com.yh.apoplexy.assist.dto.doctor.cases.discuss.QueryDiscussCaseDto"
+            resultType="long">
+        select
+        count(*)
+from
+  (
+    select * from
+      t_doctor_case_discuss cases
+    where
+      cases.status = #{caseStatus}
+  )cases
+  left join
+  (
+    select
+      *
+    from
+      t_doctor_case_resources video
+    where
+      video.type = #{videoType}
+  )video
+    on
+      cases.id = video.record_id
+  join
+  t_doctor_member doctor
+    on doctor.id = cases.user_id
+  join
+  (
+    select
+      *
+    from
+      t_doctor_case_comment comment
+    where
+      comment.from_user_id = #{userId}
+      and
+      comment.status = #{commentStatus}
+  )comment
+    on
+      cases.id = comment.record_id
+    </select>
+
+    <select id="queryMyPartakeCase" parameterType="com.yh.apoplexy.assist.dto.doctor.cases.discuss.QueryDiscussCaseDto"
+            resultType="com.yh.apoplexy.assist.dto.doctor.cases.discuss.DiscussCaseInfoDto">
+        select
+        cases.id as id,
+        cases.user_id as userId,
+        doctor.avatar as avatar,
+        doctor.doctor_name as doctorName,
+        doctor.hospital as hospital,
+        cases.type as caseType,
+        cases.patient_age as patientAge,
+        cases.patient_sex as patientSex,
+        cases.description as caseDesc,
+        cases.main_desc as mainDesc,
+        cases.now_illness as nowIllness,
+        cases.his_illness as hisIllness,
+        cases.health_check as healthCheck,
+        cases.assist_check as assistCheck,
+        cases.main_question as mainQuestion,
+        cases.case_range as caseRange,
+        cases.create_time as createTime,
+        cases.last_update_time as lastUpdateTime,
+        cases.status as status,
+        cases.like_count as likeCount,
+        cases.read_count as readCount,
+        cases.collection_count as collectionCount,
+        cases.comment_count as commentCount,
+        cases.root_hospital_id as rootHospitalId,
+        video.resource_id as videoId,
+        (
+                select
+                    group_concat(image.resource_id)
+                from
+                    t_doctor_case_resources image
+                where
+                    image.record_id = cases.id
+                and
+                    image.type = #{imageType}
+            )as imageList
+ from
+  (
+    select * from
+      t_doctor_case_discuss cases
+    where
+      cases.status = #{caseStatus}
+  )cases
+  left join
+  (
+    select
+      *
+    from
+      t_doctor_case_resources video
+    where
+      video.type = #{videoType}
+  )video
+    on
+      cases.id = video.record_id
+  join
+  t_doctor_member doctor
+    on doctor.id = cases.user_id
+  join
+  (
+    select
+      *
+    from
+      t_doctor_case_comment comment
+    where
+      comment.from_user_id = #{userId}
+      and
+      comment.status = #{commentStatus}
+  )comment
+    on
+      cases.id = comment.record_id
+        order by cases.id desc
+    </select>
+
+    <update id="increaseReadCount" parameterType="java.util.HashMap">
+        update t_doctor_case_discuss set read_count = read_count + 1 where id = #{id}
+    </update>
+
+    <update id="increaseCollectCount" parameterType="java.util.HashMap">
+        update t_doctor_case_discuss set collection_count = collection_count + 1 where id = #{id}
+    </update>
+
+    <update id="increaseLikeCount" parameterType="java.util.HashMap">
+        update t_doctor_case_discuss set like_count = like_count + 1 where id = #{id}
+    </update>
+
+    <update id="increaseCommentCount" parameterType="java.util.HashMap">
+        update t_doctor_case_discuss set comment_count = comment_count + 1 where id = #{id}
+    </update>
+
+    <update id="decreaseCollectCount" parameterType="java.util.HashMap">
+        update t_doctor_case_discuss set collection_count = collection_count - 1 where id = #{id}
+    </update>
+
+    <update id="decreaseLikeCount" parameterType="java.util.HashMap">
+        update t_doctor_case_discuss set like_count = like_count - 1 where id = #{id}
+    </update>
+
+    <update id="decreaseCommentCount" parameterType="java.util.HashMap">
+        update t_doctor_case_discuss set comment_count = comment_count - 1 where id = #{id}
+    </update>
+
+    <select id="countCaseToday" parameterType="com.yh.apoplexy.assist.dto.doctor.cases.discuss.QueryDiscussCaseDto"
+            resultType="long">
+        select
+            count(*)
+        from
+            t_doctor_case_discuss
+        where
+            user_id = #{userId}
+        and
+            DATE(create_time) = DATE(CURRENT_TIMESTAMP)
+    </select>
+
+</mapper>

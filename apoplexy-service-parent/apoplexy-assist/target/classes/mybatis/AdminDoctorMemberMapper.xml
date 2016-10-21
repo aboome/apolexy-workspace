@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="AdminDoctorMemberMapper">
+
+    <select id="queryDoctorMemberCount"
+            parameterType="com.yh.apoplexy.assist.dmo.doctor.member.DoctorMemberDmo"
+            resultType="long">
+        SELECT
+          count(*)
+        FROM
+          t_doctor_member
+        WHERE
+          status = #{status}
+    </select>
+
+    <select id="queryDoctorMemberList"
+            parameterType="com.yh.apoplexy.assist.dmo.doctor.member.DoctorMemberDmo"
+            resultType="com.yh.apoplexy.assist.dmo.doctor.member.DoctorMemberDmo">
+        SELECT
+            id as id,
+            doctor_name as doctorName,
+            client_id as clientId
+        FROM
+          t_doctor_member
+        WHERE
+          status = #{status}
+    </select>
+</mapper>

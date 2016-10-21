@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:ehcache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+    http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-3.1.xsd"
+	default-autowire="byName">
+
+    <bean id="patientAppOpenService" class="com.yh.apoplexy.patient.open.proxy.impl.PatientAppOpenServiceImpl">
+        <property name="processorList">
+            <map>
+                <entry key="pat-0001" value-ref="patientRegister"></entry>
+                <entry key="pat-0002" value-ref="patientLogin"></entry>
+                <entry key="pat-0003" value-ref="retrievePassword"></entry>
+                <entry key="pat-0004" value-ref="resetPassword"></entry>
+                <entry key="pat-0005" value-ref="submitHealthScreen"></entry>
+                <entry key="pat-0006" value-ref="queryNearByScreenList"></entry>
+                <entry key="pat-0007" value-ref="queryNearByScreenDetail"></entry>
+                <entry key="pat-0008" value-ref="submitHealthData"></entry>
+                <entry key="pat-0009" value-ref="queryHealthDataChart"></entry>
+                <entry key="pat-0010" value-ref="queryHealthKnowledgeList"></entry>
+                <entry key="pat-0011" value-ref="queryHealthKnowledgeDetail"></entry>
+                <entry key="pat-0012" value-ref="submitFastForm"></entry>
+                <entry key="pat-0013" value-ref="queryNearByHospitalList"></entry>
+                <entry key="pat-0014" value-ref="queryNearByHospitalDetail"></entry>
+                <entry key="pat-0015" value-ref="queryBaseInfo"></entry>
+                <entry key="pat-0016" value-ref="modifyBaseInfo"></entry>
+                <entry key="pat-0017" value-ref="queryScoreInfo"></entry>
+                <entry key="pat-0018" value-ref="queryScoreDetailList"></entry>
+                <entry key="pat-0019" value-ref="modifyPassword"></entry>
+            </map>
+        </property>
+    </bean>
+
+    <!--患者注册 (pat-0001)-->
+    <bean id="patientRegister" class="com.yh.apoplexy.patient.open.processor.member.PatientRegisterProcessor"></bean>
+    <!--患者登录 (pat-0002)-->
+    <bean id="patientLogin" class="com.yh.apoplexy.patient.open.processor.member.PatientLoginProcessor"></bean>
+    <!--找回密码 (pat-0003)-->
+    <bean id="retrievePassword" class="com.yh.apoplexy.patient.open.processor.member.RetrievePasswordProcessor"></bean>
+    <!--重置密码 (pat-0004)-->
+    <bean id="resetPassword" class="com.yh.apoplexy.patient.open.processor.member.ResetPasswordProcessor"></bean>
+    <!--提交健康筛查信息 (pat-0005)-->
+    <bean id="submitHealthScreen" class="com.yh.apoplexy.patient.open.processor.health.SubmitHealthScreenProcessor"></bean>
+    <!--查询附近的筛查点列表 (pat-0006)-->
+    <bean id="queryNearByScreenList" class="com.yh.apoplexy.patient.open.processor.health.QueryNearbyScreenListProcessor"></bean>
+    <!--查询筛查点详情 (pat-0007)-->
+    <bean id="queryNearByScreenDetail" class="com.yh.apoplexy.patient.open.processor.health.QueryNearbyScreenDetailProcessor"></bean>
+    <!--提交体征数据 (pat-0008)-->
+    <bean id="submitHealthData" class="com.yh.apoplexy.patient.open.processor.health.SubmitHealthDataProcessor"></bean>
+    <!--查询健康数据趋势图 (pat-0009)-->
+    <bean id="queryHealthDataChart" class="com.yh.apoplexy.patient.open.processor.health.QueryHealthDataChartProcessor"></bean>
+    <!--查询健康宣教列表 (pat-0010)-->
+    <bean id="queryHealthKnowledgeList" class="com.yh.apoplexy.patient.open.processor.knowledge.QueryHealthKnowledgeListProcessor"></bean>
+    <!--查询健康宣教详情 (pat-0011)-->
+    <bean id="queryHealthKnowledgeDetail" class="com.yh.apoplexy.patient.open.processor.knowledge.QueryHealthKnowledgeDetailProcessor"></bean>
+    <!--提交FAST自测表单 (pat-0012)-->
+    <bean id="submitFastForm" class="com.yh.apoplexy.patient.open.processor.health.SubmitFASTFormProcessor"></bean>
+    <!--查询附近的医院列表 (pat-0013)-->
+    <bean id="queryNearByHospitalList" class="com.yh.apoplexy.patient.open.processor.health.QueryNearbyHospitalListProcessor"></bean>
+    <!--查询医院详情(pat-0014)-->
+    <bean id="queryNearByHospitalDetail" class="com.yh.apoplexy.patient.open.processor.health.QueryNearbyHospitalDetailProcessor"></bean>
+    <!--个人中心-查询基本资料(pat-0015)-->
+    <bean id="queryBaseInfo" class="com.yh.apoplexy.patient.open.processor.member.QueryBaseInfoProcessor"></bean>
+    <!--个人中心-修改基本资料(pat-0016)-->
+    <bean id="modifyBaseInfo" class="com.yh.apoplexy.patient.open.processor.member.ModifyBaseInfoProcessor"></bean>
+    <!--个人中心-查询积分信息(pat-0017)-->
+    <bean id="queryScoreInfo" class="com.yh.apoplexy.patient.open.processor.member.QueryScoreInfoProcessor"></bean>
+    <!--个人中心-查询积分明细列表(pat-0018)-->
+    <bean id="queryScoreDetailList" class="com.yh.apoplexy.patient.open.processor.member.QueryScoreDetailListProcessor"></bean>
+    <!--个人中心-修改密码(pat-0019)-->
+    <bean id="modifyPassword" class="com.yh.apoplexy.patient.open.processor.member.ModifyPasswordProcessor"></bean>
+
+</beans>

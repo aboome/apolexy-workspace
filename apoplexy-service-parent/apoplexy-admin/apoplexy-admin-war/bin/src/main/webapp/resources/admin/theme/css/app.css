@@ -1,0 +1,77 @@
+html,body,div,p,button,a,td{
+    font-family: "Microsoft YaHei";
+}
+h1,h2,h3,h4,h5,h6{
+    margin: 0 !important;
+}
+/*æ¸…é™¤æµ®åŠ¨*/
+.clearfix:after{content:"";display:block;clear:both;}
+.clearfix{zoom:1;}
+
+.none{display:none;}
+
+
+/* ×¢²áÐ­Òé  */
+.regprotocol{
+	border: 1px solid #ddd;
+	font-size: 16px !important;
+}
+
+.regprotocol .regprotocol-title{
+	background: #EAF8FF;
+	position: relative;
+	font-size: 18px;
+	height: 50px;
+	line-height: 50px;
+	padding: 0 20px;
+}
+.regprotocol .regprotocol-title .time{
+	display: inline-block;
+	padding-left: 50px;
+}
+.regprotocol .regprotocol-title .edit{
+	position: absolute;
+	top: 0;
+	right: 20px;
+	text-decoration: none;
+	color: #6D6E6E;
+	cursor: pointer;
+}
+.regprotocol .regprotocol-title .edit i{
+	margin-right: 5px;
+}
+
+.regprotocol .regprotocol-content{
+	padding: 20px 20px 30px 20px;
+	height: 200px;
+	position: relative;
+}
+#doctor-regprotocol-content{
+	
+}
+.regprotocol .regprotocol-content .regprotocol-content-p{
+	width: 100%;
+	height: 100%;
+	overflow: hidden; 
+	text-overflow: ellipsis;
+}
+.regprotocol .regprotocol-content .open-div{
+	text-decoration: none;
+	color: #1FB5AD;
+	position: absolute;
+	bottom: 6px;
+	right: 20px;
+}
+.regprotocol-patient{
+	margin-top: 20px;
+}
+
+
+
+
+
+
+
+
+
+

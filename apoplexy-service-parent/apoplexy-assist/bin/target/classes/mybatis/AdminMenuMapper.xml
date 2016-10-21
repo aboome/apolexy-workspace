@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="AdminMenu">
+
+	<select id="MenuCount" parameterType="com.yh.apoplexy.assist.dmo.admin.AdminMenuInfoDmo"
+		resultType="long">
+		select
+		  count(*)
+		from t_menu_info menu join t_menu_info partent_menu on partent_menu.id = menu.parent_id
+
+	</select>
+
+
+	<select id="MenuList" parameterType="com.yh.apoplexy.assist.dmo.admin.AdminMenuInfoDmo"
+		resultType="com.yh.apoplexy.assist.dto.admin.system.AdminMenuDto">
+		select
+		menu.id as id,
+		menu.menu_name as menuName,
+		menu.menu_level as menuLevel,
+		menu.sort as sort,
+		menu.parent_id as parentId,
+		menu.menu_url as menuUrl,
+		partent_menu.menu_name as parentMenuName
+		from t_menu_info menu join t_menu_info partent_menu on partent_menu.id = menu.parent_id
+		
+
+	</select>
+
+
+
+
+
+	<select id="SubMenuCount" parameterType="com.yh.apoplexy.assist.dmo.admin.AdminMenuInfoDmo"
+		resultType="long">
+
+		select
+
+		count(*)
+
+		from
+
+		t_menu_info
+		<where>
+			<if test="parentId!=null">
+				t_menu_info.parent_id=#{parentId}
+			</if>
+
+		</where>
+
+
+	</select>
+
+
+	<select id="queryFirstMenu" resultType="com.yh.apoplexy.assist.dmo.admin.AdminMenuInfoDmo">
+		select
+		menu.id as id,
+		menu.menu_name as menuName,
+		menu.menu_url as menuUrl,
+		menu.menu_level as menuLevel,
+		menu.parent_id as parentId,
+		menu.create_time as createTime,
+		menu.last_update_time as lastUpdateTime,
+		menu.status as status,
+		menu.sort as sort
+		from t_menu_info menu
+		join t_role_menu rm on rm.menu_id = menu.id
+		join t_admin_role ar on ar.role_id = rm.role_id
+		where ar.user_id = #{userId} and menu.menu_level = 1
+
+	</select>
+
+	<select id="querySecondMenu"
+		parameterType="com.yh.apoplexy.assist.dto.admin.system.AdminSubMenuDto"
+		resultType="com.yh.apoplexy.assist.dmo.admin.AdminMenuInfoDmo">
+
+		select
+		menu.id as id,
+		menu.menu_name as menuName,
+		menu.menu_url as menuUrl,
+		menu.menu_level as menuLevel,
+		menu.parent_id as parentId,
+		menu.create_time as createTime,
+		menu.last_update_time as lastUpdateTime,
+		menu.status as status,
+		menu.sort as sort
+		from t_menu_info menu
+		join t_role_menu rm on rm.menu_id = menu.id
+		join t_admin_role ar on ar.role_id = rm.role_id
+		where ar.user_id = #{userId} and menu.menu_level = 2 and menu.parent_id = #{firstMenuId}
+	</select>
+
+</mapper>

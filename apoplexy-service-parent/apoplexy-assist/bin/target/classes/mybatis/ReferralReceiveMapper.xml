@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ReferralReceiveMapper">
+
+    <select id="queryIntentDoctor" parameterType="com.yh.apoplexy.assist.dto.doctor.cases.referral.QueryIntentDoctorDto"
+            resultType="com.yh.apoplexy.assist.dto.doctor.cases.referral.ReferralIntentDoctorDto">
+        select
+            doctor.id as doctorId,
+            doctor.avatar as doctorPhoto,
+            doctor.doctor_name as doctorNamem,
+            doctor.hospital as hospital,
+            doctor.client_id as clientId,
+            recv.create_time as recvTime
+        from
+        (
+            select * from
+                t_doctor_referral_recv recv
+            where
+                recv.record_id = #{recordId}
+            and
+                recv.status in
+        <foreach item="item" index="index" collection="receiveStatus"
+                 open="(" separator="," close=")">#{item}</foreach>
+        )recv
+        join
+            t_doctor_member doctor
+        on doctor.id = recv.user_id
+        and doctor.status = #{doctorStatus}
+    </select>
+
+    <select id="queryReceiveList" parameterType="com.yh.apoplexy.assist.dmo.doctor.cases.referral.ReferralReceiveDmo"
+            resultType="com.yh.apoplexy.assist.dmo.doctor.cases.referral.ReferralReceiveDmo">
+        select
+            id as id,
+            user_id as userId,
+            record_id as recordId,
+            create_time as createTime,
+            last_update_time as lastUpdateTime,
+            status as status
+        from
+            t_doctor_referral_recv
+        <where>
+            <if test="null != userId">
+                user_id = #{userId}
+            </if>
+            <if test="null != recordId">
+                record_id = #{recordId}
+            </if>
+            <if test="null != status">
+                status = #{status}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateReceiveFailed" parameterType="com.yh.apoplexy.assist.dmo.doctor.cases.referral.ReferralReceiveDmo">
+        update t_doctor_referral_recv set status = #{newStatus}, last_update_time = #{lastUpdateTime} where user_id != #{userId} and status =#{oldStatus} and record_id = #{recordId}
+    </update>
+</mapper>

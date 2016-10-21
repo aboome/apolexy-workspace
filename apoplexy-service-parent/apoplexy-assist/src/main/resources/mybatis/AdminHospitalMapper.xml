@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="AdminHospitalMapper">
+
+	<select id="hospitalCount" parameterType="com.yh.apoplexy.assist.dmo.common.HospitalInfoDmo"
+		resultType="long">
+		select count(*) from(
+		select
+	      *
+        from
+		t_hospital_info hospital
+		<where>
+			<if test="hospitalName!= null">
+				and hospital.name=#{hospitalName}
+			</if>
+            <if test="null != status">
+                and hospital.status = #{status}
+            </if>
+		</where>
+		)hospital
+		left join t_hospital_info parent on hospital.parent_hospital_id = parent.id
+	</select>
+
+	<select id="hospitalList" parameterType="com.yh.apoplexy.assist.dmo.common.HospitalInfoDmo"
+		resultType="com.yh.apoplexy.assist.dto.admin.base.AdminHospitalDto">
+		select
+		hospital.id as id,
+		hospital.name as hospitalName,
+		hospital.addr as hospitalAddr,
+		hospital.hospital_desc as hospitalDesc,
+		hospital.image_id as imageId,
+		hospital.lon as lon,
+		hospital.lat as lat,
+		hospital.area_code as areaCode,
+		hospital.level as level,
+        hospital.hospital_union as hospitalUnion,
+        parent.id as parentHospitalId,
+		parent.name as parentHospitalName
+		from(
+		select
+	      *
+        from
+		t_hospital_info hospital
+		<where>
+            <if test="hospitalName!=null">
+                and hospital.name=#{hospitalName}
+            </if>
+            <if test="null != status">
+                and hospital.status = #{status}
+            </if>
+		</where>
+		)hospital
+		left join t_hospital_info parent on hospital.parent_hospital_id = parent.id
+		order by hospital.id desc
+	</select>
+
+
+	<select id="selectInferiorHospital" parameterType="com.yh.apoplexy.assist.dmo.common.HospitalInfoDmo"
+		resultType="long">
+		select count(*) from
+		t_hospital_info
+		<where>
+			<if test="parentHospitalId!= null">
+				and parent_hospital_id=#{parentHospitalId}
+			</if>
+		</where>
+
+	</select>
+	
+	
+    <select id="selectInferiorHospitalName" parameterType="com.yh.apoplexy.assist.dmo.common.HospitalInfoDmo"
+		resultType="long">
+		select count(*) from
+		t_hospital_info
+		<where>
+			<if test="hospitalName!= null">
+				and name=#{hospitalName}
+			</if>
+            <if test="status!= null">
+                and status=#{status}
+            </if>
+		</where>
+	</select>
+
+	<select id="addHospitalInsert"
+		parameterType="com.yh.apoplexy.assist.dto.admin.base.AdminImportHospitalListDto"
+		resultType="long">
+		INSERT INTO
+		t_hospital_info(name,hospital_desc,addr,image_id,level,parent_hospital_id,root_hospital_id,status,lon,lat,area_code,hospital_union)
+		VALUES
+		<foreach item="item" collection="hospitalList" separator=","
+			index="index">
+			(#{item.hospitalName},#{item.hospitalDesc},#{item.hospitalAddr},#{item.imageId},#{item.level},#{item.parentHospitalId},#{item.rootHospitalId},#{item.status},#{item.lon},#{item.lat},#{item.areaCode},#{item.hospitalUnion})
+		</foreach>
+	</select>
+
+    <update id="updateDoctorInfoList" parameterType="com.yh.apoplexy.assist.dto.admin.base.UpdateDoctorInfoDto">
+        update t_doctor_info set hospital = #{hospitalName}
+        where id in
+        <foreach item="item" index="index" collection="list"
+                 open="(" separator="," close=")">#{item.id}</foreach>
+    </update>
+
+    <update id="updateDoctorMemberList" parameterType="com.yh.apoplexy.assist.dto.admin.base.UpdateDoctorMemberDto">
+        update t_doctor_member set hospital = #{hospitalName}
+        where id in
+        <foreach item="item" index="index" collection="list"
+                 open="(" separator="," close=")">#{item.id}</foreach>
+    </update>
+</mapper>

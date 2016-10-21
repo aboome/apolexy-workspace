@@ -1,0 +1,14 @@
+#Tomcat publish data
+#Thu Oct 20 10:59:26 CST 2016
+org.eclipse.jst.j2ee.server\:apoplexy-common=WEB-INF/lib/apoplexy-common-1.0.0-SNAPSHOT.jar
+org.eclipse.jst.j2ee.server\:apoplexy-admin-service-statics=WEB-INF/lib/apoplexy-admin-service-statics-1.0.0-SNAPSHOT.jar
+org.eclipse.jst.j2ee.server\:apoplexy-admin-service-base=WEB-INF/lib/apoplexy-admin-service-base-1.0.0-SNAPSHOT.jar
+org.eclipse.jst.j2ee.server\:apoplexy-admin-service-patient=WEB-INF/lib/apoplexy-admin-service-patient-1.0.0-SNAPSHOT.jar
+org.eclipse.jst.j2ee.server\:apoplexy-admin-service-doctor=WEB-INF/lib/apoplexy-admin-service-doctor-1.0.0-SNAPSHOT.jar
+org.eclipse.jst.j2ee.server\:apoplexy-open=WEB-INF/lib/apoplexy-open-1.0.0-SNAPSHOT.jar
+org.eclipse.jst.j2ee.server\:apoplexy-doctor-member=WEB-INF/lib/apoplexy-doctor-member-1.0.0-SNAPSHOT.jar
+org.eclipse.jst.j2ee.server\:apoplexy-admin-service-system=WEB-INF/lib/apoplexy-admin-service-system-1.0.0-SNAPSHOT.jar
+org.eclipse.jst.j2ee.server\:apoplexy-admin-portal=WEB-INF/lib/apoplexy-admin-portal-1.0.0-SNAPSHOT.jar
+org.eclipse.jst.j2ee.server\:apoplexy-integration=WEB-INF/lib/apoplexy-integration-1.0.0-SNAPSHOT.jar
+org.eclipse.jst.j2ee.server\:apoplexy-assist=WEB-INF/lib/apoplexy-assist-1.0.0-SNAPSHOT.jar
+org.eclipse.jst.j2ee.server\:apoplexy-base=WEB-INF/lib/apoplexy-base-1.0.0-SNAPSHOT.jar

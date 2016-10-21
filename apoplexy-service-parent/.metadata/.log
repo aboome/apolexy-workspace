@@ -1,0 +1,494 @@
+!SESSION 2016-09-12 14:00:52.868 -----------------------------------------------
+eclipse.buildId=4.3.0.M20130911-1000
+java.version=1.7.0_45
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=zh_CN
+Framework arguments:  -product org.eclipse.epp.package.jee.product -product org.eclipse.epp.package.jee.product -product org.eclipse.epp.package.jee.product -product org.eclipse.epp.package.jee.product
+Command-line arguments:  -os win32 -ws win32 -arch x86 -product org.eclipse.epp.package.jee.product -product org.eclipse.epp.package.jee.product -product org.eclipse.epp.package.jee.product -data D:\branches\apolexy-workspace\apoplexy-service-parent -product org.eclipse.epp.package.jee.product
+
+!ENTRY org.springsource.sts 2 0 2016-09-12 14:00:53.823
+!MESSAGE [SCR] Found components with duplicated names! Details: 
+Component1 : Component[
+	name = org.springsource.sts.p2.policy
+	activate = activate
+	deactivate = deactivate
+	modified = 
+	configuration-policy = optional
+	factory = null
+	autoenable = true
+	immediate = false
+	implementation = com.springsource.sts.internal.policy.NoApplyPolicy
+	state = Unsatisfied
+	properties = {service.ranking=1000}
+	serviceFactory = false
+	serviceInterface = [org.eclipse.equinox.p2.ui.Policy]
+	references = null
+	located in bundle = org.springsource.sts_3.4.0.201310051614-RELEASE [998]
+]
+Component2: Component[
+	name = org.springsource.sts.p2.policy
+	activate = activate
+	deactivate = deactivate
+	modified = 
+	configuration-policy = optional
+	factory = null
+	autoenable = true
+	immediate = false
+	implementation = com.springsource.sts.internal.policy.NoApplyPolicy
+	state = Unsatisfied
+	properties = {service.ranking=1000}
+	serviceFactory = false
+	serviceInterface = [org.eclipse.equinox.p2.ui.Policy]
+	references = null
+	located in bundle = org.springsource.ggts_3.4.0.201310051614-RELEASE [984]
+]  
+
+!ENTRY org.eclipse.mylyn.tasks.ui 4 0 2016-09-12 14:00:56.289
+!MESSAGE Could not load repository template extension contributed by org.springsource.ide.eclipse.dashboard.ui with connectorKind jira
+
+!ENTRY org.eclipse.mylyn.tasks.ui 4 0 2016-09-12 14:00:56.292
+!MESSAGE Could not load repository template extension contributed by org.springsource.ide.eclipse.dashboard.ui with connectorKind jira
+
+!ENTRY org.eclipse.egit.ui 2 0 2016-09-12 14:01:00.618
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\zhan'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY jp.gr.java_conf.ussiy.app.propedit 1 0 2016-09-12 14:01:01.078
+!MESSAGE properties loading for project 'RemoteSystemsTempFiles'
+
+!ENTRY jp.gr.java_conf.ussiy.app.propedit 1 0 2016-09-12 14:01:01.088
+!MESSAGE properties loading for project 'RemoteSystemsTempFiles'
+
+!ENTRY org.springsource.ide.eclipse.commons.frameworks.core 0 0 2016-09-12 14:01:01.618
+!MESSAGE Result of converting legacy STS 2.x workspace preferences to 3.x
+!SUBENTRY 1 org.springsource.ide.eclipse.commons.frameworks.core 0 0 2016-09-12 14:01:01.618
+!MESSAGE Converted legacy STS plugin preferences
+!SUBENTRY 1 unknown 0 0 2016-09-12 14:01:01.618
+!MESSAGE OK
+!SUBENTRY 1 org.springsource.ide.eclipse.commons.frameworks.core 0 0 2016-09-12 14:01:01.618
+!MESSAGE Converted legacy Roo plugin state locations
+!SUBENTRY 1 org.springsource.ide.eclipse.commons.frameworks.core 0 0 2016-09-12 14:01:01.618
+!MESSAGE Converted legacy STS plugin state locations
+!SESSION 2016-09-12 14:04:53.499 -----------------------------------------------
+eclipse.buildId=4.3.0.M20130911-1000
+java.version=1.7.0_45
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=zh_CN
+Framework arguments:  -product org.eclipse.epp.package.jee.product -product org.eclipse.epp.package.jee.product -product org.eclipse.epp.package.jee.product -product org.eclipse.epp.package.jee.product -product org.eclipse.epp.package.jee.product
+Command-line arguments:  -os win32 -ws win32 -arch x86 -product org.eclipse.epp.package.jee.product -product org.eclipse.epp.package.jee.product -product org.eclipse.epp.package.jee.product -product org.eclipse.epp.package.jee.product -data D:\branches\apolexy-workspace\apoplexy-service-parent -product org.eclipse.epp.package.jee.product
+
+!ENTRY org.springsource.sts 2 0 2016-09-12 14:04:54.491
+!MESSAGE [SCR] Found components with duplicated names! Details: 
+Component1 : Component[
+	name = org.springsource.sts.p2.policy
+	activate = activate
+	deactivate = deactivate
+	modified = 
+	configuration-policy = optional
+	factory = null
+	autoenable = true
+	immediate = false
+	implementation = com.springsource.sts.internal.policy.NoApplyPolicy
+	state = Unsatisfied
+	properties = {service.ranking=1000}
+	serviceFactory = false
+	serviceInterface = [org.eclipse.equinox.p2.ui.Policy]
+	references = null
+	located in bundle = org.springsource.sts_3.4.0.201310051614-RELEASE [998]
+]
+Component2: Component[
+	name = org.springsource.sts.p2.policy
+	activate = activate
+	deactivate = deactivate
+	modified = 
+	configuration-policy = optional
+	factory = null
+	autoenable = true
+	immediate = false
+	implementation = com.springsource.sts.internal.policy.NoApplyPolicy
+	state = Unsatisfied
+	properties = {service.ranking=1000}
+	serviceFactory = false
+	serviceInterface = [org.eclipse.equinox.p2.ui.Policy]
+	references = null
+	located in bundle = org.springsource.ggts_3.4.0.201310051614-RELEASE [984]
+]  
+
+!ENTRY org.eclipse.mylyn.tasks.ui 4 0 2016-09-12 14:04:58.337
+!MESSAGE Could not load repository template extension contributed by org.springsource.ide.eclipse.dashboard.ui with connectorKind jira
+
+!ENTRY org.eclipse.mylyn.tasks.ui 4 0 2016-09-12 14:04:58.339
+!MESSAGE Could not load repository template extension contributed by org.springsource.ide.eclipse.dashboard.ui with connectorKind jira
+
+!ENTRY org.eclipse.egit.ui 2 0 2016-09-12 14:05:01.071
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\zhan'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY jp.gr.java_conf.ussiy.app.propedit 1 0 2016-09-12 14:05:01.489
+!MESSAGE properties loading for project 'RemoteSystemsTempFiles'
+!SESSION 2016-09-12 14:05:37.103 -----------------------------------------------
+eclipse.buildId=4.3.0.M20130911-1000
+java.version=1.7.0_45
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=zh_CN
+Framework arguments:  -product org.eclipse.epp.package.jee.product
+Command-line arguments:  -os win32 -ws win32 -arch x86 -product org.eclipse.epp.package.jee.product
+
+!ENTRY org.springsource.sts 2 0 2016-09-12 14:05:38.061
+!MESSAGE [SCR] Found components with duplicated names! Details: 
+Component1 : Component[
+	name = org.springsource.sts.p2.policy
+	activate = activate
+	deactivate = deactivate
+	modified = 
+	configuration-policy = optional
+	factory = null
+	autoenable = true
+	immediate = false
+	implementation = com.springsource.sts.internal.policy.NoApplyPolicy
+	state = Unsatisfied
+	properties = {service.ranking=1000}
+	serviceFactory = false
+	serviceInterface = [org.eclipse.equinox.p2.ui.Policy]
+	references = null
+	located in bundle = org.springsource.sts_3.4.0.201310051614-RELEASE [998]
+]
+Component2: Component[
+	name = org.springsource.sts.p2.policy
+	activate = activate
+	deactivate = deactivate
+	modified = 
+	configuration-policy = optional
+	factory = null
+	autoenable = true
+	immediate = false
+	implementation = com.springsource.sts.internal.policy.NoApplyPolicy
+	state = Unsatisfied
+	properties = {service.ranking=1000}
+	serviceFactory = false
+	serviceInterface = [org.eclipse.equinox.p2.ui.Policy]
+	references = null
+	located in bundle = org.springsource.ggts_3.4.0.201310051614-RELEASE [984]
+]  
+
+!ENTRY org.eclipse.mylyn.tasks.ui 4 0 2016-09-12 14:05:44.228
+!MESSAGE Could not load repository template extension contributed by org.springsource.ide.eclipse.dashboard.ui with connectorKind jira
+
+!ENTRY org.eclipse.mylyn.tasks.ui 4 0 2016-09-12 14:05:44.230
+!MESSAGE Could not load repository template extension contributed by org.springsource.ide.eclipse.dashboard.ui with connectorKind jira
+
+!ENTRY org.eclipse.egit.ui 2 0 2016-09-12 14:05:44.860
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\zhan'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY jp.gr.java_conf.ussiy.app.propedit 1 0 2016-09-12 14:05:45.247
+!MESSAGE properties loading for project 'RemoteSystemsTempFiles'
+!SESSION 2016-09-12 14:06:03.401 -----------------------------------------------
+eclipse.buildId=4.3.0.M20130911-1000
+java.version=1.7.0_45
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=zh_CN
+Framework arguments:  -product org.eclipse.epp.package.jee.product -product org.eclipse.epp.package.jee.product
+Command-line arguments:  -os win32 -ws win32 -arch x86 -product org.eclipse.epp.package.jee.product -data D:\branches\apolexy-workspace\apoplexy-service-parent -product org.eclipse.epp.package.jee.product
+
+!ENTRY org.springsource.sts 2 0 2016-09-12 14:06:04.383
+!MESSAGE [SCR] Found components with duplicated names! Details: 
+Component1 : Component[
+	name = org.springsource.sts.p2.policy
+	activate = activate
+	deactivate = deactivate
+	modified = 
+	configuration-policy = optional
+	factory = null
+	autoenable = true
+	immediate = false
+	implementation = com.springsource.sts.internal.policy.NoApplyPolicy
+	state = Unsatisfied
+	properties = {service.ranking=1000}
+	serviceFactory = false
+	serviceInterface = [org.eclipse.equinox.p2.ui.Policy]
+	references = null
+	located in bundle = org.springsource.sts_3.4.0.201310051614-RELEASE [998]
+]
+Component2: Component[
+	name = org.springsource.sts.p2.policy
+	activate = activate
+	deactivate = deactivate
+	modified = 
+	configuration-policy = optional
+	factory = null
+	autoenable = true
+	immediate = false
+	implementation = com.springsource.sts.internal.policy.NoApplyPolicy
+	state = Unsatisfied
+	properties = {service.ranking=1000}
+	serviceFactory = false
+	serviceInterface = [org.eclipse.equinox.p2.ui.Policy]
+	references = null
+	located in bundle = org.springsource.ggts_3.4.0.201310051614-RELEASE [984]
+]  
+
+!ENTRY org.eclipse.mylyn.tasks.ui 4 0 2016-09-12 14:06:10.494
+!MESSAGE Could not load repository template extension contributed by org.springsource.ide.eclipse.dashboard.ui with connectorKind jira
+
+!ENTRY org.eclipse.mylyn.tasks.ui 4 0 2016-09-12 14:06:10.497
+!MESSAGE Could not load repository template extension contributed by org.springsource.ide.eclipse.dashboard.ui with connectorKind jira
+
+!ENTRY org.eclipse.egit.ui 2 0 2016-09-12 14:06:11.207
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\zhan'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY jp.gr.java_conf.ussiy.app.propedit 1 0 2016-09-12 14:06:11.558
+!MESSAGE properties loading for project 'RemoteSystemsTempFiles'
+!SESSION 2016-09-12 14:07:47.914 -----------------------------------------------
+eclipse.buildId=4.3.0.M20130911-1000
+java.version=1.7.0_45
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=zh_CN
+Framework arguments:  -product org.eclipse.epp.package.jee.product
+Command-line arguments:  -os win32 -ws win32 -arch x86 -product org.eclipse.epp.package.jee.product
+
+!ENTRY org.springsource.sts 2 0 2016-09-12 14:07:48.907
+!MESSAGE [SCR] Found components with duplicated names! Details: 
+Component1 : Component[
+	name = org.springsource.sts.p2.policy
+	activate = activate
+	deactivate = deactivate
+	modified = 
+	configuration-policy = optional
+	factory = null
+	autoenable = true
+	immediate = false
+	implementation = com.springsource.sts.internal.policy.NoApplyPolicy
+	state = Unsatisfied
+	properties = {service.ranking=1000}
+	serviceFactory = false
+	serviceInterface = [org.eclipse.equinox.p2.ui.Policy]
+	references = null
+	located in bundle = org.springsource.sts_3.4.0.201310051614-RELEASE [998]
+]
+Component2: Component[
+	name = org.springsource.sts.p2.policy
+	activate = activate
+	deactivate = deactivate
+	modified = 
+	configuration-policy = optional
+	factory = null
+	autoenable = true
+	immediate = false
+	implementation = com.springsource.sts.internal.policy.NoApplyPolicy
+	state = Unsatisfied
+	properties = {service.ranking=1000}
+	serviceFactory = false
+	serviceInterface = [org.eclipse.equinox.p2.ui.Policy]
+	references = null
+	located in bundle = org.springsource.ggts_3.4.0.201310051614-RELEASE [984]
+]  
+
+!ENTRY org.eclipse.mylyn.tasks.ui 4 0 2016-09-12 14:07:55.012
+!MESSAGE Could not load repository template extension contributed by org.springsource.ide.eclipse.dashboard.ui with connectorKind jira
+
+!ENTRY org.eclipse.mylyn.tasks.ui 4 0 2016-09-12 14:07:55.014
+!MESSAGE Could not load repository template extension contributed by org.springsource.ide.eclipse.dashboard.ui with connectorKind jira
+
+!ENTRY org.eclipse.egit.ui 2 0 2016-09-12 14:07:55.629
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\zhan'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY jp.gr.java_conf.ussiy.app.propedit 1 0 2016-09-12 14:07:56.049
+!MESSAGE properties loading for project 'RemoteSystemsTempFiles'
+!SESSION 2016-09-12 14:08:04.756 -----------------------------------------------
+eclipse.buildId=4.3.0.M20130911-1000
+java.version=1.7.0_45
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=zh_CN
+Framework arguments:  -product org.eclipse.epp.package.jee.product -product org.eclipse.epp.package.jee.product
+Command-line arguments:  -os win32 -ws win32 -arch x86 -product org.eclipse.epp.package.jee.product -data D:\branches\apolexy-workspace\apoplexy-service-parent -product org.eclipse.epp.package.jee.product
+
+!ENTRY org.springsource.sts 2 0 2016-09-12 14:08:05.729
+!MESSAGE [SCR] Found components with duplicated names! Details: 
+Component1 : Component[
+	name = org.springsource.sts.p2.policy
+	activate = activate
+	deactivate = deactivate
+	modified = 
+	configuration-policy = optional
+	factory = null
+	autoenable = true
+	immediate = false
+	implementation = com.springsource.sts.internal.policy.NoApplyPolicy
+	state = Unsatisfied
+	properties = {service.ranking=1000}
+	serviceFactory = false
+	serviceInterface = [org.eclipse.equinox.p2.ui.Policy]
+	references = null
+	located in bundle = org.springsource.sts_3.4.0.201310051614-RELEASE [998]
+]
+Component2: Component[
+	name = org.springsource.sts.p2.policy
+	activate = activate
+	deactivate = deactivate
+	modified = 
+	configuration-policy = optional
+	factory = null
+	autoenable = true
+	immediate = false
+	implementation = com.springsource.sts.internal.policy.NoApplyPolicy
+	state = Unsatisfied
+	properties = {service.ranking=1000}
+	serviceFactory = false
+	serviceInterface = [org.eclipse.equinox.p2.ui.Policy]
+	references = null
+	located in bundle = org.springsource.ggts_3.4.0.201310051614-RELEASE [984]
+]  
+
+!ENTRY org.eclipse.mylyn.tasks.ui 4 0 2016-09-12 14:08:12.180
+!MESSAGE Could not load repository template extension contributed by org.springsource.ide.eclipse.dashboard.ui with connectorKind jira
+
+!ENTRY org.eclipse.mylyn.tasks.ui 4 0 2016-09-12 14:08:12.183
+!MESSAGE Could not load repository template extension contributed by org.springsource.ide.eclipse.dashboard.ui with connectorKind jira
+
+!ENTRY org.eclipse.egit.ui 2 0 2016-09-12 14:08:12.798
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\zhan'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY jp.gr.java_conf.ussiy.app.propedit 1 0 2016-09-12 14:08:13.197
+!MESSAGE properties loading for project 'RemoteSystemsTempFiles'
+!SESSION 2016-09-12 18:00:42.739 -----------------------------------------------
+eclipse.buildId=4.3.0.M20130911-1000
+java.version=1.7.0_45
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=zh_CN
+Framework arguments:  -product org.eclipse.epp.package.jee.product -product org.eclipse.epp.package.jee.product -product org.eclipse.epp.package.jee.product -product org.eclipse.epp.package.jee.product
+Command-line arguments:  -os win32 -ws win32 -arch x86 -product org.eclipse.epp.package.jee.product -product org.eclipse.epp.package.jee.product -product org.eclipse.epp.package.jee.product -data D:\branches\apolexy-workspace\apoplexy-service-parent -product org.eclipse.epp.package.jee.product
+
+!ENTRY org.springsource.sts 2 0 2016-09-12 18:00:43.701
+!MESSAGE [SCR] Found components with duplicated names! Details: 
+Component1 : Component[
+	name = org.springsource.sts.p2.policy
+	activate = activate
+	deactivate = deactivate
+	modified = 
+	configuration-policy = optional
+	factory = null
+	autoenable = true
+	immediate = false
+	implementation = com.springsource.sts.internal.policy.NoApplyPolicy
+	state = Unsatisfied
+	properties = {service.ranking=1000}
+	serviceFactory = false
+	serviceInterface = [org.eclipse.equinox.p2.ui.Policy]
+	references = null
+	located in bundle = org.springsource.sts_3.4.0.201310051614-RELEASE [998]
+]
+Component2: Component[
+	name = org.springsource.sts.p2.policy
+	activate = activate
+	deactivate = deactivate
+	modified = 
+	configuration-policy = optional
+	factory = null
+	autoenable = true
+	immediate = false
+	implementation = com.springsource.sts.internal.policy.NoApplyPolicy
+	state = Unsatisfied
+	properties = {service.ranking=1000}
+	serviceFactory = false
+	serviceInterface = [org.eclipse.equinox.p2.ui.Policy]
+	references = null
+	located in bundle = org.springsource.ggts_3.4.0.201310051614-RELEASE [984]
+]  
+
+!ENTRY org.eclipse.mylyn.tasks.ui 4 0 2016-09-12 18:00:47.578
+!MESSAGE Could not load repository template extension contributed by org.springsource.ide.eclipse.dashboard.ui with connectorKind jira
+
+!ENTRY org.eclipse.mylyn.tasks.ui 4 0 2016-09-12 18:00:47.580
+!MESSAGE Could not load repository template extension contributed by org.springsource.ide.eclipse.dashboard.ui with connectorKind jira
+
+!ENTRY org.eclipse.egit.ui 2 0 2016-09-12 18:00:51.117
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\zhan'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY jp.gr.java_conf.ussiy.app.propedit 1 0 2016-09-12 18:00:51.541
+!MESSAGE properties loading for project 'RemoteSystemsTempFiles'
+!SESSION 2016-09-12 18:01:19.608 -----------------------------------------------
+eclipse.buildId=4.3.0.M20130911-1000
+java.version=1.7.0_45
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=zh_CN
+Framework arguments:  -product org.eclipse.epp.package.jee.product -product org.eclipse.epp.package.jee.product -product org.eclipse.epp.package.jee.product -product org.eclipse.epp.package.jee.product -product org.eclipse.epp.package.jee.product
+Command-line arguments:  -os win32 -ws win32 -arch x86 -product org.eclipse.epp.package.jee.product -product org.eclipse.epp.package.jee.product -product org.eclipse.epp.package.jee.product -product org.eclipse.epp.package.jee.product -data D:\branches\apolexy-workspace\apoplexy-service-parent -product org.eclipse.epp.package.jee.product
+
+!ENTRY org.springsource.sts 2 0 2016-09-12 18:01:20.561
+!MESSAGE [SCR] Found components with duplicated names! Details: 
+Component1 : Component[
+	name = org.springsource.sts.p2.policy
+	activate = activate
+	deactivate = deactivate
+	modified = 
+	configuration-policy = optional
+	factory = null
+	autoenable = true
+	immediate = false
+	implementation = com.springsource.sts.internal.policy.NoApplyPolicy
+	state = Unsatisfied
+	properties = {service.ranking=1000}
+	serviceFactory = false
+	serviceInterface = [org.eclipse.equinox.p2.ui.Policy]
+	references = null
+	located in bundle = org.springsource.sts_3.4.0.201310051614-RELEASE [998]
+]
+Component2: Component[
+	name = org.springsource.sts.p2.policy
+	activate = activate
+	deactivate = deactivate
+	modified = 
+	configuration-policy = optional
+	factory = null
+	autoenable = true
+	immediate = false
+	implementation = com.springsource.sts.internal.policy.NoApplyPolicy
+	state = Unsatisfied
+	properties = {service.ranking=1000}
+	serviceFactory = false
+	serviceInterface = [org.eclipse.equinox.p2.ui.Policy]
+	references = null
+	located in bundle = org.springsource.ggts_3.4.0.201310051614-RELEASE [984]
+]  
+
+!ENTRY org.eclipse.mylyn.tasks.ui 4 0 2016-09-12 18:01:26.848
+!MESSAGE Could not load repository template extension contributed by org.springsource.ide.eclipse.dashboard.ui with connectorKind jira
+
+!ENTRY org.eclipse.mylyn.tasks.ui 4 0 2016-09-12 18:01:26.850
+!MESSAGE Could not load repository template extension contributed by org.springsource.ide.eclipse.dashboard.ui with connectorKind jira
+
+!ENTRY org.eclipse.egit.ui 2 0 2016-09-12 18:01:27.477
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\zhan'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY jp.gr.java_conf.ussiy.app.propedit 1 0 2016-09-12 18:01:27.876
+!MESSAGE properties loading for project 'RemoteSystemsTempFiles'

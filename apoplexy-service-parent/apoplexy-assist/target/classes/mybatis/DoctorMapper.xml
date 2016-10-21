@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="DoctorMapper">
+
+
+	<select id="queryCasesDiscussListCount" parameterType="com.yh.apoplexy.assist.dto.admin.doctor.cases.discuss.AdminQueryDiscussCaseDto"
+		resultType="long">
+
+        select
+			count(*)
+		from 
+		(
+		  select 
+		    *
+		  from
+		  t_doctor_member doctor
+		  <where>
+			  <if test="doctorName != null">
+				and doctor_name=#{doctorName}
+			  </if>
+			  <if test="hospitalName != null">
+				and hospital=#{hospitalName}
+			  </if>
+		   </where>
+		)doctor
+		join
+		(
+		   select 
+		     *
+		   from
+		   t_doctor_case_discuss discuss
+		    <where>
+			  <if test="startTime !=null">
+				and DATE(create_time) &gt;= DATE(#{startTime})
+			  </if>
+			  <if test="endTime !=null">
+				and DATE(create_time) &lt;= DATE(#{endTime})
+			  </if>
+                <if test="null != caseStatus">
+                    and status = #{caseStatus}
+                </if>
+		   </where>
+		)discuss
+	    on 
+	    doctor.id = discuss.user_id
+	</select>
+
+	<select id="queryCasesDiscussList" parameterType="com.yh.apoplexy.assist.dto.admin.doctor.cases.discuss.AdminQueryDiscussCaseDto"
+		resultType="com.yh.apoplexy.assist.dto.admin.doctor.cases.discuss.CasesDiscussDto">
+		select
+		  discuss.id as id,
+		  doctor.doctor_name as doctorName,
+		  doctor.hospital as hospital,
+		  discuss.create_time as createTime,
+		  discuss.type as type,
+		  discuss.main_desc as mainDesc,
+		  discuss.read_count as readCount,
+		  discuss.like_count as likeCount,
+		  discuss.comment_count as replyCount,
+		  discuss.collection_count as collectionCount
+		from
+        (
+        select
+        *
+        from
+        t_doctor_member doctor
+        <where>
+            <if test="doctorName != null">
+                and doctor_name=#{doctorName}
+            </if>
+            <if test="hospitalName != null">
+                and hospital=#{hospitalName}
+            </if>
+        </where>
+        )doctor
+        join
+        (
+        select
+        *
+        from
+        t_doctor_case_discuss discuss
+        <where>
+            <if test="startTime !=null">
+                and DATE(create_time) &gt;= DATE(#{startTime})
+            </if>
+            <if test="endTime !=null">
+                and DATE(create_time) &lt;= DATE(#{endTime})
+            </if>
+            <if test="null != caseStatus">
+                and status = #{caseStatus}
+            </if>
+        </where>
+        )discuss
+        on
+        doctor.id = discuss.user_id
+		order by discuss.id desc
+	</select>
+	
+	<select id="queryCasesDiscussReplyListCount" parameterType="java.util.HashMap"
+		resultType="long">
+		select			
+			count(*)
+		from
+		  t_doctor_member doctor
+		join
+		(
+		   select 
+		    *
+		   from 
+		   t_doctor_case_comment comment
+		   where
+		   comment.record_id = #{recordId}
+		)comment
+	    on 
+	    doctor.id = comment.from_user_id
+	    join
+	    t_doctor_member doct
+	    on 
+	    doct.id = comment.to_user_id
+	     
+	</select>
+	 
+	 <select id="queryCasesDiscussReplyList" parameterType="java.util.HashMap"
+		resultType="com.yh.apoplexy.assist.dto.admin.doctor.cases.discuss.CasesDiscussReplyDto">
+		select
+		  comment.id as id,
+		  doctor.doctor_name as replyNameFrom,
+		  doctor.hospital as hospitalNameFrom,
+		  doct.doctor_name as replyNameTo,
+		  doct.hospital as hospitalNameTo,
+		  comment.content as content,
+		  comment.create_time as createTime
+		from
+		  t_doctor_member doctor
+		join
+		(
+		   select 
+		    *
+		   from 
+		   t_doctor_case_comment comment
+		   where
+		   comment.record_id = #{recordId}
+		)comment
+	    on 
+	    doctor.id = comment.from_user_id
+	    join
+	    t_doctor_member doct
+	    on 
+	    doct.id = comment.to_user_id
+	</select>
+	
+	 <select id="queryCasesReferralListCount" parameterType="com.yh.apoplexy.assist.dto.admin.doctor.cases.referral.AdminQueryReferralCaseDto"
+		resultType="long">
+		select
+		   count(*)
+		from
+		(
+		  select 
+		    *
+		  from
+		  t_doctor_member doctor
+		  <where>
+			  <if test="doctorName != null">
+				and doctor_name=#{doctorName}
+			  </if>
+			  <if test="hospitalName != null">
+				and hospital=#{hospitalName}
+			  </if>
+		   </where>
+		)doctor
+		join
+		(
+		  select 
+		    *
+		  from
+		  t_doctor_referral referral
+		  <where>
+              referral.status in
+              <foreach item="item" index="index" collection="caseStatus" open="(" separator="," close=")">#{item}</foreach>
+              <if test="startTime != null">
+				and DATE(create_time) &gt;= DATE(#{startTime})
+			  </if>
+			  <if test="endTime != null">
+				and DATE(create_time) &lt;= DATE(#{endTime})
+			  </if>
+		  </where>
+		)referral
+		on 
+		doctor.id = referral.user_id  
+	</select>
+	
+	<select id="queryCasesReferralList" parameterType="com.yh.apoplexy.assist.dto.admin.doctor.cases.referral.AdminQueryReferralCaseDto"
+		resultType="com.yh.apoplexy.assist.dto.admin.doctor.CasesReferralDto">
+		select
+		  referral.id as id,
+		  doctor.doctor_name as doctorName,
+		  doctor.hospital as hospital,
+		  referral.create_time as createTime,
+		  referral.type as type,
+		  referral.title as title,
+		  referral.main_desc as mainDesc,
+		  referral.status as status,
+		  referral.read_count as readCount,
+		  referral.receive_count as receiveCount
+		from
+		(
+		  select 
+		    *
+		  from
+		  t_doctor_member doctor
+		  <where>
+			  <if test="doctorName != null">
+				and doctor_name=#{doctorName}
+			  </if>
+			  <if test="hospitalName != null">
+				and hospital=#{hospitalName}
+			  </if>
+		   </where>
+		)doctor
+		join
+		(
+		  select 
+		    *
+		  from
+		  t_doctor_referral referral
+        <where>
+            referral.status in
+            <foreach item="item" index="index" collection="caseStatus" open="(" separator="," close=")">#{item}</foreach>
+            <if test="startTime != null">
+                and DATE(create_time) &gt;= DATE(#{startTime})
+            </if>
+            <if test="endTime != null">
+                and DATE(create_time) &lt;= DATE(#{endTime})
+            </if>
+        </where>
+		)referral
+		on doctor.id = referral.user_id
+	    order by referral.id desc
+	</select>
+
+	<select id="queryCasesReferralDetail" parameterType="java.util.HashMap"
+		resultType="com.yh.apoplexy.assist.dto.admin.doctor.cases.referral.CasesReferralDetailDto">
+		select			
+		   doctor.avatar as image,
+		   doctor.doctor_name as doctorName,
+		   doctor.hospital as hospital,
+		   referral.create_time as createTime,
+		   referral.main_desc as mainDesc,
+		   referral.title as title,
+		   referral.now_illness as nowIllness,
+		   referral.his_illness as hisIllness,
+		   referral.health_check as healthCheck,
+		   referral.assist_check as assistCheck,
+		   res.resource_id as casesPicture,
+		   referral.read_count as readCount,
+		   referral.receive_count as receiveCount
+		   
+		from 
+		   (
+		   
+		     select 
+		       *
+		     from 
+		     t_doctor_member doctor
+		   )doctor
+		   
+		   join
+		   (
+		     select 
+		      *
+		     from 
+		       t_doctor_referral as referral
+		     where 
+		       id = #{referralId}
+		   )referral
+		   on 
+		   doctor.id = referral.user_id
+		   join
+		     t_doctor_referral_resources res
+		   on 
+		   res.record_id = referral.id 
+		   
+	</select>
+	
+	<select id="queryReceiveDoctorListCount" parameterType="java.util.HashMap"
+		resultType="long">
+		select
+		 count(*)
+		from
+		  t_doctor_member member
+		join
+		(
+		  select 
+		    *
+		  from
+		  
+		  t_doctor_referral_recv recv
+		  where
+		  recv.record_id = #{recordId} and recv.status = #{doctorStatus}
+		)recv
+		on 
+		member.id = recv.user_id
+		 
+	</select>
+	
+	<select id="queryReceiveDoctorList" parameterType="java.util.HashMap"
+		resultType="com.yh.apoplexy.assist.dto.admin.doctor.CasesReferralRecvDto">
+		select
+		  recv.id as id,
+		  member.doctor_name as doctorName,
+		  member.hospital as hospitalName,
+		  recv.create_time as createTime
+		  
+		from
+		  t_doctor_member member
+		join
+		(
+		  select 
+		    *
+		  from
+		  
+		  t_doctor_referral_recv recv
+		  where
+		  recv.record_id = #{recordId} and recv.status = #{doctorStatus}
+		)recv
+		on 
+		member.id = recv.user_id
+	     
+	</select>
+	
+	<select id="queryReferralComment" parameterType="java.util.HashMap"
+		resultType="com.yh.apoplexy.assist.dto.admin.doctor.EvalueDto">
+		select
+		  
+		  doctor.doctor_name as doctorName,
+		  comment.create_time as createTime,
+		  comment.case_integrity as caseIntegrity,
+		  comment.case_detail as caseDetail
+		from
+		  t_doctor_member doctor
+		join
+		(
+		  select 
+		    *
+		  from
+		  
+		  t_doctor_referral_comment comment
+		  where
+		   record_id = #{recordId}
+		)comment
+		on
+	    doctor.id = comment.user_id
+	     
+	</select>
+	
+	
+	
+	<select id="queryAstCasesListCount" parameterType="com.yh.apoplexy.assist.dto.admin.doctor.cases.discuss.AdminQueryDiscussCaseDto"
+		resultType="long">
+		select
+		 count(*)
+		from
+		(
+		  select 
+		    *
+		  from
+		  t_doctor_member doctor
+		  <where>
+			  <if test="doctorName != null">
+				and doctor_name=#{doctorName}
+			  </if>
+			  <if test="hospitalName != null">
+				and hospital=#{hospitalName}
+			  </if>
+		   </where>
+		)doctor
+		join
+		(
+		  select 
+		    *
+		  from
+		  t_doctor_ast_info ast
+		  <where>
+			  <if test="startTime != null">
+				and DATE(create_time) &gt;= DATE(#{startTime})
+			  </if>
+			  <if test="endTime != null">
+				and DATE(create_time) &lt;= DATE(#{endTime})
+			  </if>
+              <if test="null != caseStatus">
+                  and status = #{caseStatus}
+              </if>
+		  </where>
+		)ast
+		on 
+		doctor.id = ast.user_id
+	</select>
+	
+	<select id="queryAstCasesList" parameterType="com.yh.apoplexy.assist.dto.admin.doctor.cases.discuss.AdminQueryDiscussCaseDto"
+		resultType="com.yh.apoplexy.assist.dto.doctor.cases.discuss.AstCasesDto">
+		select
+		   ast.id as id,
+		   doctor.doctor_name as doctorName,
+		   doctor.hospital as hospital,
+		   ast.create_time as createTime,
+		   ast.read_count as readCount,
+		   ast.like_count as likeCount,
+		   ast.comment_count as commentCount,
+		   ast.collection_count as collectionCount
+		from
+        (
+        select
+        *
+        from
+        t_doctor_member doctor
+        <where>
+            <if test="doctorName != null">
+                and doctor_name=#{doctorName}
+            </if>
+            <if test="hospitalName != null">
+                and hospital=#{hospitalName}
+            </if>
+        </where>
+        )doctor
+        join
+        (
+        select
+        *
+        from
+        t_doctor_ast_info ast
+        <where>
+            <if test="startTime != null">
+                and DATE(create_time) &gt;= DATE(#{startTime})
+            </if>
+            <if test="endTime != null">
+                and DATE(create_time) &lt;= DATE(#{endTime})
+            </if>
+            <if test="null != caseStatus">
+                and status = #{caseStatus}
+            </if>
+        </where>
+        )ast
+        on
+        doctor.id = ast.user_id
+	    order by ast.id desc
+	</select>
+	<select id="queryAstCasesReplyListCount" parameterType="java.util.HashMap"
+		resultType="long">
+		select
+		 count(*)
+	    from
+		  t_doctor_member doctor
+		join
+		(
+		  select 
+		    *
+		  from
+		  
+		   t_doctor_ast_comment comment
+		  where
+		   record_id = #{recordId}
+		)comment
+		on
+	    doctor.id = comment.from_user_id
+	    join
+	      t_doctor_member doctorr
+	    on
+	    doctorr.id  = comment.to_user_id
+		 
+	</select>
+	
+	<select id="queryAstCasesReplyList" parameterType="java.util.HashMap"
+		resultType="com.yh.apoplexy.assist.dto.admin.doctor.cases.ast.AstCasesReplyDto">
+		select
+		  comment.id as id,
+		  doctor.doctor_name as doctorName,
+		  doctor.hospital as hospital,
+		  doctorr.doctor_name as toDoctorName,
+		  doctorr.hospital as toHospital,
+		  comment.create_time as createTime,
+		  comment.content as comment
+		 
+		from
+		  t_doctor_member doctor
+		join
+		(
+		  select 
+		    *
+		  from
+		  
+		   t_doctor_ast_comment comment
+		  where
+		   record_id = #{recordId}
+		)comment
+		on
+	    doctor.id = comment.from_user_id
+	    join
+	      t_doctor_member doctorr
+	    on
+	    doctorr.id  = comment.to_user_id
+	</select> 
+	
+</mapper>

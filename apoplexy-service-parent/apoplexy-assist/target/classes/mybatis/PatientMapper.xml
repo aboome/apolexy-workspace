@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="PatientMapper">
+
+	<select id="queryHRDetail" parameterType="java.util.HashMap"
+		resultType="com.yh.apoplexy.assist.dto.admin.patient.PatientHRDto">
+		select
+		  detail.id as id,
+		  detail.record_id as recordId,
+		  detail.type as type,
+		  detail.result as result,
+		  detail.create_time as createTime,
+		  rule.question_content as question,
+		  rule.yes_result as yesResult,
+		  rule.no_result as noResult,
+		  rule.status as status
+		from
+		(
+			select
+			*
+			from
+			t_patient_screen_detail detail
+			where
+			 record_id = #{recordId}
+						
+		)detail
+		join
+		(
+		select
+		 *
+		from
+		  t_patient_screen_rule rule
+		)rule
+		on
+		detail.index = rule.index		
+	</select>
+	
+	<select id="queryHRListCount" parameterType="com.yh.apoplexy.assist.dto.admin.patient.health.PatientHRInputDto"
+		resultType="long">
+		select			
+			count(*)
+		 from
+		   (
+		   select
+		    *
+		   from
+		    t_patient_screen_info  screen
+            <where>
+                <if test="patientName!= null">
+                    and user_name=#{patientName}
+                </if>
+                <if test="startTime!=null">
+                    and DATE(create_time) &gt;= DATE(#{startTime})
+                </if>
+                <if test="endTime!=null">
+                    and DATE(create_time) &lt;= DATE(#{endTime})
+                </if>
+            </where>
+		  )screen
+		    join 
+		   (
+		      select
+		        *
+		      from
+		        t_patient_member member
+		   )member	
+		   on
+		   screen.user_id = member.id
+            <if test="areaName!= null">
+                join
+            </if>
+            <if test="areaName == null">
+                left join
+            </if>
+                (
+                select
+                *
+                from
+                t_area_info area
+                <where>
+                    <if test="areaName!= null">
+                        area_name = #{areaName}
+                    </if>
+                </where>
+                )area
+                on
+                area.area_code = member.area_code
+        
+	</select>
+
+	<select id="queryHRList" parameterType="com.yh.apoplexy.assist.dto.admin.patient.health.PatientHRInputDto"
+		resultType="com.yh.apoplexy.assist.dto.admin.patient.health.PatientScreenDto">
+		select
+            screen.id as id,
+            screen.user_Id as userId,
+            screen.user_name as userName,
+            screen.age as age,
+            screen.sex as sex,
+            screen.create_time as createTime,
+            screen.incidence as incidence,
+            area.area_name as area
+		from
+		   (
+		   select
+		    *
+		   from
+		    t_patient_screen_info  screen
+            <where>
+                <if test="patientName!= null">
+                    and user_name=#{patientName}
+                </if>
+                <if test="startTime!=null">
+                    and DATE(create_time) &gt;= DATE(#{startTime})
+                </if>
+                <if test="endTime!=null">
+                    and DATE(create_time) &lt;= DATE(#{endTime})
+                </if>
+            </where>
+		  )screen
+		    join 
+		   (
+		      select
+		        *
+		      from
+		        t_patient_member member
+		   )member	
+		   on
+		   screen.user_id = member.id
+            <if test="areaName!= null">
+                join
+            </if>
+            <if test="areaName == null">
+                left join
+            </if>
+                (
+                select
+                *
+                from
+                t_area_info area
+                <where>
+                    <if test="areaName!= null">
+                        area_name = #{areaName}
+                    </if>
+                </where>
+                )area
+                on
+                area.area_code = member.area_code
+		  order by screen.id desc
+	</select>
+	
+	<select id="queryHealthDataListCount" parameterType="com.yh.apoplexy.assist.dto.admin.patient.healthdata.PatientHealthDataInputDto"
+		resultType="long">
+		select			
+			count(*)
+		from 
+		  (
+		   select
+		    *
+		   from
+		    t_patient_health_info health   
+		    <where>
+			  <if test="patientName!=null">
+				and user_name=#{patientName}
+			  </if>
+			  <if test="startTime!=null">
+				and DATE(create_time) &gt;= DATE(#{startTime})
+			  </if>
+			  <if test="endTime!=null">
+				and DATE(create_time) &lt;= DATE(#{endTime})
+			  </if>
+		    </where>
+		   )health
+		    join 
+		   (
+		      select
+		        *
+		      from
+		      t_patient_member member
+		   )member	
+		   on
+		   health.user_id = member.id	  
+		   left join
+		   (
+		     select 
+		       *
+		     from
+		     t_area_info area 
+		      <where>
+		      	<if test="areaName!=null">
+		      	    area_name = #{areaName}
+		      	</if>
+		      </where>
+		   )area
+		   on
+		   area.area_code = member.area_code
+		 
+	</select>
+	
+	<select id="queryHealthDataList" parameterType="com.yh.apoplexy.assist.dto.admin.patient.healthdata.PatientHealthDataInputDto"
+		resultType="com.yh.apoplexy.assist.dto.patient.health.HealthDataDto">
+		select		
+		     health.id as id,	
+			 health.user_name as userName,
+			 member.sex as sex,
+			 health.create_time as createTime,
+			 health.high_pressure as highPressure,
+			 health.low_pressure as lowPressure,
+			 health.blood_sugar as bloodSugar,
+			 health.blood_fat as bloodFat,
+             area.area_name as area
+		from 
+		    (
+		    select
+		     *
+		    from
+		    t_patient_health_info health   
+		    <where>
+			  <if test="patientName != null">
+				and user_name=#{patientName}
+			  </if>
+			  <if test="startTime !=null">
+				and DATE(create_time) &gt;= DATE(#{startTime})
+			  </if>
+			  <if test="endTime !=null">
+				and DATE(create_time) &lt;= DATE(#{endTime})
+			  </if>
+		    </where>
+		   )health
+		   join 
+		   (
+		      select
+		        *
+		      from
+		      t_patient_member member
+		   )member	
+		   on
+		   health.user_id = member.id
+           left join
+		   (
+		     select 
+		       *
+		     from
+		     t_area_info area 
+		      <where>
+		      	<if test="areaName != null">
+		      	   area_name = #{areaName}
+		      	</if>
+		      </where>
+		   )area
+		   on
+		   area.area_code = member.area_code
+		   order by health.id desc
+	</select>
+	
+	
+	<select id="queryHealthDataDetail" parameterType="java.util.HashMap"
+		resultType="com.yh.apoplexy.assist.dto.patient.health.HealthDataDto">
+		select		
+		     health.id as id,	
+			 health.user_name as userName,
+			 member.sex as sex,
+			 health.create_time as createTime,
+			 health.high_pressure as highPressure,
+			 health.low_pressure as lowPressure,
+			 health.blood_sugar as bloodSugar,
+			 health.blood_fat as bloodFat 
+		from 
+		    (
+		    select
+		     *
+		    from
+		    t_patient_health_info health
+		    where
+		      id = #{id}
+		    )health
+		   join 
+		   (
+		      select
+		        *
+		      from
+		      t_patient_member member
+		   )member	
+		   on
+		   health.user_id = member.id	  
+	</select> 
+	 
+	<select id="queryZFEmergencyListCount" parameterType="com.yh.apoplexy.assist.dto.admin.patient.emergency.PatientEmergencyInputDto"
+		resultType="long">
+		select			
+			count(*)
+		from 
+	        (
+	        select
+	          *
+	        from
+		    t_patient_emergency_info  emergency
+		    <where>
+			  <if test="patientName != null">
+				and user_name=#{patientName}
+			  </if>
+			  <if test="startTime !=null">
+				and DATE(create_time) &gt;= DATE(#{startTime})
+			  </if>
+			  <if test="endTime !=null">
+				and DATE(create_time) &lt;= DATE(#{endTime})
+			  </if>
+		    </where> 
+		   )emergency
+		    join 
+		   (
+		      select
+		        *
+		      from
+		      t_patient_member member
+		   )member	
+		   on
+		   emergency.user_id = member.id	  
+		   <if test="areaName!= null">
+                join
+            </if>
+            <if test="areaName == null">
+                left join
+            </if>
+		   (
+		     select 
+		       *
+		     from
+		     t_area_info area 
+		      <where>
+		      	<if test="areaName != null">
+		      	   area_name = #{areaName}
+		      	</if>
+		      </where>
+		   )area
+		   on
+		   area.area_code = member.area_code
+	</select>
+	
+	 <select id="queryZFEmergencyList" parameterType="com.yh.apoplexy.assist.dto.admin.patient.emergency.PatientEmergencyInputDto"
+		resultType="com.yh.apoplexy.assist.dto.admin.patient.emergency.PatientEmergencyDto">
+		select		
+		     emergency.id as id,	
+			 emergency.user_name as userName,
+			 emergency.age as age,
+			 emergency.sex as sex,
+			 emergency.create_time as createTime,
+             area.area_name as area,
+             emergency.onset_time as onsetTime
+		from 
+		   (
+		    select
+		      *
+		    from
+		    t_patient_emergency_info  emergency  
+		    <where>
+			  <if test="patientName != null">
+				and user_name=#{patientName}
+			  </if>
+			  <if test="startTime !=null">
+				and DATE(create_time) &gt;= DATE(#{startTime})
+			  </if>
+			  <if test="endTime !=null">
+				and DATE(create_time) &lt;= DATE(#{endTime})
+			  </if>
+		    </where> 
+		   )emergency
+		    join 
+		   (
+		      select
+		        *
+		      from
+		      t_patient_member member
+		   )member	
+		   on
+		   emergency.user_id = member.id	
+		   <if test="areaName!= null">
+                join
+            </if>
+            <if test="areaName == null">
+                left join
+            </if> 
+		   (
+		     select 
+		       *
+		     from
+		     t_area_info area 
+		      <where>
+		      	<if test="areaName != null">
+		      	   area_name = #{areaName}
+		      	</if>
+		      </where>
+		   )area
+		   on
+		   area.area_code = member.area_code
+		   order by emergency.id desc
+	</select>
+ 
+</mapper>

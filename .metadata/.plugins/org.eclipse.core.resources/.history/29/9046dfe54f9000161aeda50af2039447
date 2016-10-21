@@ -1,0 +1,313 @@
+html,body,div,p,button,a,td{
+    font-family: "Microsoft YaHei";
+}
+h1,h2,h3,h4,h5,h6{
+    margin: 0 !important;
+}
+/*清除浮动*/
+.clearfix:after{content:"";display:block;clear:both;}
+.clearfix{zoom:1;}
+
+.none{display:none;}
+
+
+/* ע��Э��  */
+.regProtocolCon .nav-tabs{
+	background-color:#fff !important;
+	margin: 0 -20px !important;
+	padding: 0 22px !important;
+	border-bottom: 2px solid #ddd !important;
+}
+.regProtocolCon .nav-tabs>li>a{
+	border-left: 0 !important;
+	border-right: 0 !important;
+}
+.regProtocolCon .nav-tabs>li.active>a{
+	background-color: #fff !important;
+	border-bottom: 2px solid #32323A !important;
+	color: #666 !important;
+}
+
+.regprotocol{
+	border: 1px solid #ddd;
+	font-size: 16px !important;
+}
+
+.regprotocol .regprotocol-title{
+	background: #EAF8FF;
+	position: relative;
+	font-size: 18px;
+	height: 50px;
+	line-height: 50px;
+	padding: 0 20px;
+}
+.regprotocol .regprotocol-title .time{
+	display: inline-block;
+	
+}
+.regprotocol .regprotocol-title .edit{
+	position: absolute;
+	top: 0;
+	right: 20px;
+	text-decoration: none;
+	color: #6D6E6E;
+	cursor: pointer;
+}
+.regprotocol .regprotocol-title .edit i{
+	margin-right: 5px;
+}
+
+.regprotocol .regprotocol-content{
+	padding: 20px 20px 30px 20px;
+	
+	position: relative;
+}
+#doctor-regprotocol-content{
+	
+}
+.regprotocol .regprotocol-content .regprotocol-content-p{
+	width: 100%;
+	height: 100%;
+	overflow: hidden; 
+	text-overflow: ellipsis;
+}
+.regprotocol .regprotocol-content .open-div{
+	text-decoration: none;
+	color: #1FB5AD;
+	position: absolute;
+	bottom: 6px;
+	right: 20px;
+}
+.regprotocol-patient{
+	margin-top: 20px;
+}
+
+/* 分页 */
+.w-73{
+	font-size: 14px;
+	color: #6D6D6D;
+	font-weight: normal;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.pageSizeList{
+	height: 30px !important;
+	color: #555;
+	vertical-align: middle;
+	border: 1px solid #ccc;
+	font-size: 12px;
+	margin-top: 0;
+	padding-left: 5px;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+	box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+	transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+.page-span{
+	display: block;
+	height: 30px;
+	line-height: 30px;
+}
+.page-span a{
+	text-decoration: none !important;
+	color: #6D6D6D;
+	font-size: 14px;
+	cursor: pointer;
+	margin: 2px;
+}
+.page-span a.active{
+	color: #1FB5AD;
+	font-weight: bold;
+}
+.page-span a:hover{
+	color: #1FB5AD;
+}
+
+.layui-layer-btn a{
+	height: 36px !important;
+	line-height: 36px !important;
+	font-size: 16px;
+	padding: 0 32px !important;
+}
+.layui-layer-btn{
+	text-align: center !important;
+}
+
+.doctorEvaluate-div{
+	width: 90%;
+	margin: 30px auto;
+}
+.doctorEvaluate-div .col-xs-5{
+	text-align: right;
+}
+.doctorEvaluate-div p{
+	height: 34px;
+	line-height: 34px;
+	font-size: 16px;
+}
+
+.my-table-layer{
+	margin-top: 20px;
+}
+.my-table-layer>thead>tr>th{
+	padding: 8px 20px !important;
+	text-align: center;
+}
+.my-table-layer>tbody>tr>td{
+	text-align: center;
+}
+
+.zf-top-wrap{
+	padding-top: 20px;
+}
+.zf-top{
+	padding-top: 10px;
+}
+.media{
+	width: 90%;
+	margin: 0 auto;
+}
+.inline{
+	display: inline-block;
+}
+.createTime{
+	color: #7C7C7C;
+}
+.avatar{
+	width: 80px;
+	height: 80px;
+	overflow: hidden;
+	border-radius: 50%;
+}
+.avatar img{
+	width: 100%;
+	height: 100%;
+}
+
+.doctorName{
+	font-size: 24px;
+}
+.hospitalName{
+	font-size: 16px;
+}
+.imageList{
+	width: 30%;
+	height: 120px;
+	margin: 0 5px;
+	display: inline-block;
+}
+.imageList img{
+	width: 100%;
+	height: 100%;
+}
+.discussTitle{
+	font-size: 16px;
+}
+.zf-top h6{
+	font-size: 16px;
+	font-family: "Microsoft YaHei";
+}
+.font-size-16{
+	font-size: 16px;
+}
+.font-size-14{
+	font-size: 14px;
+	color: #838383;
+	padding-top: 10px;
+}
+
+.hospital-modify{
+    color: #1FB5AD;
+    padding-right: 5px;
+}
+.hospital-modify:hover, .hospital-modify:link, .hospital-modify:visited{
+    color: #1FB5AD;
+    padding-right: 5px;
+}
+.hospital-delete{
+    color: #EA7575;
+    padding-left: 5px;
+}
+.hospital-delete:hover, .hospital-delete:link, .hospital-delete:visited{
+    color: #EA7575;
+    padding-left: 5px;
+}
+
+.detail-layer-bg{
+	background-color: #F7F7F7;
+	padding: 10px;
+}
+.padding-right{
+	padding-right: 30px;
+	padding-bottom: 10px;
+}
+ .bottom-line{
+ 	border-bottom: 1px solid #F7F7F7;
+ }
+ .margin-right{
+ 	margin-right: 5px;
+ }
+ .padding-zf{
+ 	padding: 0 30px;
+ }
+ 
+ .zf-charts{
+ 	min-width: 495px;
+ 	height: 600px;
+ 	border: 1px solid #ddd;
+ 	padding-top: 25px;
+ }
+ .zf-charts-zt{
+ 	min-width: 740px;
+ 	height: 600px;
+ 	border: 1px solid #ddd;
+ 	padding-top: 60px;
+ }
+ .a-inline-block{
+ 	display: inline-block;
+ }
+ 
+ .import{
+ 	padding: 10px 20px;
+ 	font-size: 14px;
+ }
+ 
+ .table-caption{
+ 	font-family: "Microsoft YaHei";
+ 	font-size: 16px;
+ 	font-weight: bold;
+ 	padding: 10px;
+ 	color: #666666;
+ 	border-top: 1px solid #DDDDDD;
+ 	border-left: 1px solid #DDDDDD;
+ 	border-right: 1px solid #DDDDDD;
+ }
+ 
+ .error{
+ 	color: #f00;
+ 	padding-top: 5px;
+ 	font-weight: 100;
+ }
+ 
+ .zTreeDemoBackground {width:350px;height:362px;text-align:left;margin-left: 30px;}
+ .ztree {margin-top: 10px;width:330px;height:360px;overflow-y:scroll;overflow-x:auto;}
+ 
+ #addLayer .col-xs-3{
+ 	padding-left: 0;
+ 	padding-right: 0;
+ }
+ #addLayer label{
+ 	height: 34px;
+ 	line-height: 34px;
+ }
+ #addLayer .form-group .col-xs-3{
+ 	text-align: right;
+ }
+ .h5Info{
+ 	font-weight: bold !important;
+ 	font-family: 'Microsoft YaHei';
+ 	padding: 10px;
+ }
+ .plainInfo{
+ 	width: 800px;
+ }

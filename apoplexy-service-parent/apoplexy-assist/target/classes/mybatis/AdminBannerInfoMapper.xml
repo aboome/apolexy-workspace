@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="AdminBannerInfoMapper">
+
+	<select id="queryBannerList" parameterType="com.yh.apoplexy.assist.dmo.common.BannerInfoDmo"
+		resultType="com.yh.apoplexy.assist.dmo.common.BannerInfoDmo">
+		select
+            banner.id as id,
+            banner.title as title,
+            banner.image_id as imageId,
+            banner.owner as owner,
+            banner.url as url,
+            banner.sort as sort
+		from
+		    t_banner_info banner
+		<where>
+			<if test="owner!=null">
+			and owner=#{owner}
+			</if>
+		     <if test="status!=null">
+			and status= #{status}
+			</if>
+		</where>
+		order by sort
+	</select>
+
+</mapper>

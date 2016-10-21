@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="BannerInfoMapper">
+
+    <select id="queryBannerList" parameterType="com.yh.apoplexy.assist.dmo.common.BannerInfoDmo"
+            resultType="com.yh.apoplexy.assist.dmo.common.BannerInfoDmo">
+        select
+            id as id,
+            owner as owner,
+            title as title,
+            image_id as imageId,
+            url as url,
+            sort as sort,
+            create_time as createTime,
+            last_update_time as lastUpdateTime,
+            status as status
+        from
+            t_banner_info
+        <where>
+            <if test="null != status">
+                and status = #{status}
+            </if>
+            <if test="null != owner">
+                and owner = #{owner}
+            </if>
+        </where>
+        order by sort
+    </select>
+
+</mapper>
